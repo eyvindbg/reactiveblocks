@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<block
+    name="UserClient" 
+    uuid="_Ro87ga7BEeOFwuT1Daq4qQ" 
+    status="under construction" 
+    type="block" 
+    >
+    <required>
+        <block name="c0" uuid="_0vEpoaOdEeOlvM2Rtrpuog"/>
+    </required>
+</block>

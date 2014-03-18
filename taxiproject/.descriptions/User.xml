@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<block
+    name="User" 
+    uuid="_wYT2sq6_EeOFwuT1Daq4qQ" 
+    status="under construction" 
+    type="block" 
+    >
+    <required>
+        <block name="c0" uuid="_Ro87ga7BEeOFwuT1Daq4qQ"/>
+        <block name="c1" uuid="__m9lcGJOEeGrjfXhcH6cAA"/>
+    </required>
+</block>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<block
+    name="TaxiClient" 
+    uuid="_AnTN0K7AEeOFwuT1Daq4qQ" 
+    status="under construction" 
+    type="block" 
+    >
+    <required>
+        <block name="c0" uuid="_svMB8aOdEeOlvM2Rtrpuog"/>
+    </required>
+</block>
