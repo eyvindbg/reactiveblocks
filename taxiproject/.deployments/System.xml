@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment>
+        <mapping platform="Java Standard Edition - J2SE">
+        <value name="blockSourceFileHandling" value="Copy source files into project"/>
+        <value name="libraryArchiveHandling" value="Unpack libraries"/>
+        <value name="loggingFramework" value="SLF4J and Logback"/>
+        <value name="loggingLevel" value="warning"/>
+    </mapping>
+</deployment>
