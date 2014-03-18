@@ -4,12 +4,7 @@
     <packagedElement xmi:type="uml:Activity" xmi:id="_AnTN0K7AEeOFwuT1Daq4qQ" name="TaxiClient" classifierBehavior="_AsvHcK7AEeOFwuT1Daq4qQ" group="_AnXfQK7AEeOFwuT1Daq4qQ" partition="_AnXfQK7AEeOFwuT1Daq4qQ" node="_ELDBYK7AEeOFwuT1Daq4qQ _GiqZAK7AEeOFwuT1Daq4qQ _LwESAK7AEeOFwuT1Daq4qQ _CZRdkK7HEeOFwuT1Daq4qQ">
       <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_AsvHcK7AEeOFwuT1Daq4qQ" name="TaxiClient">
         <region xmi:id="_Asvuga7AEeOFwuT1Daq4qQ" name="&lt;region>">
-          <transition xmi:id="_i95XoK7NEeOFwuT1Daq4qQ" name="init / " source="_i92UUK7NEeOFwuT1Daq4qQ" target="_i94JgK7NEeOFwuT1Daq4qQ"/>
-          <transition xmi:id="_i98a8K7NEeOFwuT1Daq4qQ" name=" / stop" source="_i94JgK7NEeOFwuT1Daq4qQ" target="_i99pEK7NEeOFwuT1Daq4qQ"/>
-          <transition xmi:id="_i-AFUa7NEeOFwuT1Daq4qQ" name="inOrder / " source="_i94JgK7NEeOFwuT1Daq4qQ" target="_i94JgK7NEeOFwuT1Daq4qQ"/>
-          <subvertex xmi:type="uml:Pseudostate" xmi:id="_i92UUK7NEeOFwuT1Daq4qQ" name="&lt;initial>"/>
-          <subvertex xmi:type="uml:State" xmi:id="_i94JgK7NEeOFwuT1Daq4qQ" name="active"/>
-          <subvertex xmi:type="uml:FinalState" xmi:id="_i99pEK7NEeOFwuT1Daq4qQ" name="&lt;final>"/>
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_AswVkK7AEeOFwuT1Daq4qQ" name="&lt;initial>"/>
         </region>
       </ownedBehavior>
       <ownedOperation xmi:id="_UTZukK7MEeOFwuT1Daq4qQ" name="getAlias"/>
@@ -122,7 +117,4 @@
   <graphics:Shape xmi:id="_GjKIQK7AEeOFwuT1Daq4qQ" x="324" y="90" base_Element="_GiqZAK7AEeOFwuT1Daq4qQ" orientation="north"/>
   <graphics:Shape xmi:id="_LwQfQK7AEeOFwuT1Daq4qQ" x="324" y="522" base_Element="_LwESAK7AEeOFwuT1Daq4qQ"/>
   <graphics:Shape xmi:id="_Cbd18K7HEeOFwuT1Daq4qQ" x="-72" y="198" base_Element="_CZRdkK7HEeOFwuT1Daq4qQ" orientation="west"/>
-  <arctis:event xmi:id="_i97z4K7NEeOFwuT1Daq4qQ" base_Transition="_i95XoK7NEeOFwuT1Daq4qQ" triggers="_GiqZAK7AEeOFwuT1Daq4qQ"/>
-  <arctis:event xmi:id="_i-AFUK7NEeOFwuT1Daq4qQ" base_Transition="_i98a8K7NEeOFwuT1Daq4qQ" effects="_LwESAK7AEeOFwuT1Daq4qQ"/>
-  <arctis:event xmi:id="_i-ChkK7NEeOFwuT1Daq4qQ" base_Transition="_i-AFUa7NEeOFwuT1Daq4qQ" triggers="_CZRdkK7HEeOFwuT1Daq4qQ"/>
 </xmi:XMI>

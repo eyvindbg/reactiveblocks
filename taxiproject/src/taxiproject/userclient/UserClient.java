@@ -8,6 +8,7 @@ public class UserClient extends Block {
 	
 	public static Integer counter = 0;
 	public java.lang.String alias_client;
+	public java.lang.String clientAlias;
 
 	
 	public static String getAlias(String alias) {

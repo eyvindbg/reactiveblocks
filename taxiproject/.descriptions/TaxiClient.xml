@@ -3,6 +3,7 @@
     name="TaxiClient" 
     uuid="_AnTN0K7AEeOFwuT1Daq4qQ" 
     status="under construction" 
+    session="multi_session" 
     type="block" 
     >
     <required>
