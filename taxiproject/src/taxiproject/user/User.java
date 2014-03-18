@@ -11,6 +11,7 @@ public class User extends Block {
 	}
 	
 	public String getOrderTopic(Order order) {
+		System.out.println(order.address);
 		return order.topic;
 	}
 
