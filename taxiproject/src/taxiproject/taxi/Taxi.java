@@ -6,4 +6,8 @@ public class Taxi extends Block {
 
 	public java.lang.String subscription;
 
+	public String echoTest() {
+		return "Test successful";
+	}
+
 }

@@ -7,7 +7,7 @@
           <subvertex xmi:type="uml:Pseudostate" xmi:id="_AswVkK7AEeOFwuT1Daq4qQ" name="&lt;initial>"/>
         </region>
       </ownedBehavior>
-      <ownedParameter xmi:id="_GjEosK7AEeOFwuT1Daq4qQ" name="init" type="_ELTgEK7AEeOFwuT1Daq4qQ"/>
+      <ownedParameter xmi:id="_GjEosK7AEeOFwuT1Daq4qQ" name="init"/>
       <ownedParameter xmi:id="_LwK_sK7AEeOFwuT1Daq4qQ" name="stop" direction="out"/>
       <ownedParameter xmi:id="_CZW9IK7HEeOFwuT1Daq4qQ" name="inOrder" type="_ELTgEK7AEeOFwuT1Daq4qQ" isStream="true"/>
       <edge xmi:type="uml:ObjectFlow" xmi:id="_N19ngK7AEeOFwuT1Daq4qQ" name="e0" inPartition="_AnXfQK7AEeOFwuT1Daq4qQ" source="_GiqZAK7AEeOFwuT1Daq4qQ" target="_EPZV4K7AEeOFwuT1Daq4qQ"/>
@@ -25,7 +25,7 @@
         <result xmi:id="_EPv7MK7AEeOFwuT1Daq4qQ" name="confirm" inPartition="_AnXfQK7AEeOFwuT1Daq4qQ"/>
         <result xmi:id="_EPy-gK7AEeOFwuT1Daq4qQ" name="exit" inPartition="_AnXfQK7AEeOFwuT1Daq4qQ" outgoing="_Ole_8K7AEeOFwuT1Daq4qQ"/>
       </node>
-      <node xmi:type="uml:ActivityParameterNode" xmi:id="_GiqZAK7AEeOFwuT1Daq4qQ" name="init" inPartition="_AnXfQK7AEeOFwuT1Daq4qQ" outgoing="_N19ngK7AEeOFwuT1Daq4qQ" type="_ELTgEK7AEeOFwuT1Daq4qQ" parameter="_GjEosK7AEeOFwuT1Daq4qQ"/>
+      <node xmi:type="uml:ActivityParameterNode" xmi:id="_GiqZAK7AEeOFwuT1Daq4qQ" name="init" inPartition="_AnXfQK7AEeOFwuT1Daq4qQ" outgoing="_N19ngK7AEeOFwuT1Daq4qQ" parameter="_GjEosK7AEeOFwuT1Daq4qQ"/>
       <node xmi:type="uml:ActivityParameterNode" xmi:id="_LwESAK7AEeOFwuT1Daq4qQ" name="stop" inPartition="_AnXfQK7AEeOFwuT1Daq4qQ" incoming="_Ole_8K7AEeOFwuT1Daq4qQ" parameter="_LwK_sK7AEeOFwuT1Daq4qQ"/>
       <node xmi:type="uml:ActivityParameterNode" xmi:id="_CZRdkK7HEeOFwuT1Daq4qQ" name="inOrder" inPartition="_AnXfQK7AEeOFwuT1Daq4qQ" outgoing="_FTS-sK7HEeOFwuT1Daq4qQ" type="_ELTgEK7AEeOFwuT1Daq4qQ" parameter="_CZW9IK7HEeOFwuT1Daq4qQ"/>
     </packagedElement>
