@@ -10,9 +10,15 @@ public class Taxi extends Block {
 		this.subscription = "order";
 	}
 
-	public String echoTest() {
-		System.out.println("Subscription!!!");
-		return "Test successful";
+
+	public void confirmConnection() {
+		System.out.println("connected MQTT in taxi");
+	}
+
+
+	public void printError(String error) {
+		System.out.println(error);
+		
 	}
 
 }

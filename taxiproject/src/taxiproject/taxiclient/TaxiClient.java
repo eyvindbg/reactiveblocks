@@ -5,6 +5,9 @@ import no.ntnu.item.arctis.runtime.Block;
 
 public class TaxiClient extends Block {
 	
+
+	public java.lang.String taxiAlias;
+
 	public static String getAlias(String alias) {
 		return alias;
 	}

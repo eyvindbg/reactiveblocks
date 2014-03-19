@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<block
+    name="TaxiCentral" 
+    uuid="_AsKxkK-CEeOaF8Zzu-pMNg" 
+    status="under construction" 
+    type="block" 
+    >
+    <required>
+        <block name="c0" uuid="_MlyD4q-CEeOaF8Zzu-pMNg"/>
+        <block name="c1" uuid="_7v-uIKN9EeO_erXR8oUgTA"/>
+        <block name="c2" uuid="_eOnYsVtTEeGtaPY7WHS-jQ"/>
+    </required>
+</block>

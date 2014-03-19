@@ -2,16 +2,15 @@ package taxiproject.user;
 
 public class Order {
 	
-	public String id;
-	public String address;
-	public String alias;
-	public String taxiType;
-	public String topic;
+	public String id="";
+	public String address="";
+	public String alias="";
+	public String taxiType="";
+	public String topic="";
 	
-	public Order (String alias, String id, String address) {
+	public Order (String alias, String id) {
 		this.alias = alias;
 		this.topic = "order";
-		this.address = address;
 	}
 	
 	public String getId() {
