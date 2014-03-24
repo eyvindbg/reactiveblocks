@@ -7,10 +7,19 @@ public class Order {
 	public String alias="";
 	public String taxiType="";
 	public String topic="";
+	public boolean delete = false;
 	
 	public Order (String alias) {
 		this.alias = alias;
 		this.topic = "order";
+	}
+
+	public boolean isDelete() {
+		return delete;
+	}
+	
+	public void setDelete(boolean delete) {
+		this.delete = delete;
 	}
 	
 	public String getId() {

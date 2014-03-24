@@ -16,6 +16,7 @@
       <ownedOperation xmi:id="_rHAVEK-DEeOaF8Zzu-pMNg" name="confirmConnection"/>
       <ownedOperation xmi:id="_jbu2AK-EEeOaF8Zzu-pMNg" name="setOrderTopic"/>
       <ownedOperation xmi:id="_JUrYIK-FEeOaF8Zzu-pMNg" name="printError"/>
+      <ownedOperation xmi:id="_ZmUIYLNbEeO7H4vo1-pa2w" name="messageToTaxi"/>
       <ownedParameter xmi:id="_TzZhIK-CEeOaF8Zzu-pMNg" name="init"/>
       <ownedParameter xmi:id="_XUMuYK-CEeOaF8Zzu-pMNg" name="stop" direction="out"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_XOYk0K-DEeOaF8Zzu-pMNg" name="e0" inPartition="_AsMmwK-CEeOaF8Zzu-pMNg" source="_TzUooK-CEeOaF8Zzu-pMNg" target="_0s8iUK-IEeOaF8Zzu-pMNg"/>
@@ -223,6 +224,9 @@
     </packagedElement>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_1-niYK-EEeOaF8Zzu-pMNg" name="T"/>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_1-qlsK-EEeOaF8Zzu-pMNg" name="java.lang.Object"/>
+    <packagedElement xmi:type="uml:Signal" xmi:id="_b81T0LNbEeO7H4vo1-pa2w" name="CONFIRM"/>
+    <packagedElement xmi:type="uml:SignalEvent" xmi:id="_b-BmoLNbEeO7H4vo1-pa2w" name="r0"/>
+    <packagedElement xmi:type="uml:SignalEvent" xmi:id="_b-CNsbNbEeO7H4vo1-pa2w" name="" signal="_b81T0LNbEeO7H4vo1-pa2w"/>
     <profileApplication xmi:id="_AsI8YK-CEeOaF8Zzu-pMNg">
       <eAnnotations xmi:id="_AsKKgK-CEeOaF8Zzu-pMNg" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://ARCTIS_PROFILES/arctis.profile.uml#_WFTqUXjGEdyxtoUMycQn9Q"/>

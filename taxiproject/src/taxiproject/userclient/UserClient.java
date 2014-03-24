@@ -9,9 +9,23 @@ public class UserClient extends Block {
 	public static Integer counter = 0;
 	public java.lang.String clientAlias;
 	public java.lang.String address="";
-	public java.lang.String currentOrder;
-
+	public int currentOrder = -1;
 	
+	
+	
+	public int getCurrentOrder() {
+		if (currentOrder == -1) {
+			System.out.println("No orders made yet");
+			return 0;
+		}
+			
+		return currentOrder;
+	}
+
+	public void setCurrentOrder(int currentOrder) {
+		this.currentOrder = currentOrder;
+	}
+
 	public static String getAlias(String alias) {
 			return alias;			
 	}
@@ -28,10 +42,21 @@ public class UserClient extends Block {
 
 	public Order createOrder(String alias) {
 		Order order = new Order(alias);
+		
+		currentOrder = counter;
+		
 		order.id = counter.toString();
 		order.address = address;
 		counter ++;
 		return order;
+	}
+	
+
+	public Order deleteOrder(int orderNumber) {
+		
+		
+//		order.setDelete(true);
+//		return order;
 	}
 
 	

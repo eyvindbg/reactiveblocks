@@ -15,7 +15,6 @@
       <ownedOperation xmi:id="_UTZukK7MEeOFwuT1Daq4qQ" name="getAlias"/>
       <ownedOperation xmi:id="_bcABMLNnEeOcyKlfd9Ylcw" name="confirmConnection"/>
       <ownedOperation xmi:id="_FQnusLNoEeOcyKlfd9Ylcw" name="printError"/>
-      <ownedOperation xmi:id="_TAgUMLNqEeOcyKlfd9Ylcw" name="TaxiClient"/>
       <ownedParameter xmi:id="_GjEosK7AEeOFwuT1Daq4qQ" name="init" type="_ELTgEK7AEeOFwuT1Daq4qQ"/>
       <ownedParameter xmi:id="_LwK_sK7AEeOFwuT1Daq4qQ" name="stop" direction="out"/>
       <ownedParameter xmi:id="_CZW9IK7HEeOFwuT1Daq4qQ" name="inOrder" type="_ELTgEK7AEeOFwuT1Daq4qQ" isStream="true"/>
@@ -56,9 +55,6 @@
         <argument xmi:id="_2xqAMLNmEeOcyKlfd9Ylcw" name="publishTopic" inPartition="_AnXfQK7AEeOFwuT1Daq4qQ" type="_ELTgEK7AEeOFwuT1Daq4qQ"/>
         <argument xmi:id="_2xuRoLNmEeOcyKlfd9Ylcw" name="subscribe" inPartition="_AnXfQK7AEeOFwuT1Daq4qQ" incoming="_THxhMLNnEeOcyKlfd9Ylcw" type="_ELTgEK7AEeOFwuT1Daq4qQ"/>
         <argument xmi:id="_2xwG0LNmEeOcyKlfd9Ylcw" name="advancedSubscribe" inPartition="_AnXfQK7AEeOFwuT1Daq4qQ" type="_2tBX07NmEeOcyKlfd9Ylcw"/>
-        <argument xmi:type="uml:ValuePin" xmi:id="_xtnzsLNoEeOcyKlfd9Ylcw" name="group" type="_2tB-47NmEeOcyKlfd9Ylcw">
-          <value xmi:type="uml:LiteralInteger" xmi:id="_xtoawLNoEeOcyKlfd9Ylcw" name="group" type="_2tB-47NmEeOcyKlfd9Ylcw" value="5"/>
-        </argument>
         <result xmi:id="_2xck0LNmEeOcyKlfd9Ylcw" name="connectionLost" inPartition="_AnXfQK7AEeOFwuT1Daq4qQ" type="_ELTgEK7AEeOFwuT1Daq4qQ"/>
         <result xmi:id="_2xdy8LNmEeOcyKlfd9Ylcw" name="connected" inPartition="_AnXfQK7AEeOFwuT1Daq4qQ" outgoing="_exMbYLNnEeOcyKlfd9Ylcw"/>
         <result xmi:id="_2xg2QLNmEeOcyKlfd9Ylcw" name="publishError" inPartition="_AnXfQK7AEeOFwuT1Daq4qQ" type="_ELTgEK7AEeOFwuT1Daq4qQ"/>
