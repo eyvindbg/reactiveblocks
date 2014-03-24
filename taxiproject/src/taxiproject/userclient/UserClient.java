@@ -9,6 +9,7 @@ public class UserClient extends Block {
 	public static Integer counter = 0;
 	public java.lang.String clientAlias;
 	public java.lang.String address="";
+	public java.lang.String currentOrder;
 
 	
 	public static String getAlias(String alias) {
@@ -26,8 +27,9 @@ public class UserClient extends Block {
 	
 
 	public Order createOrder(String alias) {
-		Order order = new Order(alias, counter.toString());
+		Order order = new Order(alias);
 		order.id = counter.toString();
+		order.address = address;
 		counter ++;
 		return order;
 	}

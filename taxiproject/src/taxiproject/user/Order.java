@@ -8,7 +8,7 @@ public class Order {
 	public String taxiType="";
 	public String topic="";
 	
-	public Order (String alias, String id) {
+	public Order (String alias) {
 		this.alias = alias;
 		this.topic = "order";
 	}

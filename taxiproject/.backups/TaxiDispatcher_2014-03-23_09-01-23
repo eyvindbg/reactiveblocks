@@ -99,5 +99,5 @@
   <arctis:event xmi:id="_RnCIgK-IEeOaF8Zzu-pMNg" base_Transition="_RnBhcq-IEeOaF8Zzu-pMNg" triggers="_kHHAMK-CEeOaF8Zzu-pMNg"/>
   <arctis:event xmi:id="_RnCvkK-IEeOaF8Zzu-pMNg" base_Transition="_RnCIga-IEeOaF8Zzu-pMNg" effects="_n70n8K-CEeOaF8Zzu-pMNg"/>
   <arctis:event xmi:id="_RnCvkq-IEeOaF8Zzu-pMNg" base_Transition="_RnCvka-IEeOaF8Zzu-pMNg" triggers="_ESBMAK-EEeOaF8Zzu-pMNg"/>
-  <graphics:Shape xmi:id="_vFa_cLLFEeOS5uz4OdIZGQ" x="180" y="234" width="145" height="55" base_Element="_vDMx4LLFEeOS5uz4OdIZGQ" orientation="east"/>
+  <graphics:Shape xmi:id="_vFa_cLLFEeOS5uz4OdIZGQ" x="126" y="234" width="199" height="55" base_Element="_vDMx4LLFEeOS5uz4OdIZGQ" orientation="east"/>
 </xmi:XMI>
