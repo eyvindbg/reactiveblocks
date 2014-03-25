@@ -79,9 +79,6 @@
         <argument xmi:id="_V7sicLP4EeOXd6e_UlhZjQ" name="publishTopic" inPartition="_Ro9ikK7BEeOFwuT1Daq4qQ" incoming="_yP-QYLP4EeOXd6e_UlhZjQ" type="_gI9oUa7BEeOFwuT1Daq4qQ"/>
         <argument xmi:id="_V7vlwLP4EeOXd6e_UlhZjQ" name="subscribe" inPartition="_Ro9ikK7BEeOFwuT1Daq4qQ" incoming="_uTbiULP4EeOXd6e_UlhZjQ" type="_gI9oUa7BEeOFwuT1Daq4qQ"/>
         <argument xmi:id="_V7wM0LP4EeOXd6e_UlhZjQ" name="advancedSubscribe" inPartition="_Ro9ikK7BEeOFwuT1Daq4qQ" type="_V7ZAdbP4EeOXd6e_UlhZjQ"/>
-        <argument xmi:type="uml:ValuePin" xmi:id="_ZoUIsLP5EeOXd6e_UlhZjQ" name="group" type="_uJVQwLNsEeOcyKlfd9Ylcw">
-          <value xmi:type="uml:LiteralInteger" xmi:id="_ZoUvwLP5EeOXd6e_UlhZjQ" name="group" type="_uJVQwLNsEeOcyKlfd9Ylcw" value="5"/>
-        </argument>
         <result xmi:id="_V7ixcLP4EeOXd6e_UlhZjQ" name="connectionLost" inPartition="_Ro9ikK7BEeOFwuT1Daq4qQ" type="_gI9oUa7BEeOFwuT1Daq4qQ"/>
         <result xmi:id="_V7j_kLP4EeOXd6e_UlhZjQ" name="connected" inPartition="_Ro9ikK7BEeOFwuT1Daq4qQ" outgoing="_eB1jILP4EeOXd6e_UlhZjQ"/>
         <result xmi:id="_V7mb0LP4EeOXd6e_UlhZjQ" name="publishError" inPartition="_Ro9ikK7BEeOFwuT1Daq4qQ" type="_gI9oUa7BEeOFwuT1Daq4qQ"/>
@@ -320,7 +317,7 @@
   <graphics:Shape xmi:id="_V7ypELP4EeOXd6e_UlhZjQ" x="90" y="90" base_Element="_V7r7YLP4EeOXd6e_UlhZjQ" orientation="south"/>
   <graphics:Shape xmi:id="_V7ypEbP4EeOXd6e_UlhZjQ" x="162" y="162" base_Element="_V7u-sLP4EeOXd6e_UlhZjQ" orientation="south"/>
   <graphics:Shape xmi:id="_V7zQILP4EeOXd6e_UlhZjQ" x="18" y="18" base_Element="_V7vlwLP4EeOXd6e_UlhZjQ" orientation="north"/>
-  <graphics:Shape xmi:id="_V7zQIbP4EeOXd6e_UlhZjQ" x="165" y="9" base_Element="_V7wM0LP4EeOXd6e_UlhZjQ" orientation="north"/>
+  <graphics:Shape xmi:id="_V7zQIbP4EeOXd6e_UlhZjQ" x="90" y="90" base_Element="_V7wM0LP4EeOXd6e_UlhZjQ" orientation="north"/>
   <graphics:Shape xmi:id="_V7z3MLP4EeOXd6e_UlhZjQ" x="846" y="198" width="288" height="288" base_Element="_V7VWELP4EeOXd6e_UlhZjQ"/>
   <graphics:Shape xmi:id="_czKwkLP4EeOXd6e_UlhZjQ" x="1134" y="234" width="127" height="55" base_Element="_czF4ELP4EeOXd6e_UlhZjQ"/>
   <arctis:location xmi:id="_izabwLP4EeOXd6e_UlhZjQ" base_Variable="_izZ0sLP4EeOXd6e_UlhZjQ" partition="_Ro9ikK7BEeOFwuT1Daq4qQ"/>

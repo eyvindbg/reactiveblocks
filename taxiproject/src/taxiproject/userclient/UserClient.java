@@ -5,11 +5,18 @@ import no.ntnu.item.arctis.runtime.Block;
 
 public class UserClient extends Block {
 	
-	
 	public static Integer counter = 0;
 	public java.lang.String clientAlias;
 	public java.lang.String address="";
 	public int currentOrder = -1;
+	public java.lang.String subscriptionTopic;
+
+	
+	
+	
+	public UserClient() {
+		this.subscriptionTopic = "taxi,dispatch";
+	}
 	
 	
 	
@@ -52,12 +59,25 @@ public class UserClient extends Block {
 	}
 	
 
-	public Order deleteOrder(int orderNumber) {
-		
-		
+	
+	public String getOrderTopic(Order order) {
+//		System.out.println(order.address);
+		System.out.println("'"+order.topic + "'" + " is sent into MQTT on user side from " + order.alias);
+		return order.topic;
+	}
+
+	public void confirmConnection() {
+		System.out.println("connected MQTT in User Client, user client: " + this.clientAlias);
+	}
+	
+	
+	
+//	public Order deleteOrder(int orderNumber) {
+//		
+//		
 //		order.setDelete(true);
 //		return order;
-	}
+//	}
 
 	
 }

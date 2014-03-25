@@ -6,18 +6,12 @@ public class User extends Block {
 
 	public java.lang.String subscriptionTopic;
 	
-	public User() {
-		this.subscriptionTopic = "taxi,dispatch";
-	}
 	
 	public String getOrderTopic(Order order) {
 //		System.out.println(order.address);
-		System.out.println("'"+order.topic + "'" + " is sent into MQTT on user side from " + order.alias);
+		System.out.println("'" + order.topic + "'" + " is sent into MQTT on user side from " + order.alias);
 		return order.topic;
 	}
 
-	public void confirmConnection() {
-		System.out.println("connected MQTT in user");
-	}
 
 }

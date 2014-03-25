@@ -23,7 +23,7 @@ public class TaxiClient extends Block {
 	}
 
 	public void confirmConnection() {
-		System.out.println("connected MQTT in taxi Client, taxi client number: " + this.taxiAlias);
+		System.out.println("connected MQTT in Taxi Client, taxi client: " + this.taxiAlias);
 	}
 
 	public void printError(String error) {
