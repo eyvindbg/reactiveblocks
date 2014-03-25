@@ -109,21 +109,20 @@
             <transition xmi:id="_SaXC4a-IEeOaF8Zzu-pMNg" name="init / " source="_SmdM4q-CEeOaF8Zzu-pMNg" target="_SaWb0q-IEeOaF8Zzu-pMNg"/>
             <transition xmi:id="_SaXC46-IEeOaF8Zzu-pMNg" name=" / stop" source="_SaWb0q-IEeOaF8Zzu-pMNg" target="_SaXC4K-IEeOaF8Zzu-pMNg"/>
             <transition xmi:id="_SaXp8a-IEeOaF8Zzu-pMNg" name="inOrder / " source="_SaWb0q-IEeOaF8Zzu-pMNg" target="_SaWb0q-IEeOaF8Zzu-pMNg"/>
-            <transition xmi:id="_-gcWILQ9EeOCKLIb2izLKw" name=" / orderOut" source="_SaWb0q-IEeOaF8Zzu-pMNg" target="_SaWb0q-IEeOaF8Zzu-pMNg"/>
             <subvertex xmi:type="uml:Pseudostate" xmi:id="_SmdM4q-CEeOaF8Zzu-pMNg" name="&lt;initial>"/>
             <subvertex xmi:type="uml:State" xmi:id="_SaWb0q-IEeOaF8Zzu-pMNg" name="active"/>
             <subvertex xmi:type="uml:FinalState" xmi:id="_SaXC4K-IEeOaF8Zzu-pMNg" name="&lt;final>"/>
           </region>
         </ownedBehavior>
-        <ownedParameter xmi:id="_-gbvELQ9EeOCKLIb2izLKw" name="init"/>
-        <ownedParameter xmi:id="_-gbvEbQ9EeOCKLIb2izLKw" name="stop" direction="out"/>
-        <ownedParameter xmi:id="_-gbvErQ9EeOCKLIb2izLKw" name="inOrder" type="_TEIVcK-EEeOaF8Zzu-pMNg" isStream="true"/>
-        <ownedParameter xmi:id="_-gbvE7Q9EeOCKLIb2izLKw" name="orderOut" type="_TEIVcK-EEeOaF8Zzu-pMNg" direction="out" isStream="true"/>
+        <ownedParameter xmi:id="_3XA1ULQ9EeOCKLIb2izLKw" name="init"/>
+        <ownedParameter xmi:id="_3XA1UbQ9EeOCKLIb2izLKw" name="stop" direction="out"/>
+        <ownedParameter xmi:id="_3XBcYLQ9EeOCKLIb2izLKw" name="inOrder" type="_TEIVcK-EEeOaF8Zzu-pMNg" isStream="true"/>
+        <ownedParameter xmi:id="_3XBcYrQ9EeOCKLIb2izLKw" name="orderOut" type="_TEIVcK-EEeOaF8Zzu-pMNg" direction="out" isStream="true"/>
         <group xmi:type="uml:ActivityPartition" xmi:id="_SlKMYK-CEeOaF8Zzu-pMNg" name="main" node="_xaTUkK-CEeOaF8Zzu-pMNg _xaTUkq-CEeOaF8Zzu-pMNg _TEIVca-EEeOaF8Zzu-pMNg _3XBcYbQ9EeOCKLIb2izLKw"/>
-        <node xmi:type="uml:ActivityParameterNode" xmi:id="_xaTUkK-CEeOaF8Zzu-pMNg" name="init" inPartition="_SlKMYK-CEeOaF8Zzu-pMNg" parameter="_-gbvELQ9EeOCKLIb2izLKw"/>
-        <node xmi:type="uml:ActivityParameterNode" xmi:id="_xaTUkq-CEeOaF8Zzu-pMNg" name="stop" inPartition="_SlKMYK-CEeOaF8Zzu-pMNg" parameter="_-gbvEbQ9EeOCKLIb2izLKw"/>
-        <node xmi:type="uml:ActivityParameterNode" xmi:id="_TEIVca-EEeOaF8Zzu-pMNg" name="inOrder" inPartition="_SlKMYK-CEeOaF8Zzu-pMNg" type="_TEIVcK-EEeOaF8Zzu-pMNg" parameter="_-gbvErQ9EeOCKLIb2izLKw"/>
-        <node xmi:type="uml:ActivityParameterNode" xmi:id="_3XBcYbQ9EeOCKLIb2izLKw" name="orderOut" inPartition="_SlKMYK-CEeOaF8Zzu-pMNg" type="_TEIVcK-EEeOaF8Zzu-pMNg" parameter="_-gbvE7Q9EeOCKLIb2izLKw"/>
+        <node xmi:type="uml:ActivityParameterNode" xmi:id="_xaTUkK-CEeOaF8Zzu-pMNg" name="init" inPartition="_SlKMYK-CEeOaF8Zzu-pMNg" parameter="_3XA1ULQ9EeOCKLIb2izLKw"/>
+        <node xmi:type="uml:ActivityParameterNode" xmi:id="_xaTUkq-CEeOaF8Zzu-pMNg" name="stop" inPartition="_SlKMYK-CEeOaF8Zzu-pMNg" parameter="_3XA1UbQ9EeOCKLIb2izLKw"/>
+        <node xmi:type="uml:ActivityParameterNode" xmi:id="_TEIVca-EEeOaF8Zzu-pMNg" name="inOrder" inPartition="_SlKMYK-CEeOaF8Zzu-pMNg" type="_TEIVcK-EEeOaF8Zzu-pMNg" parameter="_3XBcYLQ9EeOCKLIb2izLKw"/>
+        <node xmi:type="uml:ActivityParameterNode" xmi:id="_3XBcYbQ9EeOCKLIb2izLKw" name="orderOut" inPartition="_SlKMYK-CEeOaF8Zzu-pMNg" type="_TEIVcK-EEeOaF8Zzu-pMNg" parameter="_3XBcYrQ9EeOCKLIb2izLKw"/>
       </packagedElement>
       <profileApplication xmi:id="_SlKMYq-CEeOaF8Zzu-pMNg">
         <eAnnotations xmi:id="_SlKMY6-CEeOaF8Zzu-pMNg" source="http://www.eclipse.org/uml2/2.0.0/UML">
@@ -355,5 +354,4 @@
   <graphics:Shape xmi:id="_ZmhBALQ9EeOCKLIb2izLKw" x="396" y="180" width="198" height="108" base_Element="_ZmZsQLQ9EeOCKLIb2izLKw"/>
   <graphics:Shape xmi:id="_eH4TYLQ9EeOCKLIb2izLKw" x="396" y="288" width="199" height="55" base_Element="_eH0B8LQ9EeOCKLIb2izLKw" orientation="east"/>
   <graphics:Shape xmi:id="_3XCqgLQ9EeOCKLIb2izLKw" x="1" y="18" base_Element="_3XCDcLQ9EeOCKLIb2izLKw" orientation="east"/>
-  <arctis:event xmi:id="_-gc9MLQ9EeOCKLIb2izLKw" base_Transition="_-gcWILQ9EeOCKLIb2izLKw" effects="_3XBcYbQ9EeOCKLIb2izLKw"/>
 </xmi:XMI>

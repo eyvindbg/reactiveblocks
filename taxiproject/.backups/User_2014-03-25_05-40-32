@@ -136,7 +136,7 @@
       <appliedProfile href="pathmap://RAMSES_GRAPHIC_PROFILES/no.ntnu.item.ramses.graphicprofile.uml#_UEANMUVlEduH9aQE_pc66w"/>
     </profileApplication>
   </uml:Package>
-  <graphics:Shape xmi:id="_wc7Q8K6_EeOFwuT1Daq4qQ" x="-72" y="72" width="1243" height="55" base_Element="_wYT2sq6_EeOFwuT1Daq4qQ"/>
+  <graphics:Shape xmi:id="_wc7Q8K6_EeOFwuT1Daq4qQ" x="-36" y="72" width="1243" height="55" base_Element="_wYT2sq6_EeOFwuT1Daq4qQ"/>
   <graphics:Shape xmi:id="_wc9GIK6_EeOFwuT1Daq4qQ" x="-72" y="126" width="1243" height="415" base_Element="_wYVE0K6_EeOFwuT1Daq4qQ"/>
   <arctis:esm xmi:id="_wc-UQK6_EeOFwuT1Daq4qQ" base_StateMachine="_wc9tMK6_EeOFwuT1Daq4qQ"/>
   <graphics:Shape xmi:id="_VpicEK7BEeOFwuT1Daq4qQ" x="108" y="90" base_Element="_VndYcK7BEeOFwuT1Daq4qQ" orientation="north"/>

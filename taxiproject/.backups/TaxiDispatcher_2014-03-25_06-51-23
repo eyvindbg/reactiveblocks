@@ -107,11 +107,6 @@
         <expr xmi:type="uml:LiteralString" xmi:id="_j2j4AbQ-EeOCKLIb2izLKw" name="t0" value="0"/>
       </when>
     </packagedElement>
-    <packagedElement xmi:type="uml:Signal" xmi:id="_Xo680LRGEeOCKLIb2izLKw" name="EVENT"/>
-    <packagedElement xmi:type="uml:SignalEvent" xmi:id="_XqUD8bRGEeOCKLIb2izLKw" name="r0"/>
-    <packagedElement xmi:type="uml:SignalEvent" xmi:id="_XqUrAbRGEeOCKLIb2izLKw" name="" signal="_Xo680LRGEeOCKLIb2izLKw"/>
-    <packagedElement xmi:type="uml:Signal" xmi:id="_Y83Q8LRGEeOCKLIb2izLKw" name="EVENT_1"/>
-    <packagedElement xmi:type="uml:SignalEvent" xmi:id="_Y-Q_IbRGEeOCKLIb2izLKw" name="" signal="_Y83Q8LRGEeOCKLIb2izLKw"/>
     <profileApplication xmi:id="_MlyD4K-CEeOaF8Zzu-pMNg">
       <eAnnotations xmi:id="_MlyD4a-CEeOaF8Zzu-pMNg" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://ARCTIS_PROFILES/arctis.profile.uml#_WFTqUXjGEdyxtoUMycQn9Q"/>

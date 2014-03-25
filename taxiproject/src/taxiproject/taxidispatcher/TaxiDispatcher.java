@@ -14,4 +14,26 @@ public class TaxiDispatcher extends Block {
 		return confirmation;
 	}
 
+	public Order findTaxi(Order order) {
+		return null;
+	}
+
+	public Order confirmToUser(Order order) {
+		order.topic = String.format("%s",order.alias);
+		return order;
+	}
+
+	public Order confirmToTaxi(Order order) {
+		order.topic = "order";
+		return null;
+	}
+
+	public void printObject(Order order) {
+		System.out.println(order.toString());
+	}
+
+
+	
+
+	
 }

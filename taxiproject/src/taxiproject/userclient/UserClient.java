@@ -15,7 +15,6 @@ public class UserClient extends Block {
 	
 	
 	public UserClient() {
-		this.subscriptionTopic = "taxi,dispatch";
 	}
 	
 	
@@ -25,7 +24,7 @@ public class UserClient extends Block {
 			System.out.println("No orders made yet");
 			return 0;
 		}
-			
+		System.out.println("current order is: " + currentOrder + " from " + this.clientAlias);
 		return currentOrder;
 	}
 
@@ -68,6 +67,25 @@ public class UserClient extends Block {
 
 	public void confirmConnection() {
 		System.out.println("connected MQTT in User Client, user client: " + this.clientAlias);
+	}
+
+
+
+	public String createTopic() {
+		System.out.println(String.format("taxi,dispatch,%s", clientAlias));
+		return String.format("taxi,dispatch,%s", clientAlias);
+	}
+
+
+	public void printError(String error) {
+		System.out.println(error);
+	}
+
+
+
+	public String confirmToUser(Order order) {
+		String confirmation = "An order with id: " + order.id + " has been placed at the taxi dispatch";
+		return confirmation;
 	}
 	
 	

@@ -9,7 +9,7 @@ public class TaxiCentral extends Block {
 	public java.lang.String publishTopic;
 	
 	public TaxiCentral(){
-		this.subscriptionTopic = "order,taxi,dispatch";
+		this.subscriptionTopic = "order,taxi";
 		
 	}
 
@@ -26,7 +26,13 @@ public class TaxiCentral extends Block {
 		System.out.println(error);
 	}
 
-	public void messageToTaxi() {
+	
+	public Order createConfirmation(Order order) {
+		return order;
+	}
+
+	public String getOrderTopic(Order order) {
+		return order.topic;
 	}
 
 }

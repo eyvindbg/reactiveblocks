@@ -7,6 +7,7 @@ public class Order {
 	public String alias="";
 	public String taxiType="";
 	public String topic="";
+	public boolean confirmed;
 	public boolean delete = false;
 	
 	public Order (String alias) {
@@ -44,4 +45,13 @@ public class Order {
 		return alias;
 	}
 
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", address=" + address + ", alias=" + alias
+				+ ", taxiType=" + taxiType + ", topic=" + topic + ", delete="
+				+ delete + "]";
+	}
+
+	
+	
 }

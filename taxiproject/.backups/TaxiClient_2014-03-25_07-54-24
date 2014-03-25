@@ -453,9 +453,9 @@
   <graphics:Shape xmi:id="_uhflIbRIEeOCKLIb2izLKw" x="1" y="72" base_Element="_uhflILRIEeOCKLIb2izLKw" orientation="east"/>
   <graphics:Shape xmi:id="_uhgMMbRIEeOCKLIb2izLKw" x="1" y="108" base_Element="_uhgMMLRIEeOCKLIb2izLKw" orientation="east"/>
   <graphics:Shape xmi:id="_uhhaULRIEeOCKLIb2izLKw" x="1" y="144" base_Element="_uhgzQLRIEeOCKLIb2izLKw" orientation="east"/>
-  <graphics:Shape xmi:id="_uhhaUbRIEeOCKLIb2izLKw" x="-38" y="191" base_Element="_uhasobRIEeOCKLIb2izLKw" orientation="south"/>
-  <graphics:Shape xmi:id="_uhiBYLRIEeOCKLIb2izLKw" x="116" y="193" base_Element="_uhch0bRIEeOCKLIb2izLKw" orientation="south"/>
-  <graphics:Shape xmi:id="_uhiBYbRIEeOCKLIb2izLKw" x="215" y="196" base_Element="_uhe-ELRIEeOCKLIb2izLKw" orientation="south"/>
+  <graphics:Shape xmi:id="_uhhaUbRIEeOCKLIb2izLKw" x="18" y="18" base_Element="_uhasobRIEeOCKLIb2izLKw" orientation="south"/>
+  <graphics:Shape xmi:id="_uhiBYLRIEeOCKLIb2izLKw" x="90" y="90" base_Element="_uhch0bRIEeOCKLIb2izLKw" orientation="south"/>
+  <graphics:Shape xmi:id="_uhiBYbRIEeOCKLIb2izLKw" x="162" y="162" base_Element="_uhe-ELRIEeOCKLIb2izLKw" orientation="south"/>
   <graphics:Shape xmi:id="_uhiBYrRIEeOCKLIb2izLKw" x="18" y="18" base_Element="_uhbTsLRIEeOCKLIb2izLKw" orientation="north"/>
   <graphics:Shape xmi:id="_uhiocLRIEeOCKLIb2izLKw" x="324" y="234" width="288" height="217" base_Element="_uhTX4LRIEeOCKLIb2izLKw"/>
   <graphics:Shape xmi:id="__SQhsLRKEeOCKLIb2izLKw" x="216" y="162" width="127" height="55" base_Element="__SM3ULRKEeOCKLIb2izLKw" orientation="east"/>
