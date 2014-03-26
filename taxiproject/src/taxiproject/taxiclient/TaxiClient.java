@@ -59,7 +59,13 @@ public class TaxiClient extends Block {
 	}
 
 	public Order confirmToDispatch(Order order) {
+		if (order.confirmed) {
+			System.out.println("Order already taken");
+			return null;
+		}
+		order.assignedTaxi = String.format("%s", taxiAlias);
 		order.topic = "taxiConfirmation";
+		order.confirmed = true;
 		return order;
 	}
 	

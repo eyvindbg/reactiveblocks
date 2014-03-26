@@ -61,7 +61,7 @@ public class UserClient extends Block {
 	
 	public String getOrderTopic(Order order) {
 //		System.out.println(order.address);
-		System.out.println("'"+order.topic + "'" + " is sent into MQTT on user side from " + order.alias);
+//		System.out.println("'"+order.topic + "'" + " is sent into MQTT on user side from " + order.alias);
 		return order.topic;
 	}
 
@@ -84,7 +84,11 @@ public class UserClient extends Block {
 
 
 	public String confirmToUser(Order order) {
-		String confirmation = "An order with id: " + order.id + " has been received at the taxi dispatch. Please wait while we find a taxi";
+		String confirmation;
+		if (order.confirmed)
+			confirmation = "A taxi with the ID "+ order.assignedTaxi + " is on the way to your address: " + order.address;
+		else 
+			confirmation = "An order with id: " + order.id + " has been received at the taxi dispatch. Please wait while we find a taxi";
 		return confirmation;
 	}
 	

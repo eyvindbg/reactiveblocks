@@ -10,7 +10,16 @@ public class TaxiDispatcher extends Block {
 	public java.util.ArrayList<TaxiClient> TaxiList;
 
 	public String getOrderInfo(Order order) {
-		String confirmation = "Order number " + UserClient.counter.toString() + " is registered from " + order.alias + " to address: " + order.address;
+		String confirmation;
+		if (order.topic.equals("order")) {
+			confirmation = "Order number " + UserClient.counter.toString() + " is registered from " + order.alias + " to address: " + order.address;
+			}
+		else if (order.topic.equals("taxiConfirmation")) {
+			confirmation = "Order number " + UserClient.counter.toString() + " is confirmed from " + order.assignedTaxi + "to address " + order.address + "\n";
+		}
+		else {
+			confirmation = "not any of the wanted topics";
+		}
 		return confirmation;
 	}
 

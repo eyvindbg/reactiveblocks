@@ -17,8 +17,8 @@ public class TaxiCentral extends Block {
 		System.out.println("connected MQTT in taxi central");
 	}
 
-	public Order setOrderTopic(Order order, String topic) {
-		order.topic = topic;
+	public Order setMessage(Order order) {
+		System.out.println("Order: " + order);
 		return order;
 	}
 
