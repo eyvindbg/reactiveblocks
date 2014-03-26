@@ -9,6 +9,7 @@
         <dependency name="no.ntnu.item.arctis.library.sessions" uuid="_ux8bAGJMEeGZ-NNKhUo_kg" version="1.5.1"/>
         <dependency name="no.ntnu.item.arctis.library.swing" uuid="_b594QBxXEeGlCbgawtGx6g" version="1.1.1"/>
         <dependency name="no.ntnu.item.ttm4115.mqtt" uuid="_3_NyQKN9EeO_erXR8oUgTA" version="1.1.0"/>
+        <dependency name="no.ntnu.item.ttm4115.simulation" uuid="_Cg4oUKPNEeOl8vvkd4XquA" version="1.1.0"/>
         <dependency name="no.ntnu.item.ttm4115.termassignment" uuid="_NuSVsKOdEeOlvM2Rtrpuog" version="2.4.4"/>
     </dependencies>
 </project>

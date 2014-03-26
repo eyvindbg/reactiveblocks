@@ -12,6 +12,7 @@ public class TaxiClient extends Block {
 
 	public java.lang.String taxiAlias;
 	public java.lang.String subscription;
+	public taxiproject.user.Order Order;
 
 	
 	public TaxiClient() {
@@ -30,9 +31,6 @@ public class TaxiClient extends Block {
 		System.out.println("connected MQTT in Taxi Client, taxi client: " + this.taxiAlias);
 	}
 
-	public void confirmMapMQTT() {
-		System.out.println("connected Map MQTT in Taxi Client");
-	}
 	
 	public void printError(String error) {
 		System.out.println(error);
@@ -52,8 +50,17 @@ public class TaxiClient extends Block {
 		return u;
 	}
 
-	public void hei() {
-		System.out.println("hei");
+	public String printObject(Order order) {
+		return "An order has been placed at address: " + order.address + ". Confirm?";
+	}
+
+	public String getOrderTopic(Order order) {
+		return order.topic;
+	}
+
+	public Order confirmToDispatch(Order order) {
+		order.topic = "taxiConfirmation";
+		return order;
 	}
 	
 	

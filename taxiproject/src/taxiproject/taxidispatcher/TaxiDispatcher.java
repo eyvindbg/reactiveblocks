@@ -23,10 +23,10 @@ public class TaxiDispatcher extends Block {
 		return order;
 	}
 
-	public Order confirmToTaxi(Order order) {
-		order.topic = "order";
-		return null;
-	}
+//	public Order confirmToTaxi(Order order) {
+//		order.topic = "order";
+//		return order;
+//	}
 
 	public void printObject(Order order) {
 		System.out.println(order.toString());

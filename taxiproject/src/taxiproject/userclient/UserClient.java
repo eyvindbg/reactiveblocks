@@ -72,7 +72,7 @@ public class UserClient extends Block {
 
 
 	public String createTopic() {
-		System.out.println(String.format("taxi,dispatch,%s", clientAlias));
+//		System.out.println(String.format("taxi,dispatch,%s", clientAlias));
 		return String.format("taxi,dispatch,%s", clientAlias);
 	}
 
@@ -84,7 +84,7 @@ public class UserClient extends Block {
 
 
 	public String confirmToUser(Order order) {
-		String confirmation = "An order with id: " + order.id + " has been placed at the taxi dispatch";
+		String confirmation = "An order with id: " + order.id + " has been received at the taxi dispatch. Please wait while we find a taxi";
 		return confirmation;
 	}
 	

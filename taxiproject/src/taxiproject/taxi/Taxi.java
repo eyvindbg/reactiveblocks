@@ -24,7 +24,7 @@ public class Taxi extends Block {
 	public MapUpdate createMapUpdate() {
 		MapUpdate u = new MapUpdate();
 		
-		Position p1 = new Position(10.39221659117403 * 1e6 , 63.43048084459458 * 1e6);
+		Position p1 = new Position(63.43048084459458 * 1e6 , 10.39221659117403 * 1e6);
 		u.setCenter(p1);
 		u.setZoom(15);
 		
@@ -34,6 +34,9 @@ public class Taxi extends Block {
 		return u;
 	}
 	 
+	public void hei() {
+		System.out.println("hei");
+	}
 	
 	
 
