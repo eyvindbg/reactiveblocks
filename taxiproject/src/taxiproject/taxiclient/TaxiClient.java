@@ -70,72 +70,86 @@ public class TaxiClient extends Block {
 
 	
 	
-	public String markerUpdate(String taxiAlias) {
-		Marker m;
+	
 		
-		if (taxiAlias.equals("TaxiMSID0")) {
-			m = Marker.createMarker("m1");
-		}
-		return m;
+	
+	
+	
+	
+	public java.lang.String getTaxiAlias() {
+		return taxiAlias;
+	}
+
+	public void setTaxiAlias(java.lang.String taxiAlias) {
+		this.taxiAlias = taxiAlias;
+	}
 
 	
+	
+	//Map-operations
+	public MapUpdate markerUpdate(String taxiAlias) {
+		Marker m = null;
+		String markerID = "";
+		if (taxiAlias.equals("TaxiMSID0")) {
+			setTaxiAlias("TaxiMSID0");
+			m = Marker.createMarker("m0");
+		}
+		else if (taxiAlias.equals("TaxiMSID1")) {
+			setTaxiAlias("TaxiMSID1");
+			m = Marker.createMarker("m1");
+		}
+		else if (taxiAlias.equals("TaxiMSID2")) {
+			setTaxiAlias("TaxiMSID2");
+			m = Marker.createMarker("m2");
+		}
+		markerID = m.getId();
+		
+		if (isOnDuty()) {
+			return(generateMarker(markerID));
+		}
+		else
+			return deleteMarker(markerID);
 	}
 	
 	
-		
-	
-	
-	
-	
-	public MapUpdate generateMarker(String taxiAlias, String markerID) {
+	public MapUpdate generateMarker(String markerID) {
 		MapUpdate u = new MapUpdate();
 		Position p;
 		Marker m;
 		
 		if (taxiAlias.equals("TaxiMSID0")) {
-			if (isOnDuty()) {
 				p = new Position(63.430300 * 1e6, 10.377515 * 1e6);
-				m = Marker.createMarker("m1").position(p).hue(Marker.HUE_GREEN);
+				m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 				m.description(String.format("%s",this.taxiAlias));
 				u.addMarker(m);
 			}
-			else {
-				m = Marker.createMarker("m1");
-				m.remove();
-				u.addMarker(m);
-				return u;
-			}
-		}
-		
+			
 		else if (taxiAlias.equals("TaxiMSID1")) {
 			p = new Position(63.4304808 * 1e6 , 10.394216 * 1e6); //middle of Trondheim
-			m = Marker.createMarker("m2").position(p).hue(Marker.HUE_GREEN);
+			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 			m.description(String.format("%s",this.taxiAlias));
 			u.addMarker(m);
 			}
-			
-		
 		
 		else if (taxiAlias.equals("TaxiMSID2")) { 
 			p = new Position(63.433180* 1e6 , 10.394216 * 1e6);
-			m = Marker.createMarker("m3").position(p).hue(Marker.HUE_GREEN);
+			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 			m.description(String.format("%s",this.taxiAlias));
 			u.addMarker(m);
 			}
 			
 		else
 			System.out.println("Objekt ikke opprettet ordentlig");
-//		System.out.println(taxiAlias);
 		
 		return u;
 		}
 
 	
-	public MapUpdate deleteMarker(String taxiAlias) {
+	public MapUpdate deleteMarker(String markerID) {
 		MapUpdate u = new MapUpdate();
 		Marker m;
 		
-		m = Marker.createMarker("m1");
+		m = Marker.createMarker(markerID);
 		m.remove();
 		u.addMarker(m);
 		return u;
