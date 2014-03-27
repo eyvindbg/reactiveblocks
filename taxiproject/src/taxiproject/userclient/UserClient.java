@@ -50,7 +50,7 @@ public class UserClient extends Block {
 		Order order = new Order(alias);
 		
 		currentOrder = counter;
-		
+		System.out.println(currentOrder);
 		order.id = counter.toString();
 		order.address = address;
 		counter ++;
@@ -86,7 +86,7 @@ public class UserClient extends Block {
 	public String confirmToUser(Order order) {
 		String confirmation;
 		if (order.confirmed)
-			confirmation = "A taxi with the ID "+ order.assignedTaxi + " is on the way to your address: " + order.address;
+			confirmation = "A taxi with the ID "+ order.assignedTaxi + " is on the way to your address: " + order.address + ". Your order number is: " + order.id;
 		else 
 			confirmation = "An order with id: " + order.id + " has been received at the taxi dispatch. Please wait while we find a taxi";
 		return confirmation;

@@ -38,7 +38,7 @@ public class TaxiDispatcher extends Block {
 //	}
 
 	public void printObject(Order order) {
-		System.out.println(order.toString());
+//		System.out.println(order.toString());
 	}
 
 
