@@ -5,11 +5,11 @@ import taxiproject.user.Order;
 
 public class TaxiCentral extends Block {
 
-	public java.lang.String subscriptionTopic;
+	public java.lang.String subscriptionTopic = "order,taxi,taxiConfirmation,taxiCreate";
 	public java.lang.String publishTopic;
 	
 	public TaxiCentral(){
-		this.subscriptionTopic = "order,taxi,taxiConfirmation";
+		this.subscriptionTopic = "order,taxi,taxiConfirmation,taxiCreate";
 		
 	}
 
@@ -37,6 +37,15 @@ public class TaxiCentral extends Block {
 
 	public void printObject(Order order) {
 		System.out.println(order.toString());
+	}
+
+	public String printTaxi(String taxiname) {
+		System.out.println("created: "+taxiname);
+		return taxiname;
+	}
+
+	public void print(String something) {
+		System.out.println("here is " + something);
 	}
 
 }

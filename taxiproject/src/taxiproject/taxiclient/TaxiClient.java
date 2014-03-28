@@ -6,19 +6,28 @@ import taxiproject.user.Order;
 import com.bitreactive.library.android.maps.model.MapUpdate;
 import com.bitreactive.library.android.maps.model.Marker;
 import com.bitreactive.library.android.maps.model.Position;
-import com.sun.xml.internal.xsom.impl.scd.Iterators.Map;
 
 public class TaxiClient extends Block {
 	
 
-	public java.lang.String taxiAlias;
-	public java.lang.String subscription;
-	public taxiproject.user.Order Order;
+	public String taxiAlias;
+	public String subscription;
+	public Order order;
+	public String topic="";
+	
+	
+	
 	public boolean onDuty;
 
+	public final String taxi1 = "TaxiMSID0";
+	public final String taxi2 = "TaxiMSID1";
+	public final String taxi3 = "TaxiMSID2";
+	public taxiproject.user.Order Order;
+	
 	
 	public TaxiClient() {
 		this.subscription = "order";
+		this.topic= "registerTaxi";
 	}
 	
 	public static String getAlias(String alias) {
@@ -39,18 +48,6 @@ public class TaxiClient extends Block {
 	}
 	
 	
-//	public MapUpdate createMapUpdate() {
-//		MapUpdate u = new MapUpdate();
-//		
-//		Position p1 = new Position(10.39221659117403 * 1e6 , 63.43048084459458 * 1e6);
-//		u.setCenter(p1);
-//		u.setZoom(15);
-//		
-//		Marker m1 = Marker.createMarker("m1").position(p1).hue(Marker.HUE_MAGENTA);
-//		u.addMarker(m1);
-//		
-//		return u;
-//	}
 
 	public String printObject(Order order) {
 		return "An order has been placed at address: " + order.address + ". Confirm?";
@@ -104,12 +101,17 @@ public class TaxiClient extends Block {
 		}
 		markerID = m.getId();
 		
-		if (isOnDuty()) {
+		if (isOnDuty()) { 
 			return(generateMarker(markerID));
 		}
-		else
+		else if (!isOnDuty()) { 
 			return deleteMarker(markerID);
+		}
+		else
+			System.out.println("Impossible");
+		return null;
 	}
+	
 	
 	
 	public MapUpdate generateMarker(String markerID) {
@@ -117,21 +119,21 @@ public class TaxiClient extends Block {
 		Position p;
 		Marker m;
 		
-		if (taxiAlias.equals("TaxiMSID0")) {
+		if (taxiAlias.equals(taxi1)) {
 				p = new Position(63.430300 * 1e6, 10.377515 * 1e6);
 				m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 				m.description(String.format("%s",this.taxiAlias));
 				u.addMarker(m);
 			}
 			
-		else if (taxiAlias.equals("TaxiMSID1")) {
+		else if (taxiAlias.equals(taxi2)) {
 			p = new Position(63.4304808 * 1e6 , 10.394216 * 1e6); //middle of Trondheim
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 			m.description(String.format("%s",this.taxiAlias));
 			u.addMarker(m);
 			}
 		
-		else if (taxiAlias.equals("TaxiMSID2")) { 
+		else if (taxiAlias.equals(taxi3)) { 
 			p = new Position(63.433180* 1e6 , 10.394216 * 1e6);
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 			m.description(String.format("%s",this.taxiAlias));

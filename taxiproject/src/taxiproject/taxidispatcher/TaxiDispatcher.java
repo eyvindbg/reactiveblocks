@@ -1,5 +1,7 @@
 package taxiproject.taxidispatcher;
 
+import java.util.ArrayList;
+
 import no.ntnu.item.arctis.runtime.Block;
 import taxiproject.taxiclient.TaxiClient;
 import taxiproject.user.Order;
@@ -7,8 +9,13 @@ import taxiproject.userclient.UserClient;
 
 public class TaxiDispatcher extends Block {
 
-	public java.util.ArrayList<TaxiClient> TaxiList;
+	
+	public ArrayList<TaxiClient> availableTaxis;
+	public ArrayList<TaxiClient> busyTaxis;
 
+	
+	
+	
 	public String getOrderInfo(Order order) {
 		String confirmation;
 		if (order.topic.equals("order")) {
@@ -38,7 +45,7 @@ public class TaxiDispatcher extends Block {
 //	}
 
 	public void printObject(Order order) {
-//		System.out.println(order.toString());
+		System.out.println(order.toString());
 	}
 
 

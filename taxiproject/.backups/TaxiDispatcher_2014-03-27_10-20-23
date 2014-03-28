@@ -102,6 +102,19 @@
         <expr xmi:type="uml:LiteralString" xmi:id="_GgJ0ILQ9EeOCKLIb2izLKw" name="t1" value="0"/>
       </when>
     </packagedElement>
+    <packagedElement xmi:type="uml:TimeEvent" xmi:id="_jL5xcLQ-EeOCKLIb2izLKw" name="t0">
+      <when xmi:id="_j2j4ALQ-EeOCKLIb2izLKw" name="t0">
+        <expr xmi:type="uml:LiteralString" xmi:id="_j2j4AbQ-EeOCKLIb2izLKw" name="t0" value="0"/>
+      </when>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Signal" xmi:id="_Xo680LRGEeOCKLIb2izLKw" name="EVENT"/>
+    <packagedElement xmi:type="uml:SignalEvent" xmi:id="_XqUD8bRGEeOCKLIb2izLKw" name="r0"/>
+    <packagedElement xmi:type="uml:SignalEvent" xmi:id="_XqUrAbRGEeOCKLIb2izLKw" name="" signal="_Xo680LRGEeOCKLIb2izLKw"/>
+    <packagedElement xmi:type="uml:Signal" xmi:id="_Y83Q8LRGEeOCKLIb2izLKw" name="EVENT_1"/>
+    <packagedElement xmi:type="uml:SignalEvent" xmi:id="_Y-Q_IbRGEeOCKLIb2izLKw" name="" signal="_Y83Q8LRGEeOCKLIb2izLKw"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_ClqlALTAEeOmQsGt47u0-A" name="no.ntnu.item.ttm4115.simulation.routeplanner.Route"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_ClqlBbTAEeOmQsGt47u0-A" name="com.bitreactive.library.android.maps.model.MapUpdate"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_FT7iErTAEeOmQsGt47u0-A" name="no.ntnu.item.ttm4115.simulation.routeplanner.Journey"/>
     <profileApplication xmi:id="_MlyD4K-CEeOaF8Zzu-pMNg">
       <eAnnotations xmi:id="_MlyD4a-CEeOaF8Zzu-pMNg" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://ARCTIS_PROFILES/arctis.profile.uml#_WFTqUXjGEdyxtoUMycQn9Q"/>
@@ -135,10 +148,11 @@
   <graphics:Shape xmi:id="_ffYxULQbEeOP_p1mY1E4VA" x="234" y="234" width="19" height="54" base_Element="_ffXjMLQbEeOP_p1mY1E4VA" orientation="east"/>
   <graphics:Shape xmi:id="_ILElMLQ6EeOCKLIb2izLKw" x="288" y="324" width="145" height="55" base_Element="_IKIKALQ6EeOCKLIb2izLKw"/>
   <graphics:Shape xmi:id="_6NoSkrQ8EeOCKLIb2izLKw" x="81" y="243" width="37" height="37" base_Element="_6NnrgbQ8EeOCKLIb2izLKw"/>
-  <graphics:Shape xmi:id="_rwfeILQ9EeOCKLIb2izLKw" x="504" y="144" base_Element="_rwbzwLQ9EeOCKLIb2izLKw" orientation="east"/>
-  <graphics:Shape xmi:id="_v_q0ULQ9EeOCKLIb2izLKw" x="216" y="126" width="199" height="55" base_Element="_v_jfkLQ9EeOCKLIb2izLKw" orientation="east"/>
+  <graphics:Shape xmi:id="_rwfeILQ9EeOCKLIb2izLKw" x="1008" y="288" base_Element="_rwbzwLQ9EeOCKLIb2izLKw" orientation="east"/>
+  <graphics:Shape xmi:id="_v_q0ULQ9EeOCKLIb2izLKw" x="558" y="126" width="199" height="55" base_Element="_v_jfkLQ9EeOCKLIb2izLKw" orientation="east"/>
   <arctis:event xmi:id="_6lqiorQ9EeOCKLIb2izLKw" base_Transition="_6lqiobQ9EeOCKLIb2izLKw" triggers="_kHHAMK-CEeOaF8Zzu-pMNg"/>
   <arctis:event xmi:id="_6lrJsbQ9EeOCKLIb2izLKw" base_Transition="_6lqio7Q9EeOCKLIb2izLKw" effects="_n70n8K-CEeOaF8Zzu-pMNg"/>
   <arctis:event xmi:id="_6lrwwLQ9EeOCKLIb2izLKw" base_Transition="_6lrJsrQ9EeOCKLIb2izLKw" triggers="_ESBMAK-EEeOaF8Zzu-pMNg"/>
   <arctis:event xmi:id="_6lrwwrQ9EeOCKLIb2izLKw" base_Transition="_6lrwwbQ9EeOCKLIb2izLKw" effects="_rwbzwLQ9EeOCKLIb2izLKw"/>
+  <graphics:Shape xmi:id="_xBF7cLRFEeOCKLIb2izLKw" aux1="0 -108 -328 0 " base_Element="_1ZwecLQ9EeOCKLIb2izLKw"/>
 </xmi:XMI>

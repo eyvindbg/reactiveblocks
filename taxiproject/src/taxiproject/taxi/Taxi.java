@@ -19,21 +19,12 @@ public class Taxi extends Block {
 	public void confirmConnection() {
 		System.out.println("connected MapMQTT in taxi");
 	}
+	
+	public String createTopic() {
+		return "taxiCreate";
+	}
 
 
-//	public MapUpdate createMapUpdate() {
-//		MapUpdate u = new MapUpdate();
-//		
-//		Position p1 = new Position(63.43048084459458 * 1e6 , 10.39221659117403 * 1e6);
-//		u.setCenter(p1);
-//		u.setZoom(15);
-//		
-//		Marker m1 = Marker.createMarker("m1").position(p1).hue(Marker.HUE_MAGENTA);
-//		m1.description("TaxiMSID0");
-//		u.addMarker(m1);
-//		
-//		return u;
-//	}
 	 
 	public MapUpdate createMapOrigin() {
 		MapUpdate u = new MapUpdate();
@@ -60,6 +51,16 @@ public class Taxi extends Block {
 
 
 	public void createMovement() {
+	}
+
+
+	public void prepareToSend() {
+	}
+
+
+	public String print(String something) {
+		System.out.println(something);
+		return something;
 	}
 
 
