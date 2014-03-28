@@ -107,16 +107,6 @@
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_POOoc7RGEeOCKLIb2izLKw" name="java.lang.String"/>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_POPPhbRGEeOCKLIb2izLKw" name="com.bitreactive.library.android.maps.model.MapUpdate"/>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_POQdp7RGEeOCKLIb2izLKw" name="int"/>
-    <packagedElement xmi:type="uml:TimeEvent" xmi:id="_Qz7FcLZrEeObY6T6aRa-ew" name="t0">
-      <when xmi:id="_RydKQLZrEeObY6T6aRa-ew" name="t0">
-        <expr xmi:type="uml:LiteralString" xmi:id="_RydKQbZrEeObY6T6aRa-ew" name="t0" value="1000"/>
-      </when>
-    </packagedElement>
-    <packagedElement xmi:type="uml:TimeEvent" xmi:id="_SeMO4LZrEeObY6T6aRa-ew" name="t1">
-      <when xmi:id="_TB9DQLZrEeObY6T6aRa-ew" name="t1">
-        <expr xmi:type="uml:LiteralString" xmi:id="_TB9DQbZrEeObY6T6aRa-ew" name="t1" value="1000"/>
-      </when>
-    </packagedElement>
     <profileApplication xmi:id="_rKsiUK6_EeOFwuT1Daq4qQ">
       <eAnnotations xmi:id="_rKu-kK6_EeOFwuT1Daq4qQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://ARCTIS_PROFILES/arctis.profile.uml#_WFTqUXjGEdyxtoUMycQn9Q"/>
@@ -136,9 +126,9 @@
   <graphics:Shape xmi:id="_rcXhIK6_EeOFwuT1Daq4qQ" x="18" y="55" width="991" height="55" base_Element="_rbsLsK6_EeOFwuT1Daq4qQ"/>
   <graphics:Shape xmi:id="_rcYvQK6_EeOFwuT1Daq4qQ" x="18" y="108" width="991" height="415" base_Element="_rcW6EK6_EeOFwuT1Daq4qQ"/>
   <arctis:esm xmi:id="_cdXVwK7AEeOFwuT1Daq4qQ" base_StateMachine="_ca7Fwq7AEeOFwuT1Daq4qQ"/>
-  <graphics:Shape xmi:id="_cdaZEK7AEeOFwuT1Daq4qQ" x="270" y="126" width="198" height="108" aux1="single" base_Element="_ca20UK7AEeOFwuT1Daq4qQ"/>
+  <graphics:Shape xmi:id="_cdaZEK7AEeOFwuT1Daq4qQ" x="270" y="126" width="198" height="108" base_Element="_ca20UK7AEeOFwuT1Daq4qQ"/>
   <arctis:esm xmi:id="_cz7boK7AEeOFwuT1Daq4qQ" base_StateMachine="_cz6Nga7AEeOFwuT1Daq4qQ"/>
-  <graphics:Shape xmi:id="_cz9Q0K7AEeOFwuT1Daq4qQ" x="270" y="378" width="198" height="108" aux1="single" base_Element="_czxDkK7AEeOFwuT1Daq4qQ"/>
+  <graphics:Shape xmi:id="_cz9Q0K7AEeOFwuT1Daq4qQ" x="270" y="378" width="198" height="108" base_Element="_czxDkK7AEeOFwuT1Daq4qQ"/>
   <graphics:Shape xmi:id="_q15FEK7BEeOFwuT1Daq4qQ" x="81" y="297" base_Element="_qzZxwK7BEeOFwuT1Daq4qQ"/>
   <graphics:Shape xmi:id="_rZXlkK7BEeOFwuT1Daq4qQ" x="162" y="216" width="19" height="199" base_Element="_rZWXcK7BEeOFwuT1Daq4qQ" orientation="east"/>
   <graphics:Shape xmi:id="_sifw0K7BEeOFwuT1Daq4qQ" x="639" y="297" base_Element="_sia4UK7BEeOFwuT1Daq4qQ"/>
@@ -154,7 +144,7 @@
   <arctis:event xmi:id="_WlBsgq-IEeOaF8Zzu-pMNg" base_Transition="_WlBsga-IEeOaF8Zzu-pMNg" effects="_Wj2n0a-IEeOaF8Zzu-pMNg"/>
   <graphics:Shape xmi:id="_WlEIwK-IEeOaF8Zzu-pMNg" x="117" y="52" base_Element="_WlC6oK-IEeOaF8Zzu-pMNg" orientation="east"/>
   <graphics:Shape xmi:id="_WlEIwa-IEeOaF8Zzu-pMNg" x="22" y="51" base_Element="_WlCTkK-IEeOaF8Zzu-pMNg" orientation="west"/>
-  <graphics:Shape xmi:id="_WlEv0K-IEeOaF8Zzu-pMNg" x="270" y="252" width="198" height="108" aux1="single" base_Element="_Wj0yoK-IEeOaF8Zzu-pMNg"/>
+  <graphics:Shape xmi:id="_WlEv0K-IEeOaF8Zzu-pMNg" x="270" y="252" width="198" height="108" base_Element="_Wj0yoK-IEeOaF8Zzu-pMNg"/>
   <arctis:location xmi:id="_iRYyELTPEeOmQsGt47u0-A" base_Variable="_iQZTkLTPEeOmQsGt47u0-A" partition="_rcW6EK6_EeOFwuT1Daq4qQ"/>
   <graphics:Shape xmi:id="_iRYyEbTPEeOmQsGt47u0-A" x="761" y="214" base_Element="_iQZTkLTPEeOmQsGt47u0-A"/>
   <graphics:Shape xmi:id="_3-eekLZZEeObY6T6aRa-ew" x="102" y="45" base_Element="_3cxfsLZZEeObY6T6aRa-ew" orientation="east"/>

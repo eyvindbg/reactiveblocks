@@ -17,12 +17,11 @@ public class TaxiClient extends Block {
 	
 	
 	
-	public boolean onDuty;
-
 	public final String taxi1 = "TaxiMSID0";
 	public final String taxi2 = "TaxiMSID1";
 	public final String taxi3 = "TaxiMSID2";
 	public taxiproject.user.Order Order;
+	public boolean onDuty;
 	
 	
 	public TaxiClient() {
@@ -58,10 +57,12 @@ public class TaxiClient extends Block {
 		return order.topic;
 	}
 
-	public Order confirmToDispatch(Order order) {
-		order.assignedTaxi = String.format("%s", taxiAlias);
-		order.topic = "taxiConfirmation";
-		order.confirmed = true;
+	public Order confirmMessage(Order order) {
+		if (order.topic.equals("order")) {
+			order.assignedTaxi = String.format("%s", taxiAlias);
+			order.topic = "taxiConfirmation";
+			order.confirmed = true;
+		}
 		return order;
 	}
 
@@ -165,10 +166,14 @@ public class TaxiClient extends Block {
 	}
 
 	public void onDuty(){
+		if (onDuty)
+			return;
 		onDuty = true;
 	}
 	
 	public void offDuty() {
+		if (!onDuty)
+			return;
 		onDuty = false;
 	}
 	

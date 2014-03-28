@@ -18,10 +18,6 @@ public class Component extends Block {
 	Det er kun siste objekt som er aktivt for taxiclientene. Dersom UserMSID0 legger inn en order, 1, rett etter UserMSID1 har lagt inn order 0, 
 	uten at noen har rukket å svare på order 0, vil det ikke lenger gå an å aksessere ordren
 	
-	Det går an å få opp taxier og fjerne dem fra kartet. Mangler å ta hensyn til dersom bruker trykker "offduty" dersom den allerede er "offduty", og
-	svarende med "onduty". Da krasjer programmet
-	
-	Når et taxiclient-objekt opprettes, må det sendes til dispatch og legges til i listen over tilgjengelige taxier
 	
 	*/
 	

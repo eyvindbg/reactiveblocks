@@ -7,6 +7,7 @@ public class TaxiCentral extends Block {
 
 	public java.lang.String subscriptionTopic = "order,taxi,taxiConfirmation,taxiCreate";
 	public java.lang.String publishTopic;
+	public java.lang.String serializedString;
 	
 	public TaxiCentral(){
 		this.subscriptionTopic = "order,taxi,taxiConfirmation,taxiCreate";
@@ -46,6 +47,12 @@ public class TaxiCentral extends Block {
 
 	public void print(String something) {
 		System.out.println("here is " + something);
+	}
+
+	public boolean isOrder(String serialized) { //daarlig og hardkokt metode!!!
+		if (serialized.equals("TaxiMSID0") || serialized.equals("TaxiMSID1") || serialized.equals("TaxiMSID2"))
+			return false;
+		return true;
 	}
 
 }

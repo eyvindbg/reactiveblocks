@@ -1,6 +1,7 @@
 package taxiproject.taxidispatcher;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import no.ntnu.item.arctis.runtime.Block;
 import taxiproject.taxiclient.TaxiClient;
@@ -10,9 +11,14 @@ import taxiproject.userclient.UserClient;
 public class TaxiDispatcher extends Block {
 
 	
-	public ArrayList<TaxiClient> availableTaxis;
-	public ArrayList<TaxiClient> busyTaxis;
+	public ArrayList<String> availableTaxis;
+	public List<String> busyTaxis; //skal vi heller ta TaxiClient som type? Hvordan linke?
 
+	
+	public TaxiDispatcher() {
+		availableTaxis = new ArrayList<String>();
+		busyTaxis = new ArrayList<String>();
+	}
 	
 	
 	
@@ -45,7 +51,18 @@ public class TaxiDispatcher extends Block {
 //	}
 
 	public void printObject(Order order) {
-		System.out.println(order.toString());
+		System.out.println("Order i dispatch: " + order.toString());
+	}
+	
+	
+	public void addTaxi(String name) {
+		busyTaxis.add(name);
+//		System.out.println("lagt til i listen: " +name);
+	}
+
+	public String print(String name) {
+//		System.out.println("inne i dispatch " +name);
+		return name;
 	}
 
 

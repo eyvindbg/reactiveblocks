@@ -11,6 +11,10 @@ public class Order {
 	public boolean confirmed = false;
 	public boolean delete = false;
 	
+	
+	
+	
+	
 	public Order (String alias) {
 		this.alias = alias;
 		this.topic = "order";
