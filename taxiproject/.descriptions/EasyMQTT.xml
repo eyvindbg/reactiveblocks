@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<block
+    name="EasyMQTT" 
+    uuid="_boWb0LcwEeOaFb6EvRKZ5A" 
+    status="under construction" 
+    type="block" 
+    >
+    <required>
+        <block name="c0" uuid="_7v-uIKN9EeO_erXR8oUgTA"/>
+    </required>
+</block>

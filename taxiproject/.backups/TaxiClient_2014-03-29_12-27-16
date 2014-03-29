@@ -367,7 +367,7 @@
       <appliedProfile href="pathmap://RAMSES_GRAPHIC_PROFILES/no.ntnu.item.ramses.graphicprofile.uml#_UEANMUVlEduH9aQE_pc66w"/>
     </profileApplication>
   </uml:Package>
-  <graphics:Shape xmi:id="_AstSQK7AEeOFwuT1Daq4qQ" x="0" y="54" width="1225" height="55" base_Element="_AnTN0K7AEeOFwuT1Daq4qQ"/>
+  <graphics:Shape xmi:id="_AstSQK7AEeOFwuT1Daq4qQ" x="18" y="54" width="1207" height="55" base_Element="_AnTN0K7AEeOFwuT1Daq4qQ"/>
   <graphics:Shape xmi:id="_AsugYK7AEeOFwuT1Daq4qQ" x="0" y="108" width="1225" height="451" base_Element="_AnXfQK7AEeOFwuT1Daq4qQ"/>
   <arctis:esm xmi:id="_AsvugK7AEeOFwuT1Daq4qQ" base_StateMachine="_AsvHcK7AEeOFwuT1Daq4qQ"/>
   <arctis:esm xmi:id="_EO3KYK7AEeOFwuT1Daq4qQ" base_StateMachine="_ELZmsK7AEeOFwuT1Daq4qQ"/>
@@ -459,7 +459,7 @@
   <arctis:event xmi:id="_V65L4bWSEeOxB8OBrDxPQA" base_Transition="_V65L4LWSEeOxB8OBrDxPQA" triggers="_GiqZAK7AEeOFwuT1Daq4qQ"/>
   <arctis:event xmi:id="_V65y8rWSEeOxB8OBrDxPQA" base_Transition="_V65y8LWSEeOxB8OBrDxPQA" effects="_LwESAK7AEeOFwuT1Daq4qQ"/>
   <arctis:event xmi:id="_V66aAbWSEeOxB8OBrDxPQA" base_Transition="_V66aALWSEeOxB8OBrDxPQA" effects="_RNjvgLWREeOxB8OBrDxPQA"/>
-  <graphics:Shape xmi:id="_tPyKgLWZEeOxB8OBrDxPQA" x="234" y="180" width="91" height="55" base_Element="_tPugILWZEeOxB8OBrDxPQA"/>
+  <graphics:Shape xmi:id="_tPyKgLWZEeOxB8OBrDxPQA" x="216" y="180" width="91" height="55" base_Element="_tPugILWZEeOxB8OBrDxPQA"/>
   <graphics:Shape xmi:id="_wvqf0LWbEeOxB8OBrDxPQA" x="306" y="144" width="127" height="55" base_Element="_wvpRsLWbEeOxB8OBrDxPQA"/>
   <graphics:Shape xmi:id="_2UsHQLWeEeOxB8OBrDxPQA" x="351" y="189" width="37" height="37" base_Element="_2UrgMLWeEeOxB8OBrDxPQA"/>
   <graphics:Shape xmi:id="_fiUtQLWfEeOxB8OBrDxPQA" x="270" y="54" width="199" height="55" base_Element="_fiP0wLWfEeOxB8OBrDxPQA" orientation="north"/>
