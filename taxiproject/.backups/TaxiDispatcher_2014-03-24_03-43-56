@@ -22,6 +22,7 @@
       <edge xmi:type="uml:ControlFlow" xmi:id="_ORAn4K-IEeOaF8Zzu-pMNg" name="e1" inPartition="_Mlyq8K-CEeOaF8Zzu-pMNg" source="_DdCH8K-IEeOaF8Zzu-pMNg" target="_n70n8K-CEeOaF8Zzu-pMNg"/>
       <edge xmi:type="uml:ObjectFlow" xmi:id="_WPtHUK-JEeOaF8Zzu-pMNg" name="e2" inPartition="_Mlyq8K-CEeOaF8Zzu-pMNg" source="_vDQcQLLFEeOS5uz4OdIZGQ" target="_DdBg4K-IEeOaF8Zzu-pMNg"/>
       <edge xmi:type="uml:ObjectFlow" xmi:id="_WtTpUK-JEeOaF8Zzu-pMNg" name="e3" inPartition="_Mlyq8K-CEeOaF8Zzu-pMNg" source="_ESBMAK-EEeOaF8Zzu-pMNg" target="_vDRDULLFEeOS5uz4OdIZGQ"/>
+      <variable xmi:id="_wIr0UK-FEeOaF8Zzu-pMNg" name="TaxiList" type="_DghLsK-GEeOaF8Zzu-pMNg"/>
       <group xmi:type="uml:ActivityPartition" xmi:id="_Mlyq8K-CEeOaF8Zzu-pMNg" name="main" node="_kHHAMK-CEeOaF8Zzu-pMNg _n70n8K-CEeOaF8Zzu-pMNg _ESBMAK-EEeOaF8Zzu-pMNg _Dc9PcK-IEeOaF8Zzu-pMNg _DdA50K-IEeOaF8Zzu-pMNg _DdBg4K-IEeOaF8Zzu-pMNg _DdCH8K-IEeOaF8Zzu-pMNg _vDMx4LLFEeOS5uz4OdIZGQ _vDRDULLFEeOS5uz4OdIZGQ _vDQcQLLFEeOS5uz4OdIZGQ _Vk6rULNiEeODybo5C4ZsgA" edge="_OA_O4K-IEeOaF8Zzu-pMNg _ORAn4K-IEeOaF8Zzu-pMNg _WPtHUK-JEeOaF8Zzu-pMNg _WtTpUK-JEeOaF8Zzu-pMNg"/>
       <node xmi:type="uml:ActivityParameterNode" xmi:id="_kHHAMK-CEeOaF8Zzu-pMNg" name="init" inPartition="_Mlyq8K-CEeOaF8Zzu-pMNg" outgoing="_OA_O4K-IEeOaF8Zzu-pMNg" parameter="_kHKDgK-CEeOaF8Zzu-pMNg"/>
       <node xmi:type="uml:ActivityParameterNode" xmi:id="_n70n8K-CEeOaF8Zzu-pMNg" name="stop" inPartition="_Mlyq8K-CEeOaF8Zzu-pMNg" incoming="_ORAn4K-IEeOaF8Zzu-pMNg" parameter="_n75gcK-CEeOaF8Zzu-pMNg"/>
@@ -87,6 +88,8 @@
   <graphics:Shape xmi:id="_kIp4UK-CEeOaF8Zzu-pMNg" x="414" y="90" base_Element="_kHHAMK-CEeOaF8Zzu-pMNg" orientation="north"/>
   <graphics:Shape xmi:id="_n76ukK-CEeOaF8Zzu-pMNg" x="414" y="522" base_Element="_n70n8K-CEeOaF8Zzu-pMNg"/>
   <graphics:Shape xmi:id="_ESH5sK-EEeOaF8Zzu-pMNg" x="-54" y="252" base_Element="_ESBMAK-EEeOaF8Zzu-pMNg" orientation="west"/>
+  <arctis:location xmi:id="_wIsbYK-FEeOaF8Zzu-pMNg" base_Variable="_wIr0UK-FEeOaF8Zzu-pMNg" partition="_Mlyq8K-CEeOaF8Zzu-pMNg"/>
+  <graphics:Shape xmi:id="_wItCcK-FEeOaF8Zzu-pMNg" x="918" y="126" base_Element="_wIr0UK-FEeOaF8Zzu-pMNg"/>
   <arctis:esm xmi:id="_Dc_Eoq-IEeOaF8Zzu-pMNg" base_StateMachine="_Dc-dlq-IEeOaF8Zzu-pMNg"/>
   <arctis:event xmi:id="_Dc_rsK-IEeOaF8Zzu-pMNg" base_Transition="_Dc_Ep6-IEeOaF8Zzu-pMNg" triggers="_Dc92g6-IEeOaF8Zzu-pMNg"/>
   <arctis:event xmi:id="_Dc_rsq-IEeOaF8Zzu-pMNg" base_Transition="_Dc_rsa-IEeOaF8Zzu-pMNg" effects="_Dc-dlK-IEeOaF8Zzu-pMNg"/>

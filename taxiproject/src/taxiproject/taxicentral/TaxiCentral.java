@@ -26,4 +26,7 @@ public class TaxiCentral extends Block {
 		System.out.println(error);
 	}
 
+	public void getMessageTopic() {
+	}
+
 }
