@@ -32,7 +32,6 @@
       <ownedOperation xmi:id="__Bk94LgaEeOaFb6EvRKZ5A" name="isConfirmation"/>
       <ownedOperation xmi:id="_rg4ooLgeEeOaFb6EvRKZ5A" name="queryTaxi"/>
       <ownedOperation xmi:id="_-9cq0LglEeOaFb6EvRKZ5A" name="getTaxiAlias"/>
-      <ownedOperation xmi:id="_LfD1oLhEEeOaFb6EvRKZ5A" name="TaxiOrderPair"/>
       <ownedParameter xmi:id="_kHKDgK-CEeOaF8Zzu-pMNg" name="init"/>
       <ownedParameter xmi:id="_n75gcK-CEeOaF8Zzu-pMNg" name="stop" direction="out"/>
       <ownedParameter xmi:id="_ESEPUK-EEeOaF8Zzu-pMNg" name="inOrder" type="_QF634K-EEeOaF8Zzu-pMNg" isStream="true"/>

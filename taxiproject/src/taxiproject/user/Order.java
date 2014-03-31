@@ -2,17 +2,14 @@ package taxiproject.user;
 
 public class Order {
 	
-	public String id="";
-	public String address="";
-	public String alias="";
-	public String taxiType="";
-	public String topic="";
-	public String assignedTaxi="";
+	public String id = "";
+	public String address = "";
+	public String alias = "";
+	public String taxiType = "";
+	public String topic = "";
+	public String assignedTaxi = "";
 	public boolean confirmed = false;
 	public boolean delete = false;
-	
-	
-	
 	
 	
 	public Order (String alias) {

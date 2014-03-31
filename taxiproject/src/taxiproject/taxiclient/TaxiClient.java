@@ -1,5 +1,7 @@
 package taxiproject.taxiclient;
 
+import java.util.ArrayList;
+
 import no.ntnu.item.arctis.runtime.Block;
 import taxiproject.user.Order;
 
@@ -13,20 +15,35 @@ public class TaxiClient extends Block {
 	public String taxiAlias;
 	public String subscription;
 	public Order order;
-	public String topic="";
+	public String topic = "";
 	
+	public class Tuple { 
+		  public final double x; 
+		  public final double y; 
+		  
+		  public Tuple(double x, double y) { 
+		    this.x = x; 
+		    this.y = y; 
+		  } 
+	} 
 	
+	public Tuple[] mapPositions = {new Tuple(63.430300, 10.377515) , new Tuple(63.4304808, 10.394216), 
+			new Tuple(63.433180 , 10.394216), new Tuple(63.428916, 10.3923114), new Tuple(63.4348329, 10.4129671), 
+			new Tuple(63.4284735, 10.4008918), new Tuple(63.4333946, 10.3990679)};
+	
+	public int mapPosCounter = 0;
 	
 	public final String taxi1 = "TaxiMSID0";
 	public final String taxi2 = "TaxiMSID1";
 	public final String taxi3 = "TaxiMSID2";
 	public taxiproject.user.Order Order;
 	public boolean onDuty;
+	public java.lang.String dutyTopic = "dutyEdit";
 	
 	
 	public TaxiClient() {
-		this.subscription = "order";
-		this.topic= "registerTaxi";
+		this.subscription = String.format("%s", taxiAlias);
+		this.topic = "registerTaxi";
 	}
 	
 	public static String getAlias(String alias) {
@@ -49,7 +66,7 @@ public class TaxiClient extends Block {
 	
 
 	public String printObject(Order order) {
-		return "An order has been placed at address: " + order.address + ". Confirm?";
+		return "You have been assinged order #" + order.id +  ". Address: " + order.address + ". Please confirm.";
 	}
 	
 
@@ -58,11 +75,11 @@ public class TaxiClient extends Block {
 	}
 
 	public Order confirmMessage(Order order) {
-		if (order.topic.equals("order")) {
+//		if (order.topic.equals("order")) {
 			order.assignedTaxi = String.format("%s", taxiAlias);
 			order.topic = "taxiConfirmation";
 			order.confirmed = true;
-		}
+//		}
 		return order;
 	}
 
@@ -109,7 +126,7 @@ public class TaxiClient extends Block {
 			return deleteMarker(markerID);
 		}
 		else
-			System.out.println("Impossible");
+			System.out.println("Impossible.");
 		return null;
 	}
 	
@@ -121,11 +138,13 @@ public class TaxiClient extends Block {
 		Marker m;
 		
 		if (taxiAlias.equals(taxi1)) {
-				p = new Position(63.430300 * 1e6, 10.377515 * 1e6);
-				m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
-				m.description(String.format("%s",this.taxiAlias));
-				u.addMarker(m);
-			}
+			Tuple mapPosition = mapPositions[mapPosCounter];
+			mapPosCounter++;
+			p = new Position(mapPosition.x * 1e6, mapPosition.y * 1e6);
+			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
+			m.description(String.format("%s",this.taxiAlias));
+			u.addMarker(m);
+		}
 			
 		else if (taxiAlias.equals(taxi2)) {
 			p = new Position(63.4304808 * 1e6 , 10.394216 * 1e6); //middle of Trondheim
@@ -165,10 +184,16 @@ public class TaxiClient extends Block {
 		return onDuty;
 	}
 
-	public void onDuty(){
-		if (onDuty)
-			return;
+//	public void onDuty(){
+//		if (onDuty)
+//			return;
+//		onDuty = true;
+//	}
+	
+	public String onDuty() {
+		if (onDuty) return null;
 		onDuty = true;
+		return taxiAlias;
 	}
 	
 	public void offDuty() {
