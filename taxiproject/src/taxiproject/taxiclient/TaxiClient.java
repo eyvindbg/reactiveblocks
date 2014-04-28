@@ -17,19 +17,9 @@ public class TaxiClient extends Block {
 	public Order order;
 	public String topic = "";
 	
-	public class Tuple { 
-		  public final double x; 
-		  public final double y; 
-		  
-		  public Tuple(double x, double y) { 
-		    this.x = x; 
-		    this.y = y; 
-		  } 
-	} 
-	
-	public Tuple[] mapPositions = {new Tuple(63.430300, 10.377515) , new Tuple(63.4304808, 10.394216), 
-			new Tuple(63.433180 , 10.394216), new Tuple(63.428916, 10.3923114), new Tuple(63.4348329, 10.4129671), 
-			new Tuple(63.4284735, 10.4008918), new Tuple(63.4333946, 10.3990679)};
+	public MapTuple[] mapPositions = {new MapTuple(63.430300, 10.377515) , new MapTuple(63.4304808, 10.394216), 
+			new MapTuple(63.433180 , 10.394216), new MapTuple(63.428916, 10.3923114), new MapTuple(63.4348329, 10.4129671), 
+			new MapTuple(63.4284735, 10.4008918), new MapTuple(63.4333946, 10.3990679)};
 	
 	public int mapPosCounter = 0;
 	
@@ -76,7 +66,9 @@ public class TaxiClient extends Block {
 
 	public Order confirmMessage(Order order) {
 //		if (order.topic.equals("order")) {
-			order.assignedTaxi = String.format("%s", taxiAlias);
+		System.out.println("CONFIRM MESSAGE");
+			System.out.println(order.toString());
+			order.assignedTaxi = String.format("%s", this.taxiAlias);
 			order.topic = "taxiConfirmation";
 			order.confirmed = true;
 //		}
@@ -138,9 +130,9 @@ public class TaxiClient extends Block {
 		Marker m;
 		
 		if (taxiAlias.equals(taxi1)) {
-			Tuple mapPosition = mapPositions[mapPosCounter];
+			MapTuple mapPosition = mapPositions[mapPosCounter];
 			mapPosCounter++;
-			p = new Position(mapPosition.x * 1e6, mapPosition.y * 1e6);
+			p = new Position(mapPosition.getLat() * 1e6, mapPosition.getLong() * 1e6);
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 			m.description(String.format("%s",this.taxiAlias));
 			u.addMarker(m);
@@ -206,6 +198,14 @@ public class TaxiClient extends Block {
 	
 	public void printTaxiAlias(String taxiAlias) {
 		System.out.println(taxiAlias);
+	}
+
+	public String cancelOrder(Order order) {
+		return order.id + " was cancelled by user.";
+	}
+
+	public boolean isCancellation(Order order) {
+		return order.delete;
 	}
 
 //	public void printName(Order order) {

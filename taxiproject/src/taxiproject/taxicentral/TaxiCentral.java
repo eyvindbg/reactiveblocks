@@ -5,13 +5,13 @@ import taxiproject.user.Order;
 
 public class TaxiCentral extends Block {
 
-	public java.lang.String subscriptionTopic = "order,taxi,taxiConfirmation,taxiCreate,dutyEdit";
+	public java.lang.String subscriptionTopic = "order,taxi,taxiConfirmation,taxiCreate,dutyEdit,cancel";
 	public java.lang.String publishTopic;
 	public java.lang.String messageData;
 
 	
 	public TaxiCentral(){
-		this.subscriptionTopic = "order,taxi,taxiConfirmation,taxiCreate,dutyEdit";
+		this.subscriptionTopic = "order,taxi,taxiConfirmation,taxiCreate,dutyEdit,cancel";
 		
 	}
 
@@ -51,6 +51,7 @@ public class TaxiCentral extends Block {
 //	}
 
 	public boolean isOrder(String serialized) {
+		System.out.println("serialized: " + serialized);
 		if (serialized.substring(0, 4).equals("Taxi")) return false;
 //		if (serialized.equals("TaxiMSID0") || serialized.equals("TaxiMSID1") || serialized.equals("TaxiMSID2")) return false;
 		return true;

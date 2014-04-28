@@ -33,7 +33,7 @@ public class Taxi extends Block {
 		Marker marker = Marker.createMarker("Map Origin").position(p1).hue(Marker.HUE_ORANGE);
 		
 		u.setCenter(p1);
-		u.setZoom(15);
+		u.setZoom(13);
 		
 		u.addMarker(marker);
 		return u;

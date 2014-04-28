@@ -15,7 +15,7 @@ public class TaxiDispatcher extends Block {
 	public ArrayList<String> busyTaxis; //skal vi heller ta TaxiClient som type? Hvordan linke?
 	public ArrayList<String> offDutyTaxis;
 	public ArrayList<String> pendingTaxis;
-	public ArrayList<String> pendingOrders;
+	public ArrayList<TaxiOrderPair> pendingOrders;
 	public taxiproject.user.Order Order;
 
 	
@@ -24,34 +24,25 @@ public class TaxiDispatcher extends Block {
 		busyTaxis = new ArrayList<String>();
 		offDutyTaxis = new ArrayList<String>();
 		pendingTaxis = new ArrayList<String>();
-		pendingOrders = new ArrayList<String>();
+		pendingOrders = new ArrayList<TaxiOrderPair>();
 	}
-	
-	// For TaxiDispatch to keep track of which taxis are assigned to which orders
-	public class TaxiOrderPair {
-		public final String orderId;
-		public final String taxiAlias;
-		
-		public TaxiOrderPair(String orderId, String taxiAlias) {
-			this.orderId = orderId;
-			this.taxiAlias = taxiAlias;
-		}
-	}
-	
 	
 	// To Taxi Dispatch Console
 	public String getOrderInfo(Order order) {
-		String confirmation;
+		String message;
 		if (order.topic.equals("order")) {
-			confirmation = "Order number " + UserClient.counter.toString() + " is registered from " + order.alias + " to address: " + order.address;
+			message = "Order number " + order.id + " is registered from " + order.alias + " to address: " + order.address;
 			}
 		else if (order.topic.equals("taxiConfirmation")) {
-			confirmation = "Order number " + UserClient.counter.toString() + " is confirmed from " + order.assignedTaxi + "to address " + order.address + "\n";
+			message = "Order number " + order.id + " is confirmed by " + order.assignedTaxi + " to address: " + order.address + "\n";
+		}
+		else if (order.topic.equals("cancel")) {
+			message = "Order number " + order.id + " was cancelled by user (" + order.alias + ").";
 		}
 		else {
-			confirmation = "not any of the wanted topics";
+			message = "not any of the wanted topics";
 		}
-		return confirmation;
+		return message;
 	}
 
 
@@ -60,11 +51,6 @@ public class TaxiDispatcher extends Block {
 		return order;
 	}
 
-//	public Order confirmToTaxi(Order order) {
-//		order.topic = "order";
-//		return order;
-//	}
-
 	public void printObject(Order order) {
 		System.out.println("Order received at dispatch: " + order.toString());
 	}
@@ -72,28 +58,38 @@ public class TaxiDispatcher extends Block {
 	// Register taxis on start-up. All taxis are added as off-duty.
 	public void regTaxi(String taxiAlias) {
 		offDutyTaxis.add(taxiAlias);
-		System.out.println(taxiAlias + "is registered in dispatch.");
+		System.out.println(taxiAlias + " is registered in dispatch.");
 	}
 	
 	// Book taxi
-	public void bookTaxi(String taxiAlias) {
-		if (pendingTaxis.size() != 0) {
-			int taxiIndex = pendingTaxis.indexOf(taxiAlias);
-			String taxi = pendingTaxis.remove(taxiIndex);
-			busyTaxis.add(taxi);
+	public void bookTaxi(Order order) { //String taxiAlias
+		for (int i = 0; i < pendingOrders.size(); i++) {
+			if (pendingOrders.get(i).getTaxiAlias().equals(order.assignedTaxi)) {
+				String taxi = pendingOrders.get(i).getTaxiAlias();
+				pendingOrders.remove(i); // Taxi has confirmed, is now busy
+				busyTaxis.add(taxi);
+				System.out.println(taxi + " is now booked for order " + order.id);
+			} else {
+				System.out.println("Taxi has not been queried for the order.");
+			}
 		}
 	}
 	
 	public Order queryTaxi(Order order) {
 		String taxiAlias = "";
 		if (availableTaxis.size() != 0) {
-			taxiAlias = availableTaxis.remove(0);
+			taxiAlias = availableTaxis.remove(0); // FØRSTE OG BESTE, ENDRES SENERE
 			pendingTaxis.add(taxiAlias);
+			order.assignedTaxi = taxiAlias;
+			order.topic = taxiAlias;
+			System.out.println("Order " + order.id + " has been queried to " + order.assignedTaxi);
+			TaxiOrderPair pendingOrder = new TaxiOrderPair(order.id, taxiAlias);
+			pendingOrders.add(pendingOrder);
+			
 		} else {
 			System.out.println("No available taxis.");
 		}
 		
-		order.topic = taxiAlias;
 		return order;
 	}
 	
@@ -120,14 +116,43 @@ public class TaxiDispatcher extends Block {
 
 
 	public boolean isConfirmation(Order order) {
-		if (order.confirmed) return true;
+		if (order.confirmed && !order.delete) return true;
 		return false;
-		
 	}
 
 
 	public String getTaxiAlias(Order order) {
 		return order.assignedTaxi;
+	}
+
+
+	public boolean isCancellation(Order order) {
+		return order.delete;
+	}
+
+
+	public Order modifyTopic(Order order) { // Modify order topic to taxiAlias and release taxi from order
+		if (!order.confirmed) {
+			System.out.println("ModifyTopic NULL");
+			System.out.println(order.toString());
+			for (int i = 0; i < pendingOrders.size(); i++) { // If the order has not yet been confirmed by the Taxi
+				System.out.println(pendingOrders.get(i).getTaxiAlias());
+				if (order.id.equals(pendingOrders.get(i).getOrderId())) {
+					order.topic = pendingOrders.get(i).getTaxiAlias();
+					System.out.println("topic: " + pendingOrders.get(i).getTaxiAlias());
+					String taxi = pendingOrders.get(i).getTaxiAlias();
+					pendingOrders.remove(i); // Release taxi
+					availableTaxis.add(taxi);
+				}
+			}
+		} else { // If order is confirmed by taxi
+			System.out.println("ModifyTopic = " + order.assignedTaxi);
+			order.topic = order.assignedTaxi; 
+			int taxiIndex = busyTaxis.indexOf(order.assignedTaxi); // Find taxi
+			String taxi = busyTaxis.remove(taxiIndex); // Remove taxi from busy taxi list
+			availableTaxis.add(taxi); // Taxi is again available
+		}
+		return order;
 	}
 
 

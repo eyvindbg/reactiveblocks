@@ -7,7 +7,7 @@ public class Order {
 	public String alias = "";
 	public String taxiType = "";
 	public String topic = "";
-	public String assignedTaxi = "";
+	public String assignedTaxi = null;
 	public boolean confirmed = false;
 	public boolean delete = false;
 	
@@ -50,7 +50,7 @@ public class Order {
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", address=" + address + ", alias=" + alias
-				+ ", taxiType=" + taxiType + ", topic=" + topic + ", delete="
+				+ ", assignedTaxi=" + assignedTaxi + ", taxiType=" + taxiType + ", topic=" + topic + ", delete="
 				+ delete + "]";
 	}
 
