@@ -2,6 +2,8 @@ package taxiproject.taxidispatcher;
 
 import java.util.ArrayList;
 
+import com.bitreactive.library.android.maps.model.MapUpdate;
+import com.bitreactive.library.android.maps.model.Marker;
 
 import no.ntnu.item.arctis.runtime.Block;
 import no.ntnu.item.ttm4115.simulation.routeplanner.Journey;
@@ -16,6 +18,7 @@ public class TaxiDispatcher extends Block {
 	public ArrayList<TaxiPosition> offDutyTaxis;
 	public ArrayList<TaxiOrderPair> pendingOrders;
 	public taxiproject.user.Order Order;
+	public boolean finished = false;
 
 	
 	public TaxiDispatcher() {
@@ -92,7 +95,7 @@ public class TaxiDispatcher extends Block {
 	
 	// Allow taxi to be on duty or off duty. 
 	public void dutyEdit(TaxiPosition taxi) {
-		System.out.println("Duty change for " + taxi.getTaxiAlias() + " registered in dispatch.");
+		System.out.println("Duty change for " + taxi.getTaxiAlias() + " registered in dispatch. Pos: " + taxi.getTaxiPos());
 		for (int i = 0; i < offDutyTaxis.size(); i++) { // Taxi is off duty
 			if (offDutyTaxis.get(i).getTaxiAlias().equals(taxi.getTaxiAlias())) {
 				offDutyTaxis.remove(i);
@@ -171,7 +174,8 @@ public class TaxiDispatcher extends Block {
 //		return "blabla";
 //	}
 
-	public Journey createJourney(Order order) {
+	public Journey createPickup(Order order) {
+		finished = false;
 		String taxiPos = "";
 		for (int i = 0; i < busyTaxis.size(); i++) {
 			if (busyTaxis.get(i).getTaxiAlias().equals(order.assignedTaxi)) {
@@ -187,12 +191,38 @@ public class TaxiDispatcher extends Block {
 //		return null;
 	}
 
+	public Journey createJourney(Order order) {
+		System.out.println("STARTING JOURNEY");
+		System.out.println("order.alias = " + order.alias);
+		finished = true;
+		return new Journey(order.userPos, order.destination, order.assignedTaxi); //from user to destination
+	}
+	
+	
+	
+	public MapUpdate deleteMarker(Order order) {
+		MapUpdate u = new MapUpdate();
+		Marker m;
+		
+		m = Marker.createMarker(order.alias);
+		m.remove();
+		u.addMarker(m);
+		return u;
+	}
+	
+	
+	
 	@Override
 	public String toString() {
 		return "TaxiDispatcher [availableTaxis=" + availableTaxis
 				+ ", busyTaxis=" + busyTaxis + ", offDutyTaxis=" + offDutyTaxis
 				+ ", pendingOrders=" + pendingOrders + "]";
 	}
+
+	public boolean isFinished() {
+		return finished;
+	}
+
 
 	
 	

@@ -16,7 +16,7 @@ public class TaxiClient extends Block {
 	public String subscription;
 	public Order order;
 	public String topic = "";
-	public String taxiPos = "";
+	public String taxiPos = "63.433180,10.394216";
 	
 	public MapTuple[] mapPositions = {new MapTuple(63.430300, 10.377515) , new MapTuple(63.4304808, 10.394216), 
 			new MapTuple(63.433180 , 10.394216), new MapTuple(63.428916, 10.3923114), new MapTuple(63.4348329, 10.4129671), 
@@ -100,15 +100,15 @@ public class TaxiClient extends Block {
 		String markerID = "";
 		if (taxiAlias.equals("TaxiMSID0")) {
 			setTaxiAlias("TaxiMSID0");
-			m = Marker.createMarker("m0");
+			m = Marker.createMarker(taxiAlias);
 		}
 		else if (taxiAlias.equals("TaxiMSID1")) {
 			setTaxiAlias("TaxiMSID1");
-			m = Marker.createMarker("m1");
+			m = Marker.createMarker(taxiAlias);
 		}
 		else if (taxiAlias.equals("TaxiMSID2")) {
 			setTaxiAlias("TaxiMSID2");
-			m = Marker.createMarker("m2");
+			m = Marker.createMarker(taxiAlias);
 		}
 		markerID = m.getId();
 		
@@ -189,6 +189,7 @@ public class TaxiClient extends Block {
 	public TaxiPosition onDuty() {
 		if (onDuty) return null;
 		onDuty = true;
+		System.out.println("$$$$$$$ " + taxiPos);
 		return new TaxiPosition(taxiAlias, taxiPos);
 	}
 	
