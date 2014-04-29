@@ -16,7 +16,7 @@ public class TaxiClient extends Block {
 	public String subscription;
 	public Order order;
 	public String topic = "";
-	public String taxiPos = "63.433180,10.394216";
+	public String taxiPos;
 	
 	public MapTuple[] mapPositions = {new MapTuple(63.430300, 10.377515) , new MapTuple(63.4304808, 10.394216), 
 			new MapTuple(63.433180 , 10.394216), new MapTuple(63.428916, 10.3923114), new MapTuple(63.4348329, 10.4129671), 
@@ -30,6 +30,7 @@ public class TaxiClient extends Block {
 	public taxiproject.user.Order Order;
 	public boolean onDuty;
 	public java.lang.String dutyTopic = "dutyEdit";
+	public com.bitreactive.library.android.maps.model.MapUpdate markerUpdate;
 	
 	
 	public TaxiClient() {
@@ -96,34 +97,19 @@ public class TaxiClient extends Block {
 	
 	//Map-operations
 	public MapUpdate markerUpdate(String taxiAlias) {
-		Marker m = null;
-		String markerID = "";
-		if (taxiAlias.equals("TaxiMSID0")) {
-			setTaxiAlias("TaxiMSID0");
-			m = Marker.createMarker(taxiAlias);
+
+		if (!isOnDuty()) { 
+			System.out.println("Marker generated for " + taxiAlias);
+			return(generateMarker(taxiAlias));
 		}
-		else if (taxiAlias.equals("TaxiMSID1")) {
-			setTaxiAlias("TaxiMSID1");
-			m = Marker.createMarker(taxiAlias);
-		}
-		else if (taxiAlias.equals("TaxiMSID2")) {
-			setTaxiAlias("TaxiMSID2");
-			m = Marker.createMarker(taxiAlias);
-		}
-		markerID = m.getId();
-		
-		if (isOnDuty()) { 
-			return(generateMarker(markerID));
-		}
-		else if (!isOnDuty()) { 
-			return deleteMarker(markerID);
+		else if (isOnDuty()) {
+			System.out.println("Marker deleted for " + taxiAlias);
+			return deleteMarker(taxiAlias);
 		}
 		else
 			System.out.println("Impossible.");
 		return null;
 	}
-	
-	
 	
 	public MapUpdate generateMarker(String markerID) {
 		MapUpdate u = new MapUpdate();
@@ -134,7 +120,10 @@ public class TaxiClient extends Block {
 			MapTuple mapPosition = mapPositions[mapPosCounter];
 			mapPosCounter++;
 			p = new Position(mapPosition.getLat() * 1e6, mapPosition.getLong() * 1e6);
-			this.taxiPos = String.format("%s,%s", mapPosition.getLat() * 1e6, mapPosition.getLong() * 1e6);
+//			taxiPos = String.format("%s,%s", mapPosition.getLat() * 1e6, mapPosition.getLong() * 1e6);
+			taxiPos = String.format("%s,%s", mapPosition.getLat(), mapPosition.getLong());
+			System.out.println(mapPosition.getLat());
+			System.out.println("TAXIPOS " + taxiPos);
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 			m.description(String.format("%s",this.taxiAlias));
 			u.addMarker(m);
@@ -142,25 +131,27 @@ public class TaxiClient extends Block {
 			
 		else if (taxiAlias.equals(taxi2)) {
 			p = new Position(63.4304808 * 1e6 , 10.394216 * 1e6); //middle of Trondheim
-			this.taxiPos = "63.4304808,10.394216";
+			taxiPos = "63.4304808,10.394216";
+			System.out.println("TAXIPOS " + taxiPos);
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 			m.description(String.format("%s",this.taxiAlias));
 			u.addMarker(m);
-			}
+		}
 		
 		else if (taxiAlias.equals(taxi3)) { 
 			p = new Position(63.433180* 1e6 , 10.394216 * 1e6);
-			this.taxiPos = "63.433180,10.394216";
+			System.out.println("taxiAlias: " + taxiAlias);
+			taxiPos = "63.433180,10.394216";
+			System.out.println("TAXIPOS " + taxiPos);
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 			m.description(String.format("%s",this.taxiAlias));
 			u.addMarker(m);
-			}
+		}
 			
-		else
-			System.out.println("Objekt ikke opprettet ordentlig");
+		else System.out.println("Objekt ikke opprettet ordentlig");
 		
 		return u;
-		}
+	}
 
 	
 	public MapUpdate deleteMarker(String markerID) {
@@ -172,9 +163,6 @@ public class TaxiClient extends Block {
 		u.addMarker(m);
 		return u;
 	}
-	
-	
-	
 	
 	public boolean isOnDuty() {
 		return onDuty;

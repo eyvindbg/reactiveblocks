@@ -116,8 +116,8 @@
       </when>
     </packagedElement>
     <packagedElement xmi:type="uml:TimeEvent" xmi:id="_b2T00M7VEeON2u40uvnSEw" name="t0">
-      <when xmi:id="_csvGgM7VEeON2u40uvnSEw" name="t0">
-        <expr xmi:type="uml:LiteralString" xmi:id="_csvGgc7VEeON2u40uvnSEw" name="t0" value="5000"/>
+      <when xmi:id="_soa8gM-YEeOzoIyPxDifeg" name="t0">
+        <expr xmi:type="uml:LiteralString" xmi:id="_sobjkM-YEeOzoIyPxDifeg" name="t0" value="1000"/>
       </when>
     </packagedElement>
     <profileApplication xmi:id="_rKsiUK6_EeOFwuT1Daq4qQ">
