@@ -16,6 +16,7 @@ public class TaxiClient extends Block {
 	public String subscription;
 	public Order order;
 	public String topic = "";
+	public String taxiPos = "";
 	
 	public MapTuple[] mapPositions = {new MapTuple(63.430300, 10.377515) , new MapTuple(63.4304808, 10.394216), 
 			new MapTuple(63.433180 , 10.394216), new MapTuple(63.428916, 10.3923114), new MapTuple(63.4348329, 10.4129671), 
@@ -56,7 +57,7 @@ public class TaxiClient extends Block {
 	
 
 	public String printObject(Order order) {
-		return "You have been assinged order #" + order.id +  ". Address: " + order.address + ". Please confirm.";
+		return "You have been assinged order #" + order.id +  ". Address: " + order.destination + ". Please confirm.";
 	}
 	
 
@@ -133,6 +134,7 @@ public class TaxiClient extends Block {
 			MapTuple mapPosition = mapPositions[mapPosCounter];
 			mapPosCounter++;
 			p = new Position(mapPosition.getLat() * 1e6, mapPosition.getLong() * 1e6);
+			this.taxiPos = String.format("%s,%s", mapPosition.getLat() * 1e6, mapPosition.getLong() * 1e6);
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 			m.description(String.format("%s",this.taxiAlias));
 			u.addMarker(m);
@@ -140,6 +142,7 @@ public class TaxiClient extends Block {
 			
 		else if (taxiAlias.equals(taxi2)) {
 			p = new Position(63.4304808 * 1e6 , 10.394216 * 1e6); //middle of Trondheim
+			this.taxiPos = "63.4304808,10.394216";
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 			m.description(String.format("%s",this.taxiAlias));
 			u.addMarker(m);
@@ -147,6 +150,7 @@ public class TaxiClient extends Block {
 		
 		else if (taxiAlias.equals(taxi3)) { 
 			p = new Position(63.433180* 1e6 , 10.394216 * 1e6);
+			this.taxiPos = "63.433180,10.394216";
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 			m.description(String.format("%s",this.taxiAlias));
 			u.addMarker(m);
@@ -182,10 +186,10 @@ public class TaxiClient extends Block {
 //		onDuty = true;
 //	}
 	
-	public String onDuty() {
+	public TaxiPosition onDuty() {
 		if (onDuty) return null;
 		onDuty = true;
-		return taxiAlias;
+		return new TaxiPosition(taxiAlias, taxiPos);
 	}
 	
 	public void offDuty() {

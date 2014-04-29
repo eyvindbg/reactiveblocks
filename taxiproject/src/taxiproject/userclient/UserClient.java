@@ -11,35 +11,19 @@ public class UserClient extends Block {
 	
 	public static Integer counter = 0;
 	public java.lang.String clientAlias;
-	public java.lang.String address = "";
 	public Order currentOrder = null;
-	public java.lang.String subscriptionTopic;
+	public String subscriptionTopic;
+	
+	public String position;
 
 	public static Integer userCounter = 0;
 	
 	
 	public UserClient() {
+		
 	}
 	
 	
-	
-//	public int getCurrentOrder() {
-//		if (currentOrder == -1) {
-//			System.out.println("No orders made yet");
-//			return 0;
-//		}
-//		System.out.println("current order is: " + currentOrder + " from " + this.clientAlias);
-//		return currentOrder;
-//	}
-//
-//	public void setCurrentOrder(int currentOrder) {
-//		this.currentOrder = currentOrder;
-//	}
-	
-//	public void resetCurrentOrder() {
-//		this.currentOrder = null;
-//	}
-
 	public static String getAlias(String alias) {
 			return alias;			
 	}
@@ -47,24 +31,18 @@ public class UserClient extends Block {
 	public static String getAlias(Order order) {
 		return order.alias;
 	}
-	
-//	public Order setOrderAddress(Order order, String address) {
-//		order.address = address;
-//		return order;
-//	}
-	
 
 	public Order createOrder(String clientAlias) {
 		Order order = new Order(clientAlias);
 		order.id = counter.toString();
-		order.address = address;
+		order.destination = destination;
 		counter ++;
-		
 		currentOrder = order;
+		
+		order.userPos = this.position;
 		
 		return order;
 	}
-	
 
 	
 	public String getTopic(Order order) {
@@ -87,7 +65,7 @@ public class UserClient extends Block {
 	public String confirmToUser(Order order) {
 		String confirmation;
 		if (order.confirmed) {
-			confirmation = order.assignedTaxi + " is on the way to your address: " + order.address + ". Your order number is: " + order.id;
+			confirmation = order.assignedTaxi + " is on the way to your address: " + order.destination + ". Your order number is: " + order.id;
 			currentOrder = order;
 		}
 		else 
@@ -112,6 +90,8 @@ public class UserClient extends Block {
 	String userAlias; //create this field
 	public final String user1 = "UserMSID0";
 	public final String user2 = "UserMSID1";
+	public java.lang.String address;
+	public java.lang.String destination;
 	
 	
 	public void setUserAlias(String userAlias) {
@@ -128,17 +108,19 @@ public class UserClient extends Block {
 		Position p;
 		Marker m;
 		
-		if (userAlias.equals(user2)) {
+		if (userAlias.equals(user1)) {
 			System.out.println(userAlias + " added to map.");
 			p = new Position(63.42291 * 1e6, 10.39428 * 1e6);
+			this.position = "63.42291,10.39428";
 			m = Marker.createMarker(userAlias).position(p).hue(Marker.HUE_ROSE);
 			m.description(String.format("%s",this.userAlias));
 			u.addMarker(m);
 		}
 			
-		else if (userAlias.equals(user1)) {
+		else if (userAlias.equals(user2)) {
 			System.out.println(userAlias + " added to map.");
 			p = new Position(63.42769 * 1e6 , 10.39657 * 1e6); 
+			this.position = "63.42769,10.39657";
 			m = Marker.createMarker(userAlias).position(p).hue(Marker.HUE_ROSE);
 			m.description(String.format("%s",this.userAlias));
 			u.addMarker(m);

@@ -1,29 +1,27 @@
 package taxiproject.taxidispatcher;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 import no.ntnu.item.arctis.runtime.Block;
-import taxiproject.taxiclient.TaxiClient;
+import no.ntnu.item.ttm4115.simulation.routeplanner.Journey;
+import taxiproject.taxiclient.TaxiPosition;
 import taxiproject.user.Order;
-import taxiproject.userclient.UserClient;
 
 public class TaxiDispatcher extends Block {
 
 	
-	public ArrayList<String> availableTaxis;
-	public ArrayList<String> busyTaxis; //skal vi heller ta TaxiClient som type? Hvordan linke?
-	public ArrayList<String> offDutyTaxis;
-	public ArrayList<String> pendingTaxis;
+	public ArrayList<TaxiPosition> availableTaxis;
+	public ArrayList<TaxiPosition> busyTaxis; //skal vi heller ta TaxiClient som type? Hvordan linke?
+	public ArrayList<TaxiPosition> offDutyTaxis;
 	public ArrayList<TaxiOrderPair> pendingOrders;
 	public taxiproject.user.Order Order;
 
 	
 	public TaxiDispatcher() {
-		availableTaxis = new ArrayList<String>();
-		busyTaxis = new ArrayList<String>();
-		offDutyTaxis = new ArrayList<String>();
-		pendingTaxis = new ArrayList<String>();
+		availableTaxis = new ArrayList<TaxiPosition>();
+		busyTaxis = new ArrayList<TaxiPosition>();
+		offDutyTaxis = new ArrayList<TaxiPosition>();
 		pendingOrders = new ArrayList<TaxiOrderPair>();
 	}
 	
@@ -31,10 +29,10 @@ public class TaxiDispatcher extends Block {
 	public String getOrderInfo(Order order) {
 		String message;
 		if (order.topic.equals("order")) {
-			message = "Order number " + order.id + " is registered from " + order.alias + " to address: " + order.address;
+			message = "Order number " + order.id + " is registered from " + order.alias + " to address: " + order.destination;
 			}
 		else if (order.topic.equals("taxiConfirmation")) {
-			message = "Order number " + order.id + " is confirmed by " + order.assignedTaxi + " to address: " + order.address + "\n";
+			message = "Order number " + order.id + " is confirmed by " + order.assignedTaxi + " to address: " + order.destination + "\n";
 		}
 		else if (order.topic.equals("cancel")) {
 			message = "Order number " + order.id + " was cancelled by user (" + order.alias + ").";
@@ -47,7 +45,7 @@ public class TaxiDispatcher extends Block {
 
 
 	public Order confirmToUser(Order order) {
-		order.topic = String.format("%s", order.alias);
+		order.topic = order.alias;
 		return order;
 	}
 
@@ -57,15 +55,15 @@ public class TaxiDispatcher extends Block {
 	
 	// Register taxis on start-up. All taxis are added as off-duty.
 	public void regTaxi(String taxiAlias) {
-		offDutyTaxis.add(taxiAlias);
+		offDutyTaxis.add(new TaxiPosition(taxiAlias));
 		System.out.println(taxiAlias + " is registered in dispatch.");
 	}
 	
 	// Book taxi
 	public void bookTaxi(Order order) { //String taxiAlias
 		for (int i = 0; i < pendingOrders.size(); i++) {
-			if (pendingOrders.get(i).getTaxiAlias().equals(order.assignedTaxi)) {
-				String taxi = pendingOrders.get(i).getTaxiAlias();
+			if (pendingOrders.get(i).getTaxiPosition().getTaxiAlias().equals(order.assignedTaxi)) {
+				TaxiPosition taxi = pendingOrders.get(i).getTaxiPosition();
 				pendingOrders.remove(i); // Taxi has confirmed, is now busy
 				busyTaxis.add(taxi);
 				System.out.println(taxi + " is now booked for order " + order.id);
@@ -76,14 +74,13 @@ public class TaxiDispatcher extends Block {
 	}
 	
 	public Order queryTaxi(Order order) {
-		String taxiAlias = "";
+		TaxiPosition taxi;
 		if (availableTaxis.size() != 0) {
-			taxiAlias = availableTaxis.remove(0); // FØRSTE OG BESTE, ENDRES SENERE
-			pendingTaxis.add(taxiAlias);
-			order.assignedTaxi = taxiAlias;
-			order.topic = taxiAlias;
+			taxi = availableTaxis.remove(0); // FØRSTE OG BESTE, ENDRES SENERE
+			order.assignedTaxi = taxi.getTaxiAlias();
+			order.topic = taxi.getTaxiAlias();
 			System.out.println("Order " + order.id + " has been queried to " + order.assignedTaxi);
-			TaxiOrderPair pendingOrder = new TaxiOrderPair(order.id, taxiAlias);
+			TaxiOrderPair pendingOrder = new TaxiOrderPair(order.id, taxi);
 			pendingOrders.add(pendingOrder);
 			
 		} else {
@@ -94,21 +91,21 @@ public class TaxiDispatcher extends Block {
 	}
 	
 	// Allow taxi to be on duty or off duty. 
-	public void dutyEdit(String taxiAlias) {
-		System.out.println("Duty change for " + taxiAlias + " registered in dispatch.");
-		for (int i = 0; i < offDutyTaxis.size(); i++) {
-			if (offDutyTaxis.get(i).equals(taxiAlias)) {
-				String taxi = offDutyTaxis.remove(i);
+	public void dutyEdit(TaxiPosition taxi) {
+		System.out.println("Duty change for " + taxi.getTaxiAlias() + " registered in dispatch.");
+		for (int i = 0; i < offDutyTaxis.size(); i++) { // Taxi is off duty
+			if (offDutyTaxis.get(i).getTaxiAlias().equals(taxi.getTaxiAlias())) {
+				offDutyTaxis.remove(i);
 				availableTaxis.add(taxi);
-				System.out.println(taxiAlias + " is now AVAILABLE.");
+				System.out.println(taxi.getTaxiAlias() + " is now AVAILABLE.");
 				return;
 			}
 		}
-		for (int i = 0; i < availableTaxis.size(); i++) {
-			if (availableTaxis.get(i).equals(taxiAlias)) {
-				String taxi = availableTaxis.remove(i);
-				offDutyTaxis.add(taxi);
-				System.out.println(taxiAlias + "is now OFF DUTY.");
+		for (int i = 0; i < availableTaxis.size(); i++) { // Taxi is on duty
+			if (availableTaxis.get(i).getTaxiAlias().equals(taxi.getTaxiAlias())) {
+				offDutyTaxis.add(availableTaxis.get(i));
+				availableTaxis.remove(i);
+				System.out.println(taxi.getTaxiAlias() + "is now OFF DUTY.");
 				return;
 			}
 		}
@@ -136,11 +133,11 @@ public class TaxiDispatcher extends Block {
 			System.out.println("ModifyTopic NULL");
 			System.out.println(order.toString());
 			for (int i = 0; i < pendingOrders.size(); i++) { // If the order has not yet been confirmed by the Taxi
-				System.out.println(pendingOrders.get(i).getTaxiAlias());
+				System.out.println(pendingOrders.get(i).getTaxiPosition().getTaxiAlias());
 				if (order.id.equals(pendingOrders.get(i).getOrderId())) {
-					order.topic = pendingOrders.get(i).getTaxiAlias();
-					System.out.println("topic: " + pendingOrders.get(i).getTaxiAlias());
-					String taxi = pendingOrders.get(i).getTaxiAlias();
+					order.topic = pendingOrders.get(i).getTaxiPosition().getTaxiAlias();
+					System.out.println("topic: " + pendingOrders.get(i).getTaxiPosition().getTaxiAlias());
+					TaxiPosition taxi = pendingOrders.get(i).getTaxiPosition();
 					pendingOrders.remove(i); // Release taxi
 					availableTaxis.add(taxi);
 				}
@@ -149,13 +146,55 @@ public class TaxiDispatcher extends Block {
 			System.out.println("ModifyTopic = " + order.assignedTaxi);
 			order.topic = order.assignedTaxi; 
 			int taxiIndex = busyTaxis.indexOf(order.assignedTaxi); // Find taxi
-			String taxi = busyTaxis.remove(taxiIndex); // Remove taxi from busy taxi list
+			TaxiPosition taxi = busyTaxis.remove(taxiIndex); // Remove taxi from busy taxi list
 			availableTaxis.add(taxi); // Taxi is again available
 		}
 		return order;
 	}
 
+//	public String getClosestTaxi(Order order) throws JSONException {
+//		String userPos = order.userPos;
+//		TaxiPosition taxi;
+//		Integer shortestDist;
+//		for (int i = 0; i < availableTaxis.size(); i++) {  //Get taxi with shortest distance to user
+//			taxi = availableTaxis.get(i);
+//			String taxiPos = taxi.getTaxiPos();
+//			
+//			String json = String.format("http://maps.googleapis.com/maps/api/directions/json?origin=%s&destination=%s&sensor=true", userPos, taxiPos);
+//			JSONObject jsonObject = new JSONObject(json);
+//			
+//			jsonObject.get(key)
+//			// if json.distance.value < 
+//		}
+//		
+//		
+//		return "blabla";
+//	}
 
+	public Journey createJourney(Order order) {
+		String taxiPos = "";
+		for (int i = 0; i < busyTaxis.size(); i++) {
+			if (busyTaxis.get(i).getTaxiAlias().equals(order.assignedTaxi)) {
+				taxiPos = busyTaxis.get(i).getTaxiPos();
+				System.out.println(toString());
+				System.out.println("the position of taxi is: " + busyTaxis.get(i).getTaxiPos());
+				break;
+			}
+		}
+		
+//		return new Journey(order.userPos, order.destination, order.assignedTaxi); //from user to destination
+		return new Journey(taxiPos,order.userPos,order.assignedTaxi); //from taxi to user
+//		return null;
+	}
+
+	@Override
+	public String toString() {
+		return "TaxiDispatcher [availableTaxis=" + availableTaxis
+				+ ", busyTaxis=" + busyTaxis + ", offDutyTaxis=" + offDutyTaxis
+				+ ", pendingOrders=" + pendingOrders + "]";
+	}
+
+	
 	
 
 	

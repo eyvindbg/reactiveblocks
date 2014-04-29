@@ -5,13 +5,13 @@ import taxiproject.user.Order;
 
 public class TaxiCentral extends Block {
 
-	public java.lang.String subscriptionTopic = "order,taxi,taxiConfirmation,taxiCreate,dutyEdit,cancel";
+	public java.lang.String subscriptionTopic = "order,taxi,taxiConfirmation,taxiCreate,dutyEdit,cancel,taxiPosition";
 	public java.lang.String publishTopic;
 	public java.lang.String messageData;
 
 	
 	public TaxiCentral(){
-		this.subscriptionTopic = "order,taxi,taxiConfirmation,taxiCreate,dutyEdit,cancel";
+		this.subscriptionTopic = "order,taxi,taxiConfirmation,taxiCreate,dutyEdit,cancel,taxiPosition";
 		
 	}
 
@@ -51,15 +51,15 @@ public class TaxiCentral extends Block {
 //	}
 
 	public boolean isOrder(String serialized) {
-		System.out.println("serialized: " + serialized);
-		if (serialized.substring(0, 4).equals("Taxi")) return false;
+		if (serialized.contains("topic")) return true;
 //		if (serialized.equals("TaxiMSID0") || serialized.equals("TaxiMSID1") || serialized.equals("TaxiMSID2")) return false;
-		return true;
+		return false;
 	}
 
 	public boolean isDutyEdit(String topic) {
+		System.out.println("topic is : " + topic);
 		if (topic.equals("dutyEdit")) {
-			System.out.println("Duty edit: " + messageData);
+			System.out.println("TAXI CENTRAL RECEIVED Duty edit: " + messageData);
 			return true;
 		}
 		return false;

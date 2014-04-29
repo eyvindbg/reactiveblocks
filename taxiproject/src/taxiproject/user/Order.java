@@ -3,14 +3,14 @@ package taxiproject.user;
 public class Order {
 	
 	public String id = "";
-	public String address = "";
 	public String alias = "";
 	public String taxiType = "";
 	public String topic = "";
 	public String assignedTaxi = null;
 	public boolean confirmed = false;
 	public boolean delete = false;
-	
+	public String userPos = "";
+	public String destination = "";
 	
 	public Order (String alias) {
 		this.alias = alias;
@@ -31,11 +31,11 @@ public class Order {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getAddress() {
-		return address;
+	public String getDestination() {
+		return destination;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setDestination(String destination) {
+		this.destination = destination;
 	}
 	public String getTaxiType() {
 		return taxiType;
@@ -49,7 +49,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", address=" + address + ", alias=" + alias
+		return "Order [id=" + id + ", user Position=" + userPos +", destination=" + destination + ", alias=" + alias
 				+ ", assignedTaxi=" + assignedTaxi + ", taxiType=" + taxiType + ", topic=" + topic + ", delete="
 				+ delete + "]";
 	}

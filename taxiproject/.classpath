@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="no.ntnu.item.arctis.ARCTIS_RUNTIME_CONTAINER"/>
 	<classpathentry kind="con" path="no.ntnu.item.arctis.ARCTIS_DEPENDENCIES_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/lars/Desktop/java-json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

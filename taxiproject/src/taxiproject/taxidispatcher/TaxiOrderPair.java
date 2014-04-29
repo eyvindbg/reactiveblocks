@@ -1,21 +1,23 @@
 package taxiproject.taxidispatcher;
 
+import taxiproject.taxiclient.TaxiPosition;
+
 public class TaxiOrderPair {
 	public final String orderId;
 
-	public final String taxiAlias;
+	public final TaxiPosition taxiPosition;
 	
-	public TaxiOrderPair(String orderId, String taxiAlias) {
+	public TaxiOrderPair(String orderId, TaxiPosition taxiPosition) {
 		this.orderId = orderId;
-		this.taxiAlias = taxiAlias;
+		this.taxiPosition = taxiPosition;
 	}
 	
 	public String getOrderId() {
 		return orderId;
 	}
 	
-	public String getTaxiAlias() {
-		return taxiAlias;
+	public TaxiPosition getTaxiPosition() {
+		return taxiPosition;
 	}
 	
 	
