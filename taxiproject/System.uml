@@ -9,7 +9,7 @@
         <edge xmi:type="uml:ControlFlow" xmi:id="_zs4T4K7BEeOFwuT1Daq4qQ" name="e4" inPartition="_rcW6EK6_EeOFwuT1Daq4qQ" source="_rZWXcK7BEeOFwuT1Daq4qQ" target="_s6mu0K7BEeOFwuT1Daq4qQ"/>
         <edge xmi:type="uml:ControlFlow" xmi:id="_ah3VgK-IEeOaF8Zzu-pMNg" name="e6" inPartition="_rcW6EK6_EeOFwuT1Daq4qQ" source="_rZWXcK7BEeOFwuT1Daq4qQ" target="_WlCTkK-IEeOaF8Zzu-pMNg"/>
         <edge xmi:type="uml:ControlFlow" xmi:id="_eWItQM7VEeON2u40uvnSEw" name="e2" inPartition="_rcW6EK6_EeOFwuT1Daq4qQ" source="_b2T00c7VEeON2u40uvnSEw" target="_tfgLoK7BEeOFwuT1Daq4qQ"/>
-        <variable xmi:id="_iQZTkLTPEeOmQsGt47u0-A" name="g" type="_POOoc7RGEeOCKLIb2izLKw"/>
+        <variable xmi:id="_HhCbUNB2EeOTYNsn3SduTw" name="ToDo" type="_POOoc7RGEeOCKLIb2izLKw"/>
         <group xmi:type="uml:ActivityPartition" xmi:id="_rcW6EK6_EeOFwuT1Daq4qQ" name="component" node="_ca20UK7AEeOFwuT1Daq4qQ _czxDkK7AEeOFwuT1Daq4qQ _qzZxwK7BEeOFwuT1Daq4qQ _rZWXcK7BEeOFwuT1Daq4qQ _s6mu0K7BEeOFwuT1Daq4qQ _s6okAK7BEeOFwuT1Daq4qQ _tfgLoK7BEeOFwuT1Daq4qQ _Wj0yoK-IEeOaF8Zzu-pMNg _WlCTkK-IEeOaF8Zzu-pMNg _WlC6oK-IEeOaF8Zzu-pMNg _3cxfsLZZEeObY6T6aRa-ew _b2T00c7VEeON2u40uvnSEw" edge="_yO_ZkK7BEeOFwuT1Daq4qQ _yb7pYK7BEeOFwuT1Daq4qQ _zs4T4K7BEeOFwuT1Daq4qQ _ah3VgK-IEeOaF8Zzu-pMNg _eWItQM7VEeON2u40uvnSEw"/>
         <node xmi:type="uml:CallBehaviorAction" xmi:id="_ca20UK7AEeOFwuT1Daq4qQ" name="c0" inPartition="_rcW6EK6_EeOFwuT1Daq4qQ" behavior="_vYPg0q6_EeOFwuT1Daq4qQ">
           <argument xmi:id="_s6mu0K7BEeOFwuT1Daq4qQ" name="init" inPartition="_rcW6EK6_EeOFwuT1Daq4qQ" incoming="_zs4T4K7BEeOFwuT1Daq4qQ"/>
@@ -156,9 +156,9 @@
   <graphics:Shape xmi:id="_WlEIwK-IEeOaF8Zzu-pMNg" x="117" y="52" base_Element="_WlC6oK-IEeOaF8Zzu-pMNg" orientation="east"/>
   <graphics:Shape xmi:id="_WlEIwa-IEeOaF8Zzu-pMNg" x="22" y="51" base_Element="_WlCTkK-IEeOaF8Zzu-pMNg" orientation="west"/>
   <graphics:Shape xmi:id="_WlEv0K-IEeOaF8Zzu-pMNg" x="270" y="252" width="198" height="108" aux1="single" base_Element="_Wj0yoK-IEeOaF8Zzu-pMNg"/>
-  <arctis:location xmi:id="_iRYyELTPEeOmQsGt47u0-A" base_Variable="_iQZTkLTPEeOmQsGt47u0-A" partition="_rcW6EK6_EeOFwuT1Daq4qQ"/>
-  <graphics:Shape xmi:id="_iRYyEbTPEeOmQsGt47u0-A" x="761" y="214" base_Element="_iQZTkLTPEeOmQsGt47u0-A"/>
   <graphics:Shape xmi:id="_3-eekLZZEeObY6T6aRa-ew" x="102" y="45" base_Element="_3cxfsLZZEeObY6T6aRa-ew" orientation="east"/>
   <arctis:event xmi:id="_-axzobZZEeObY6T6aRa-ew" base_Transition="_-axzoLZZEeObY6T6aRa-ew" effects="_3cw4obZZEeObY6T6aRa-ew"/>
   <graphics:Shape xmi:id="_b4gNMM7VEeON2u40uvnSEw" x="207" y="423" width="37" height="37" base_Element="_b2T00c7VEeON2u40uvnSEw"/>
+  <arctis:location xmi:id="_HiGLQNB2EeOTYNsn3SduTw" base_Variable="_HhCbUNB2EeOTYNsn3SduTw" partition="_rcW6EK6_EeOFwuT1Daq4qQ"/>
+  <graphics:Shape xmi:id="_HiGyUNB2EeOTYNsn3SduTw" x="828" y="162" base_Element="_HhCbUNB2EeOTYNsn3SduTw"/>
 </xmi:XMI>

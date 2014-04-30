@@ -19,7 +19,7 @@ public class TaxiClientFix extends Block {
 	public String taxiPos;
 	public boolean onDutyClicked;
 	public boolean offDutyClicked;
-	public MapTuple[] mapPositions = {new MapTuple(63.430300, 10.377515) , new MapTuple(63.4304808, 10.394216), 
+	public MapTuple[] mapPositions = {new MapTuple(63.418289, 10.409144), new MapTuple(63.430300, 10.377515) , new MapTuple(63.4304808, 10.394216), 
 			new MapTuple(63.433180 , 10.394216), new MapTuple(63.428916, 10.3923114), new MapTuple(63.4348329, 10.4129671), 
 			new MapTuple(63.4284735, 10.4008918), new MapTuple(63.4333946, 10.3990679)};
 	
@@ -58,8 +58,9 @@ public class TaxiClientFix extends Block {
 		System.out.println(error);
 	}
 	
-	public void print(){
-		System.out.println(onDuty);
+	public String print(String json){
+		System.out.println("JEG ER JO PÅ ANDRE SIDEN OGSÅ!");
+		return json;
 	}
 	
 
@@ -122,13 +123,12 @@ public class TaxiClientFix extends Block {
 	
 	public MapUpdate generateMarker(String markerID) {
 		MapUpdate u = new MapUpdate();
-		Position p;
 		Marker m;
 		MapTuple mapPosition = mapPositions[mapPosCounter];
+		Position p = new Position(mapPosition.getLat() * 1e6, mapPosition.getLong() * 1e6);
+		mapPosCounter++;
 		
 		if (taxiAlias.equals(taxi1)) {
-			mapPosCounter++;
-			p = new Position(mapPosition.getLat() * 1e6, mapPosition.getLong() * 1e6);
 			taxiPos = String.format("%s,%s", mapPosition.getLat(), mapPosition.getLong());
 			System.out.println(mapPosition.getLat());
 			System.out.println("TAXIPOS " + taxiPos);
@@ -138,10 +138,9 @@ public class TaxiClientFix extends Block {
 		}
 			
 		else if (taxiAlias.equals(taxi2)) {
-			mapPosCounter++;
-			p = new Position(mapPosition.getLat() * 1e6, mapPosition.getLong() * 1e6);
 //			p = new Position(63.4304808 * 1e6 , 10.394216 * 1e6); //middle of Trondheim
-			taxiPos = "63.4304808,10.394216";
+//			taxiPos = "63.4304808,10.394216";
+			taxiPos = String.format("%s,%s", mapPosition.getLat(), mapPosition.getLong());
 			System.out.println("TAXIPOS " + taxiPos);
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 			m.description(String.format("%s",this.taxiAlias));
@@ -149,11 +148,9 @@ public class TaxiClientFix extends Block {
 		}
 		
 		else if (taxiAlias.equals(taxi3)) {
-			mapPosCounter++; 
-			p = new Position(mapPosition.getLat() * 1e6, mapPosition.getLong() * 1e6);
 //			p = new Position(63.42500* 1e6 , 10.36585 * 1e6);
-			System.out.println("taxiAlias: " + taxiAlias);
-			taxiPos = "63.433180,10.394216";
+//			taxiPos = "63.433180,10.394216";
+			taxiPos = String.format("%s,%s", mapPosition.getLat(), mapPosition.getLong());
 			System.out.println("TAXIPOS " + taxiPos);
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 			m.description(String.format("%s",this.taxiAlias));
@@ -181,11 +178,6 @@ public class TaxiClientFix extends Block {
 		return onDuty;
 	}
 
-//	public void onDuty(){
-//		if (onDuty)
-//			return;
-//		onDuty = true;
-//	}
 	
 	public TaxiPosition getTaxiPos() {
 		return new TaxiPosition(taxiAlias, taxiPos);
@@ -238,14 +230,22 @@ public class TaxiClientFix extends Block {
 		alreadyConfirmed = true;
 		return true;
 	}
-	
-	
 
-//	public void printName(Order order) {
-//		System.out.println(order.assignedTaxi);
-//	}
+	public void releaseConfirm(Order order) {
+			activeOrder = false;
+			alreadyConfirmed = false;
+	}
+
 	
-		
+	public boolean isCompleted(Order order) {
+		return order.completed;
+	}
+
+	public void handleDecline() {
+		if (!activeOrder)
+	}
+	
+	
 
 	
 	

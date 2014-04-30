@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import no.ntnu.item.arctis.runtime.Block;
 import no.ntnu.item.ttm4115.simulation.routeplanner.Journey;
 import sun.misc.IOUtils;
-import taxiproject.taxiclient.TaxiPosition;
+import taxiproject.taxiclientfix.TaxiPosition;
 import taxiproject.user.Order;
 
 import com.bitreactive.library.android.maps.model.MapUpdate;
@@ -192,15 +192,17 @@ public class TaxiDispatcher extends Block {
 			}
 		}
 		
-//		return new Journey(order.userPos, order.destination, order.assignedTaxi); //from user to destination
+		System.out.println("CREATE PICKUP USERPOS: " + order.userPos);
 		return new Journey(taxiPos,order.userPos,order.assignedTaxi); //from taxi to user
-//		return null;
 	}
 
+	
 	public Journey createJourney(Order order) {
-		System.out.println("STARTING JOURNEY");
+		System.out.println("\n\n\nSTARTING JOURNEY");
 		System.out.println("order.alias = " + order.alias);
 		finished = true;
+
+		System.out.println("CREATE JOURNEY USERPOS: " + order.userPos);
 		return new Journey(order.userPos, order.destination, order.assignedTaxi); //from user to destination
 	}
 	
@@ -231,20 +233,36 @@ public class TaxiDispatcher extends Block {
 
 	public Order orderFinished(Order order) {
 		order.completed = true;
-		order.topic = String.format("%s,%s", order.alias, order.assignedTaxi);
 		return order;
 	}
+	
+	
+	public String getAddress(Order order) {
+		String address = order.destination;
+		address = address.replace(" ", "%20");
+		return "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=true";
+	}
+	
+	public void printString(String message) {
+		System.out.println("String printed is: " +message);
+		getCoordinates(message);
+	}
 
-	public MapUpdate endPos(Order order, String json) {
+	
+	
+	public MapUpdate endPos(Order order) {
 		MapUpdate mu;
 		
 		Position p;
 		
-		String[] coordinates = getCoordinates(json);
+//		String[] coordinates = getCoordinates(json);
+//		
+//		System.out.println("latitude: " + coordinates[0]);
+//		System.out.println("longitude: " + coordinates[1]);
+//		
 		
-		System.out.println("latitude: " + coordinates[0]);
-		System.out.println("longitude: " + coordinates[1]);
-		
+		String[] coordinates = order.destination.split(",");
+
 		double latitude = Double.parseDouble(coordinates[0]);
 		double longitude = Double.parseDouble(coordinates[1]);
 		
@@ -254,7 +272,7 @@ public class TaxiDispatcher extends Block {
 		Marker taxi = Marker.createMarker(order.assignedTaxi).position(p).hue(Marker.HUE_GREEN);
 		
 		mu = new MapUpdate();
-//		mu.addMarker(user);
+		mu.addMarker(user);
 		mu.addMarker(taxi);
 		
 		return mu;
@@ -283,84 +301,47 @@ public class TaxiDispatcher extends Block {
 	
 	
 	
-	
-
-	public String getAddress(Order order) {
-		String address = order.destination;
-		address = address.replace(" ", "%20");
-		return "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=true";
+	public Order extractLonLat(Order order, String json) {
+		String[] coordinates = getCoordinates(json);
+		
+		System.out.println("latitude: " + coordinates[0]);
+		System.out.println("longitude: " + coordinates[1]);
+		
+		order.destination = coordinates[0] + "," + coordinates[1];
+		
+		return order;
 	}
 
-	public void printString(String message) {
-		System.out.println("String printed is: " +message);
-		getCoordinates(message);
+	public Order releaseTaxi(Order order) {
+		int index = 0;
+		
+		for (int i = 0; i < busyTaxis.size(); i++) {
+			if (busyTaxis.get(i).getTaxiAlias().equals(order.assignedTaxi)) {
+				index = i;
+				break;
+			}
+			else
+				System.out.println("RELEASETAXI: TAXI NOT FOUND!");
+		}
+		TaxiPosition taxi = busyTaxis.get(index);
+		System.out.println("RELEASING TAXI: " + taxi.getTaxiAlias() + ". NOW AVAILABLE!");
+		taxi.setTaxiPos(order.destination);
+		availableTaxis.add(taxi);
+		busyTaxis.remove(index);
+		
+		System.out.println(order.topic);
+		
+		order.topic = taxi.getTaxiAlias();
+		return order;
+	}
+
+	
+	public Order releaseUser(Order order) {
+		order.topic = order.alias;
+		return order;
 	}
 
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	
-//	/*Geocode request URL. Here see we are passing "json" it means we will get the output in JSON format.
-//	* You can also pass "xml" instead of "json" for XML output.
-//	* For XML output URL will be "http://maps.googleapis.com/maps/api/geocode/xml"; 
-//	*/
-//
-//	private static final String URL = "http://maps.googleapis.com/maps/api/geocode/json"; 
-//
-//	/*
-//	* Here the fullAddress String is in format like "address,city,state,zipcode". Here address means "street number + route" .
-//	*
-//	*/
-//	
-//	public String getJSONByGoogle(String fullAddress) {
-//
-//		/*
-//		* Create an java.net.URL object by passing the request URL in constructor. 
-//		* Here you can see I am converting the fullAddress String in UTF-8 format. 
-//		* You will get Exception if you don't convert your address in UTF-8 format. Perhaps google loves UTF-8 format. :)
-//		* In parameter we also need to pass "sensor" parameter.
-//		* sensor (required parameter) Ñ Indicates whether or not the geocoding request comes from a device with a location sensor. This value must be either true or false.
-//		*/
-//		URL url = new URL(URL + "?address=" + URLEncoder.encode(fullAddress, "UTF-8")+ "&sensor=false");
-//
-//		// Open the Connection 
-//		URLConnection conn = url.openConnection();
-//
-//		//This is Simple a byte array output stream that we will use to keep the output data from google. 
-//		ByteArrayOutputStream output = new ByteArrayOutputStream(1024);
-//
-//		// copying the output data from Google which will be either in JSON or XML depending on your request URL that in which format you have requested.
-//		IOUtils.copy(conn.getInputStream(), output);
-//
-//		//close the byte array output stream now.
-//		output.close();
-//
-//		return output.toString(); // This returned String is JSON string from which you can retrieve all key value pair and can save it in POJO.
-//		}
-//		}
-//	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

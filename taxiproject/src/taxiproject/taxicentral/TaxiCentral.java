@@ -34,6 +34,7 @@ public class TaxiCentral extends Block {
 //	}
 
 	public String getOrderTopic(Order order) {
+		System.out.println("TAXICENTRAL" + order.topic);
 		return order.topic;
 	}
 

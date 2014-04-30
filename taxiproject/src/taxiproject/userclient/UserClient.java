@@ -14,7 +14,7 @@ public class UserClient extends Block {
 	public Order currentOrder = null;
 	public String subscriptionTopic;
 	
-	public String position;
+	public String userPos;
 
 	public static Integer userCounter = 0;
 	
@@ -39,7 +39,7 @@ public class UserClient extends Block {
 		counter ++;
 		currentOrder = order;
 		
-		order.userPos = this.position;
+		order.userPos = this.userPos;
 		
 		return order;
 	}
@@ -50,6 +50,16 @@ public class UserClient extends Block {
 //		System.out.println("'"+order.topic + "'" + " is sent into MQTT on user side from " + order.alias);
 		return order.topic;
 	}
+
+	public String getUserPos() {
+		return userPos;
+	}
+
+
+	public void setUserPos(String userPos) {
+		this.userPos = userPos;
+	}
+
 
 	public void confirmConnection() {
 		System.out.println("connected MQTT in User Client, user client: " + this.clientAlias);
@@ -111,7 +121,7 @@ public class UserClient extends Block {
 		if (userAlias.equals(user1)) {
 			System.out.println(userAlias + " added to map.");
 			p = new Position(63.42291 * 1e6, 10.39428 * 1e6);
-			this.position = "63.42291,10.39428";
+			this.userPos = "63.42291,10.39428";
 			m = Marker.createMarker(userAlias).position(p).hue(Marker.HUE_ROSE);
 			m.description(String.format("%s",this.userAlias));
 			u.addMarker(m);
@@ -120,7 +130,7 @@ public class UserClient extends Block {
 		else if (userAlias.equals(user2)) {
 			System.out.println(userAlias + " added to map.");
 			p = new Position(63.44888 * 1e6 , 10.44381 * 1e6); 
-			this.position = "63.44888,10.44381";
+			this.userPos = "63.44888,10.44381";
 			m = Marker.createMarker(userAlias).position(p).hue(Marker.HUE_ROSE);
 			m.description(String.format("%s",this.userAlias));
 			u.addMarker(m);
@@ -136,5 +146,18 @@ public class UserClient extends Block {
 		return order.confirmed;
 	}
 
+
+	public boolean isCompleted(Order order) {
+		return order.completed;
+	}
+
+	
+	
+	public void updateUserPos(Order order) {
+		this.setUserPos(order.destination);
+	}
+	
+	
+	
 	
 }

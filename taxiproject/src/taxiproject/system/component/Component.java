@@ -4,7 +4,7 @@ import no.ntnu.item.arctis.runtime.Block;
 
 public class Component extends Block {
 
-	public java.lang.String g;
+	public java.lang.String ToDo;
 
 
 	/*
@@ -15,8 +15,6 @@ public class Component extends Block {
 	Hvis taxi sier nei, må dispatch finne en ny taxi
 	
 	Implementere kø hvis ingen tilgjengelige taxier
-	
-	Når taxien har kjørt brukeren til ønsket sted må både brukerens og taxiens posisjon oppdateres
 	
 	Lage systemblokker av alt
 	
@@ -31,9 +29,6 @@ public class Component extends Block {
 	
 	Hvis bestilling lages når ingen tilgjengelige taxier (henger sammen med kø over)
 	
-	Onduty og offduty-problemer. Funker på kartet, men ikke i koden.
-
-	systemet krasjer hvis man trykker onduty to ganger
 	
 	
 	

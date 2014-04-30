@@ -1,6 +1,6 @@
 package taxiproject.taxidispatcher;
 
-import taxiproject.taxiclient.TaxiPosition;
+import taxiproject.taxiclientfix.TaxiPosition;
 
 public class TaxiOrderPair {
 	public final String orderId;
