@@ -11,6 +11,7 @@ public class Order {
 	public boolean delete = false;
 	public String userPos = "";
 	public String destination = "";
+	public boolean completed;
 	
 	public Order (String alias) {
 		this.alias = alias;

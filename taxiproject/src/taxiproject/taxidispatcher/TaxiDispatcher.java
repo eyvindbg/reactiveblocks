@@ -1,14 +1,20 @@
 package taxiproject.taxidispatcher;
 
+import java.io.ByteArrayOutputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
-
-import com.bitreactive.library.android.maps.model.MapUpdate;
-import com.bitreactive.library.android.maps.model.Marker;
 
 import no.ntnu.item.arctis.runtime.Block;
 import no.ntnu.item.ttm4115.simulation.routeplanner.Journey;
+import sun.misc.IOUtils;
 import taxiproject.taxiclient.TaxiPosition;
 import taxiproject.user.Order;
+
+import com.bitreactive.library.android.maps.model.MapUpdate;
+import com.bitreactive.library.android.maps.model.Marker;
+import com.bitreactive.library.android.maps.model.Position;
 
 public class TaxiDispatcher extends Block {
 
@@ -223,7 +229,141 @@ public class TaxiDispatcher extends Block {
 		return finished;
 	}
 
+	public Order orderFinished(Order order) {
+		order.completed = true;
+		order.topic = String.format("%s,%s", order.alias, order.assignedTaxi);
+		return order;
+	}
 
+	public MapUpdate endPos(Order order, String json) {
+		MapUpdate mu;
+		
+		Position p;
+		
+		String[] coordinates = getCoordinates(json);
+		
+		System.out.println("latitude: " + coordinates[0]);
+		System.out.println("longitude: " + coordinates[1]);
+		
+		double latitude = Double.parseDouble(coordinates[0]);
+		double longitude = Double.parseDouble(coordinates[1]);
+		
+		p = new Position(latitude * 1e6, longitude * 1e6);
+		
+		Marker user = Marker.createMarker(order.alias).position(p).hue(Marker.HUE_ROSE);
+		Marker taxi = Marker.createMarker(order.assignedTaxi).position(p).hue(Marker.HUE_GREEN);
+		
+		mu = new MapUpdate();
+//		mu.addMarker(user);
+		mu.addMarker(taxi);
+		
+		return mu;
+		
+	}
+	
+	
+	public String[] getCoordinates(String json) {
+		
+		String[] coordinates = new String[2];
+		
+		int index = json.indexOf("location");
+		
+		
+		String latitude = json.substring(index+37, index+47);
+		String longitude = json.substring(index+72, index+82);
+		System.out.println("latitude: " + latitude);
+		System.out.println("longitude: " + longitude);
+		
+		coordinates[0] = latitude;
+		coordinates[1] = longitude;
+		
+		
+		return coordinates;
+	}
+	
+	
+	
+	
+
+	public String getAddress(Order order) {
+		String address = order.destination;
+		address = address.replace(" ", "%20");
+		return "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=true";
+	}
+
+	public void printString(String message) {
+		System.out.println("String printed is: " +message);
+		getCoordinates(message);
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	
+//	/*Geocode request URL. Here see we are passing "json" it means we will get the output in JSON format.
+//	* You can also pass "xml" instead of "json" for XML output.
+//	* For XML output URL will be "http://maps.googleapis.com/maps/api/geocode/xml"; 
+//	*/
+//
+//	private static final String URL = "http://maps.googleapis.com/maps/api/geocode/json"; 
+//
+//	/*
+//	* Here the fullAddress String is in format like "address,city,state,zipcode". Here address means "street number + route" .
+//	*
+//	*/
+//	
+//	public String getJSONByGoogle(String fullAddress) {
+//
+//		/*
+//		* Create an java.net.URL object by passing the request URL in constructor. 
+//		* Here you can see I am converting the fullAddress String in UTF-8 format. 
+//		* You will get Exception if you don't convert your address in UTF-8 format. Perhaps google loves UTF-8 format. :)
+//		* In parameter we also need to pass "sensor" parameter.
+//		* sensor (required parameter) Ñ Indicates whether or not the geocoding request comes from a device with a location sensor. This value must be either true or false.
+//		*/
+//		URL url = new URL(URL + "?address=" + URLEncoder.encode(fullAddress, "UTF-8")+ "&sensor=false");
+//
+//		// Open the Connection 
+//		URLConnection conn = url.openConnection();
+//
+//		//This is Simple a byte array output stream that we will use to keep the output data from google. 
+//		ByteArrayOutputStream output = new ByteArrayOutputStream(1024);
+//
+//		// copying the output data from Google which will be either in JSON or XML depending on your request URL that in which format you have requested.
+//		IOUtils.copy(conn.getInputStream(), output);
+//
+//		//close the byte array output stream now.
+//		output.close();
+//
+//		return output.toString(); // This returned String is JSON string from which you can retrieve all key value pair and can save it in POJO.
+//		}
+//		}
+//	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

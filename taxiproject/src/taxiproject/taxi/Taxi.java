@@ -30,10 +30,10 @@ public class Taxi extends Block {
 		MapUpdate u = new MapUpdate();
 		
 		Position p1 = new Position(63.430480 * 1e6 , 10.392216 * 1e6);
-		Marker marker = Marker.createMarker("Map Origin").position(p1).hue(Marker.HUE_ORANGE);
+		Marker marker = Marker.createMarker("Map Origin").position(p1).hue(Marker.HUE_AZURE);
 		
 		u.setCenter(p1);
-		u.setZoom(13);
+		u.setZoom(12);
 		
 		u.addMarker(marker);
 		return u;

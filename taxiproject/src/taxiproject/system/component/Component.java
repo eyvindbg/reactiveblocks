@@ -16,7 +16,12 @@ public class Component extends Block {
 	
 	Implementere kø hvis ingen tilgjengelige taxier
 	
-	En taxi må først kjøre til brukeren, og deretter dit brukeren skal. Altså to journeys for hver reise
+	Når taxien har kjørt brukeren til ønsket sted må både brukerens og taxiens posisjon oppdateres
+	
+	Lage systemblokker av alt
+	
+	ordne DECLINE-knappen i taxiclient
+	
 	
 	
 	
@@ -28,6 +33,38 @@ public class Component extends Block {
 	
 	Onduty og offduty-problemer. Funker på kartet, men ikke i koden.
 
+	systemet krasjer hvis man trykker onduty to ganger
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	Kommentarer til fremføring:
+	
+
+	Dispatch oppdaterer posisjon til både bruker og taxi når taxien er fremme. Det er fordi det er dispatch som "vet" når taxien er fremme. 
+	(Styrer polylines)
+	
+	
+	
+	
+	
+	
 	
 	*/
 	

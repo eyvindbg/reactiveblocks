@@ -6,6 +6,7 @@
     <dependencies>
         <dependency name="com.bitreactive.library.genericmapui" uuid="_ufQLEJFhEeKUbpabydPWtg" version="1.1.0"/>
         <dependency name="com.bitreactive.library.gson" uuid="_bCjFUFtTEeGtaPY7WHS-jQ" version="1.2.1"/>
+        <dependency name="com.bitreactive.library.http" uuid="_Q0rnEN9oEeCpD8lO_Mt_YQ" version="1.1.0"/>
         <dependency name="no.ntnu.item.arctis.library.sessions" uuid="_ux8bAGJMEeGZ-NNKhUo_kg" version="1.5.1"/>
         <dependency name="no.ntnu.item.arctis.library.swing" uuid="_b594QBxXEeGlCbgawtGx6g" version="1.1.1"/>
         <dependency name="no.ntnu.item.ttm4115.mqtt" uuid="_3_NyQKN9EeO_erXR8oUgTA" version="1.1.0"/>

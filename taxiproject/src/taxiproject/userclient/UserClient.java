@@ -119,8 +119,8 @@ public class UserClient extends Block {
 			
 		else if (userAlias.equals(user2)) {
 			System.out.println(userAlias + " added to map.");
-			p = new Position(63.42769 * 1e6 , 10.39657 * 1e6); 
-			this.position = "63.42769,10.39657";
+			p = new Position(63.44888 * 1e6 , 10.44381 * 1e6); 
+			this.position = "63.44888,10.44381";
 			m = Marker.createMarker(userAlias).position(p).hue(Marker.HUE_ROSE);
 			m.description(String.format("%s",this.userAlias));
 			u.addMarker(m);
@@ -130,6 +130,11 @@ public class UserClient extends Block {
 		
 		return u;
 		}
+
+
+	public boolean isConfirmed(Order order) {
+		return order.confirmed;
+	}
 
 	
 }
