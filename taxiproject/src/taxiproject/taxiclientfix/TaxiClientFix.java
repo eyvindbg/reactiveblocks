@@ -27,7 +27,7 @@ public class TaxiClientFix extends Block {
 			new MapTuple(63.409781, 10.398891), // Holtermanns veg
 			new MapTuple(63.434581, 10.398412) }; // Fjordgata
 
-	public int mapPosCounter = 0;
+	public static int mapPosCounter = 0;
 
 	public final String taxi1 = "TaxiMSID0";
 	public final String taxi2 = "TaxiMSID1";
@@ -38,6 +38,7 @@ public class TaxiClientFix extends Block {
 	public com.bitreactive.library.android.maps.model.MapUpdate markerUpdate;
 	public boolean activeOrder;
 	public boolean alreadyConfirmed;
+	public java.lang.String messageData;
 
 	public TaxiClientFix() {
 		this.subscription = String.format("%s", taxiAlias);
@@ -111,7 +112,6 @@ public class TaxiClientFix extends Block {
 		if (mapPosCounter == mapPositions.length - 1)
 			mapPosCounter = 0;
 
-		// int random = math.
 
 		MapUpdate u = new MapUpdate();
 		Marker m;
@@ -119,20 +119,17 @@ public class TaxiClientFix extends Block {
 		Position p = new Position(mapPosition.getLat() * 1e6,
 				mapPosition.getLong() * 1e6);
 		mapPosCounter++;
+		System.out.println("mapposcounter: " + mapPosCounter);
 
 		if (taxiAlias.equals(taxi1)) {
 			taxiPos = String.format("%s,%s", mapPosition.getLat(),
 					mapPosition.getLong());
-//			System.out.println("TAXIPOS " + taxiPos);
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
 			m.description(String.format("%s", this.taxiAlias));
 			u.addMarker(m);
 		}
 
 		else if (taxiAlias.equals(taxi2)) {
-			// p = new Position(63.4304808 * 1e6 , 10.394216 * 1e6); //middle of
-			// Trondheim
-			// taxiPos = "63.4304808,10.394216";
 			taxiPos = String.format("%s,%s", mapPosition.getLat(),
 					mapPosition.getLong());
 //			System.out.println("TAXIPOS " + taxiPos);
@@ -142,8 +139,6 @@ public class TaxiClientFix extends Block {
 		}
 
 		else if (taxiAlias.equals(taxi3)) {
-			// p = new Position(63.42500* 1e6 , 10.36585 * 1e6);
-			// taxiPos = "63.433180,10.394216";
 			taxiPos = String.format("%s,%s", mapPosition.getLat(),
 					mapPosition.getLong());
 //			System.out.println("TAXIPOS " + taxiPos);
@@ -185,6 +180,7 @@ public class TaxiClientFix extends Block {
 	}
 
 	public boolean isCancellation(Order order) {
+		activeOrder = false;
 		return order.delete;
 	}
 
@@ -246,5 +242,26 @@ public class TaxiClientFix extends Block {
 	public String getConfirmError() {
 		return "INVALID BUTTON ACTION: CONFIRM";
 	}
+
+	public boolean isJourney(String messageData) {
+		boolean result = messageData.contains("toAddress");
+		return result;
+	}
+
+	public Order setTopicRelease(Order order) {
+		order.topic = "release";
+		return order;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

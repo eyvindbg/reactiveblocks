@@ -1,9 +1,10 @@
-package taxiproject.taxidispatcher;
+package taxiproject.taxidispatcherfix;
 
 import java.util.ArrayList;
 
 import no.ntnu.item.arctis.runtime.Block;
 import no.ntnu.item.ttm4115.simulation.routeplanner.Journey;
+import taxiproject.taxi.Taxi;
 import taxiproject.taxiclientfix.TaxiPosition;
 import taxiproject.user.Order;
 
@@ -11,19 +12,24 @@ import com.bitreactive.library.android.maps.model.MapUpdate;
 import com.bitreactive.library.android.maps.model.Marker;
 import com.bitreactive.library.android.maps.model.Position;
 
-public class TaxiDispatcher extends Block {
+public class TaxiDispatcherFix extends Block {
 
 	public ArrayList<TaxiPosition> availableTaxis;
-	public ArrayList<TaxiPosition> busyTaxis; 
+	public ArrayList<TaxiPosition> busyTaxis;
 	public ArrayList<TaxiPosition> offDutyTaxis;
 	public ArrayList<TaxiOrderPair> pendingOrders;
-	
+
 	public ArrayList<Order> orderQueue;
-	
+
 	public taxiproject.user.Order Order;
 	public boolean finished = false;
+	public int shortest = -1;
+	
+	public TaxiPosition closestTaxi;
+	public TaxiPosition currentTaxi;
+	private int index;
 
-	public TaxiDispatcher() {
+	public TaxiDispatcherFix() {
 		availableTaxis = new ArrayList<TaxiPosition>();
 		busyTaxis = new ArrayList<TaxiPosition>();
 		offDutyTaxis = new ArrayList<TaxiPosition>();
@@ -50,14 +56,14 @@ public class TaxiDispatcher extends Block {
 		return message;
 	}
 
-	
 	public Order confirmToUser(Order order) {
 		order.topic = order.alias;
 		return order;
 	}
 
 	public void printObject(Order order) {
-//		System.out.println("Order received at dispatch: " + order.toString());
+		// System.out.println("Order received at dispatch: " +
+		// order.toString());
 	}
 
 	// Register taxis on start-up. All taxis are added as off-duty.
@@ -80,18 +86,23 @@ public class TaxiDispatcher extends Block {
 				System.out.println("Taxi has not been queried for the order.");
 			}
 		}
-		for (int i = 0 ; i < orderQueue.size(); i++) {
+		for (int i = 0; i < orderQueue.size(); i++) {
 			if (order.getId().equals(orderQueue.get(i).getId())) {
 				orderQueue.remove(i);
-				System.out.println("Taxi is now booked, orderID: " + order.getId() + " and order is removed from orderQueue");
+				System.out.println("Taxi is now booked, orderID: "
+						+ order.getId()
+						+ " and order is removed from orderQueue");
 			}
 		}
 	}
 
 	public Order queryTaxi(Order order) {
 		TaxiPosition taxi;
+		
+		shortest = -1;
+		index = 0;
 		if (availableTaxis.size() != 0) {
-			taxi = availableTaxis.remove(0); // FØRSTE OG BESTE, ENDRES SENERE
+			taxi = closestTaxi;
 			order.assignedTaxi = taxi.getTaxiAlias();
 			order.topic = taxi.getTaxiAlias();
 			System.out.println("Order " + order.id + " has been queried to "
@@ -101,7 +112,8 @@ public class TaxiDispatcher extends Block {
 
 		} else {
 			System.out.println("\nNo available taxis.");
-			order.topic = "die";	// Order is still in queue (not removed until bookTaxi())
+			order.topic = "die"; // Order is still in queue (not removed until
+									// bookTaxi())
 		}
 
 		return order;
@@ -109,22 +121,26 @@ public class TaxiDispatcher extends Block {
 
 	// Allow taxi to be on duty or off duty.
 	public void dutyEdit(TaxiPosition taxi) {
-		System.out.println("Duty change for " + taxi.getTaxiAlias() + " registered in dispatch");
-		for (int i = 0; i < offDutyTaxis.size(); i++) {	// Taxi is off duty, goes on duty
+		System.out.println("Duty change for " + taxi.getTaxiAlias()
+				+ " registered in dispatch");
+		for (int i = 0; i < offDutyTaxis.size(); i++) { // Taxi is off duty,
+														// goes on duty
 			if (offDutyTaxis.get(i).getTaxiAlias().equals(taxi.getTaxiAlias())) {
 				offDutyTaxis.remove(i);
 				availableTaxis.add(taxi);
 				System.out.println(taxi.getTaxiAlias() + " is now AVAILABLE.");
-				
-				if(!orderQueue.isEmpty()) {
-					
+
+				if (!orderQueue.isEmpty()) {
+
 				}
-				
+
 				return;
 			}
 		}
-		for (int i = 0; i < availableTaxis.size(); i++) { // Taxi is on duty, goes off duty
-			if (availableTaxis.get(i).getTaxiAlias().equals(taxi.getTaxiAlias())) {
+		for (int i = 0; i < availableTaxis.size(); i++) { // Taxi is on duty,
+															// goes off duty
+			if (availableTaxis.get(i).getTaxiAlias()
+					.equals(taxi.getTaxiAlias())) {
 				offDutyTaxis.add(availableTaxis.get(i));
 				availableTaxis.remove(i);
 				System.out.println(taxi.getTaxiAlias() + "is now OFF DUTY.");
@@ -181,43 +197,25 @@ public class TaxiDispatcher extends Block {
 		return order;
 	}
 
-	// public String getClosestTaxi(Order order) throws JSONException {
-	// String userPos = order.userPos;
-	// TaxiPosition taxi;
-	// Integer shortestDist;
-	// for (int i = 0; i < availableTaxis.size(); i++) { //Get taxi with
-	// shortest distance to user
-	// taxi = availableTaxis.get(i);
-	// String taxiPos = taxi.getTaxiPos();
-	//
-	// String json =
-	// String.format("http://maps.googleapis.com/maps/api/directions/json?origin=%s&destination=%s&sensor=true",
-	// userPos, taxiPos);
-	// JSONObject jsonObject = new JSONObject(json);
-	//
-	// jsonObject.get(key)
-	// // if json.distance.value <
-	// }
-	//
-	//
-	// return "blabla";
-	// }
-
 	public Journey createPickup(Order order) {
 		finished = false;
 		String taxiPos = "";
 		for (int i = 0; i < busyTaxis.size(); i++) {
 			if (busyTaxis.get(i).getTaxiAlias().equals(order.assignedTaxi)) {
 				taxiPos = busyTaxis.get(i).getTaxiPos();
-//				System.out.println(toString());
-//				System.out.println("the position of taxi is: "
-//						+ busyTaxis.get(i).getTaxiPos());
+				// System.out.println(toString());
+				// System.out.println("the position of taxi is: "
+				// + busyTaxis.get(i).getTaxiPos());
 				break;
 			}
 		}
 
-		System.out.println("CREATE PICKUP USERPOS: " + order.userPos);
-		return new Journey(taxiPos, order.userPos, order.assignedTaxi); // from taxi to user
+		// System.out.println("CREATE PICKUP USERPOS: " + order.userPos);
+		System.out.println("\n\n\nSTARTING PICKUP");
+		return new Journey(taxiPos, order.userPos, order.assignedTaxi); // from
+																		// taxi
+																		// to
+																		// user
 	}
 
 	public Journey createJourney(Order order) {
@@ -226,7 +224,10 @@ public class TaxiDispatcher extends Block {
 		finished = true;
 
 		System.out.println("CREATE JOURNEY USERPOS: " + order.userPos);
-		return new Journey(order.userPos, order.destination, order.assignedTaxi); // from user to destination
+		return new Journey(order.userPos, order.destination, order.assignedTaxi); // from
+																					// user
+																					// to
+																					// destination
 	}
 
 	public MapUpdate deleteMarker(Order order) {
@@ -298,59 +299,7 @@ public class TaxiDispatcher extends Block {
 
 	}
 
-	// public String[] getCoordinates(String json) {
-	//
-	// String[] coordinates = new String[2];
-	//
-	// int index = json.indexOf("location");
-	//
-	//
-	// String latitude = json.substring(index+37, index+47);
-	// String longitude = json.substring(index+72, index+82);
-	// System.out.println("latitude: " + latitude);
-	// System.out.println("longitude: " + longitude);
-	//
-	// coordinates[0] = latitude;
-	// coordinates[1] = longitude;
-	//
-	//
-	// return coordinates;
-	// }
-
-	
-	//Lars
-//	public String[] getCoordinates(String json) {
-//
-//		int start = json.indexOf("location");
-//		int stop = 0;
-//		for (int i = start; i < json.length(); i++) {
-//			if (json.charAt(i) == '}') {
-//				stop = i - 13;
-//				break;
-//			}
-//		}
-//
-//		String cut = json.substring(start, stop);
-//
-//		String[] cutArray = cut.split(",");
-//
-//		int lat = cut.indexOf("lat") + 7;
-//		String latitude = cutArray[0].substring(lat);
-//		System.out.println(latitude);
-//		String longitude = cutArray[1].substring(7);
-//
-//		String[] coordinates = new String[2];
-//		coordinates[0] = latitude;
-//		coordinates[1] = longitude;
-//
-//		return coordinates;
-//
-//	}
-
-	
-	
-	
-	//Eyvind
+	// Eyvind
 	public String[] getCoordinates(String json) {
 
 		int start = json.indexOf("location");
@@ -378,14 +327,12 @@ public class TaxiDispatcher extends Block {
 		return coordinates;
 
 	}
-	
-	
-	
+
 	public Order extractLonLat(Order order, String json) {
 		String[] coordinates = getCoordinates(json);
 
-//		System.out.println("latitude: " + coordinates[0]);
-//		System.out.println("longitude: " + coordinates[1]);
+		// System.out.println("latitude: " + coordinates[0]);
+		// System.out.println("longitude: " + coordinates[1]);
 
 		order.destination = coordinates[0] + "," + coordinates[1];
 
@@ -404,11 +351,10 @@ public class TaxiDispatcher extends Block {
 		}
 		TaxiPosition taxi = busyTaxis.get(index);
 		System.out.println("RELEASING TAXI: " + taxi.getTaxiAlias()
-				+ ". NOW AVAILABLE!");
+				+ ". NOW AVAILABLE!\n\n\n");
 		taxi.setTaxiPos(order.destination);
 		availableTaxis.add(taxi);
 		busyTaxis.remove(index);
-
 
 		order.topic = taxi.getTaxiAlias();
 		return order;
@@ -422,19 +368,22 @@ public class TaxiDispatcher extends Block {
 	
 	
 	
-	
-	
-	
-	
-	//Handling queue of orders
-	
+	// Handling queue of orders
+
 	public Order addOrder(Order order) {
 		if (!orderQueue.contains(order)) {
 			orderQueue.add(order);
-			System.out.println("Order added to orderQueue. Size of queue is now: " + orderQueue.size());
+			System.out
+					.println("Order added to orderQueue. Size of queue is now: "
+							+ orderQueue.size());
 		}
 		return order;
 	}
+
+	public boolean isRelease(Order order) {
+		return order.topic.equals("release");
+	}
+
 	
 	
 	
@@ -442,4 +391,61 @@ public class TaxiDispatcher extends Block {
 	
 	
 	
+	
+	
+	
+	public int getDistance(String json) {
+		int start = json.indexOf("value");
+		int stop = 0;
+		for (int i = start; i < json.length(); i++) {
+			if (json.charAt(i) == '}') {
+				stop = i;
+				break;
+			}
+		}
+
+		String cut = json.substring(start, stop);
+		String distance = "";
+
+		for (int i = 0; i < cut.length(); i++) {
+			if (Character.isDigit(cut.charAt(i)))
+				distance += cut.charAt(i);
+		}
+
+//		System.out.println("index is: " + index + ", distance is: " +distance + ", from taxi: "+availableTaxis.get(index).taxiAlias +
+//				 "\n. The shortest distance is: " + shortest + ", which is taxi: " + closestTaxi);
+		return Integer.parseInt(distance);
+	}
+
+	
+	
+	
+	public String generateRequest(Order order) {
+		String userPos = order.userPos;
+		String taxiPos = availableTaxis.get(index).getTaxiPos();
+		currentTaxi = availableTaxis.get(index);
+		
+		System.out.println("userpos: " + userPos);
+		String result = String.format("http://maps.googleapis.com/maps/api/directions/json?origin=%s&destination=%s&sensor=true",userPos, taxiPos);
+		result = result.replace(" ", "%20");
+		return result;
+		
+	}
+
+	public void checkDistance(int present) {
+		if (shortest == -1 || present < shortest) {
+			shortest = present;
+			closestTaxi = currentTaxi;
+		}
+		index++;
+	}
+
+	public void loopTaxi(Order order) {
+
+	}
+
+	public boolean notFin() {
+		return index < availableTaxis.size();
+	}
+
 }

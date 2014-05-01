@@ -43,7 +43,6 @@ public class Component extends Block {
 	SmallFix:
 	
 	- taxi trekker tilfeldig posisjon når den går on duty
-	- legge inn location på bruker ved opprettelse
 	
 	
 	

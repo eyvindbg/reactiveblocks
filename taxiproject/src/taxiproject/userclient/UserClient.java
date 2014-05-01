@@ -15,7 +15,8 @@ public class UserClient extends Block {
 	public String subscriptionTopic;
 	
 	public String userPos;
-
+	public String userAddress;
+	
 	public static Integer userCounter = 0;
 	
 	
@@ -75,7 +76,7 @@ public class UserClient extends Block {
 	public String confirmToUser(Order order) {
 		String confirmation;
 		if (order.confirmed) {
-			confirmation = order.assignedTaxi + " is on the way to your address: " + order.destination + ". Your order number is: " + order.id;
+			confirmation = order.assignedTaxi + " is on its way to you. Your order number is: " + order.id;
 			currentOrder = order;
 		}
 		else 
@@ -122,7 +123,8 @@ public class UserClient extends Block {
 		if (userAlias.equals(user1)) {
 			System.out.println(userAlias + " added to map.");
 			p = new Position(63.42291 * 1e6, 10.39428 * 1e6);
-			this.userPos = "63.42291,10.39428";
+			userPos = "63.42291,10.39428";
+			userAddress = "Samfundet";
 			m = Marker.createMarker(userAlias).position(p).hue(Marker.HUE_ROSE);
 			m.description(String.format("%s",this.userAlias));
 			u.addMarker(m);
@@ -131,7 +133,8 @@ public class UserClient extends Block {
 		else if (userAlias.equals(user2)) {
 			System.out.println(userAlias + " added to map.");
 			p = new Position(63.44888 * 1e6 , 10.44381 * 1e6); 
-			this.userPos = "63.44888,10.44381";
+			userPos = "63.44888,10.44381";
+			userAddress = "Lade";
 			m = Marker.createMarker(userAlias).position(p).hue(Marker.HUE_ROSE);
 			m.description(String.format("%s",this.userAlias));
 			u.addMarker(m);
@@ -159,8 +162,8 @@ public class UserClient extends Block {
 	}
 
 
-	public boolean isValidOrder() {
-		boolean validOrder = currentOrder != null;
+	public boolean isValidOrder(Order order) {
+		boolean validOrder = currentOrder != null && !order.isDelete();
 		
 		if (!validOrder)
 			System.out.println("INVALID BUTTON ACTION: CANCEL");
@@ -175,6 +178,11 @@ public class UserClient extends Block {
 
 	public String getDestination(Order order) {
 		return order.destination;
+	}
+
+
+	public String getLocation() {
+		return userAddress;
 	}
 	
 	

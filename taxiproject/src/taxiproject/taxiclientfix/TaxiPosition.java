@@ -7,6 +7,8 @@ public class TaxiPosition {
 	public String taxiAlias;
 	
 	
+	public TaxiPosition() {
+	}
 	
 	public TaxiPosition(String taxiAlias, String taxiPos) {
 		this.taxiAlias = taxiAlias;
