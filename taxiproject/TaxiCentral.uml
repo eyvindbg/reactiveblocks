@@ -460,4 +460,5 @@
   <graphics:Shape xmi:id="_bciTkc99EeOvP4f_D9z4QQ" x="73" y="58" base_Element="_bchsgM99EeOvP4f_D9z4QQ" orientation="south"/>
   <graphics:Shape xmi:id="_bci6oM99EeOvP4f_D9z4QQ" x="18" y="18" base_Element="_bcf3Uc99EeOvP4f_D9z4QQ" orientation="east"/>
   <graphics:Shape xmi:id="_bci6oc99EeOvP4f_D9z4QQ" x="432" y="342" width="202" height="73" base_Element="_bcepMM99EeOvP4f_D9z4QQ"/>
+  <graphics:Shape xmi:id="_3IlFgNB9EeOTm8o2JBOmSg" aux1="-129 0 75 162  -129 -162 75 0 " base_Element="_f2LNUM99EeOvP4f_D9z4QQ"/>
 </xmi:XMI>

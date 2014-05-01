@@ -10,6 +10,14 @@ public class Component extends Block {
 	/*
 	//TODO:
 	
+	
+	I MORGEN:
+	
+-	Implementere kø
+-	Ordne at taxi med kortest avstand får tilbud
+	
+	
+	
 	Bestemme hvilken taxi som skal faa ordre basert på avstand
 	
 	Hvis taxi sier nei, må dispatch finne en ny taxi
@@ -18,7 +26,6 @@ public class Component extends Block {
 	
 	Lage systemblokker av alt
 	
-	ordne DECLINE-knappen i taxiclient
 	
 	
 	
@@ -33,6 +40,10 @@ public class Component extends Block {
 	
 	
 	
+	SmallFix:
+	
+	- taxi trekker tilfeldig posisjon når den går on duty
+	- legge inn location på bruker ved opprettelse
 	
 	
 	

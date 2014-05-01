@@ -29,7 +29,7 @@ public class Taxi extends Block {
 	public MapUpdate createMapOrigin() {
 		MapUpdate u = new MapUpdate();
 		
-		Position p1 = new Position(63.430480 * 1e6 , 10.392216 * 1e6);
+		Position p1 = new Position(63.439480 * 1e6 , 10.392216 * 1e6);
 		Marker marker = Marker.createMarker("Map Origin").position(p1).hue(Marker.HUE_AZURE);
 		
 		u.setCenter(p1);

@@ -19,37 +19,17 @@ public class TaxiCentral extends Block {
 		System.out.println("connected MQTT in taxi central");
 	}
 
-//	public Order setMessage(Order order) {
-//		System.out.println("Order: " + order);
-//		return order;
-//	}
-
+	
 	public void printError(String error) {
 		System.out.println(error);
 	}
 
-	
-//	public Order createConfirmation(Order order) {
-//		return order;
-//	}
 
 	public String getOrderTopic(Order order) {
-		System.out.println("TAXICENTRAL" + order.topic);
+//		System.out.println("TAXICENTRAL" + order.topic);
 		return order.topic;
 	}
 
-//	public void printObject(Order order) {
-//		System.out.println(order.toString());
-//	}
-
-//	public String printTaxi(String taxiname) {
-//		System.out.println("created: "+taxiname);
-//		return taxiname;
-//	}
-
-//	public void print(String something) {
-//		System.out.println("here is " + something);
-//	}
 
 	public boolean isOrder(String serialized) {
 		if (serialized.contains("topic")) return true;
@@ -58,9 +38,9 @@ public class TaxiCentral extends Block {
 	}
 
 	public boolean isDutyEdit(String topic) {
-		System.out.println("topic is : " + topic);
+//		System.out.println("topic is : " + topic);
 		if (topic.equals("dutyEdit")) {
-			System.out.println("TAXI CENTRAL RECEIVED Duty edit: " + messageData);
+//			System.out.println("TAXI CENTRAL RECEIVED Duty edit: " + messageData);
 			return true;
 		}
 		return false;

@@ -87,6 +87,7 @@ public class UserClient extends Block {
 	public Order cancelOrder(Order order) { // Assume that one user only has _one_ order at a time
 		order.setDelete(true);
 		order.topic = "cancel";
+		
 		System.out.println("Order " + order.id + " was cancelled by user. Assigned taxi: " + order.assignedTaxi);
 		return order;
 	}
@@ -155,6 +156,25 @@ public class UserClient extends Block {
 	
 	public void updateUserPos(Order order) {
 		this.setUserPos(order.destination);
+	}
+
+
+	public boolean isValidOrder() {
+		boolean validOrder = currentOrder != null;
+		
+		if (!validOrder)
+			System.out.println("INVALID BUTTON ACTION: CANCEL");
+		return validOrder;
+	}
+
+
+	public String getCancelError() {
+		return "INVALID BUTTON ACTION: CANCEL";
+	}
+
+
+	public String getDestination(Order order) {
+		return order.destination;
 	}
 	
 	

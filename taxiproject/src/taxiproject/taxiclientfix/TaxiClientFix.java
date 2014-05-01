@@ -10,8 +10,6 @@ import no.ntnu.item.arctis.runtime.Block;
 
 public class TaxiClientFix extends Block {
 
-	
-
 	public String taxiAlias;
 	public String subscription;
 	public Order order;
@@ -19,12 +17,18 @@ public class TaxiClientFix extends Block {
 	public String taxiPos;
 	public boolean onDutyClicked;
 	public boolean offDutyClicked;
-	public MapTuple[] mapPositions = {new MapTuple(63.418289, 10.409144), new MapTuple(63.430300, 10.377515) , new MapTuple(63.4304808, 10.394216), 
-			new MapTuple(63.433180 , 10.394216), new MapTuple(63.428916, 10.3923114), new MapTuple(63.4348329, 10.4129671), 
-			new MapTuple(63.4284735, 10.4008918), new MapTuple(63.4333946, 10.3990679)};
-	
+	public MapTuple[] mapPositions = { 
+			new MapTuple(63.418289, 10.409144), // Dodens dal
+			new MapTuple(63.430300, 10.377515), // Ila kirke
+			new MapTuple(63.425428, 10.431264), // Tyholtveien,
+			new MapTuple(63.412342, 10.378188), // Breidablikkveien,
+			new MapTuple(63.424161, 10.374022), // Osloveien
+			new MapTuple(63.4348329, 10.4129671), // Solsiden
+			new MapTuple(63.409781, 10.398891), // Holtermanns veg
+			new MapTuple(63.434581, 10.398412) }; // Fjordgata
+
 	public int mapPosCounter = 0;
-	
+
 	public final String taxi1 = "TaxiMSID0";
 	public final String taxi2 = "TaxiMSID1";
 	public final String taxi3 = "TaxiMSID2";
@@ -34,13 +38,12 @@ public class TaxiClientFix extends Block {
 	public com.bitreactive.library.android.maps.model.MapUpdate markerUpdate;
 	public boolean activeOrder;
 	public boolean alreadyConfirmed;
-	
-	
+
 	public TaxiClientFix() {
 		this.subscription = String.format("%s", taxiAlias);
 		this.topic = "registerTaxi";
 	}
-	
+
 	public static String getAlias(String alias) {
 		return alias;
 	}
@@ -50,49 +53,35 @@ public class TaxiClientFix extends Block {
 	}
 
 	public void confirmConnection() {
-		System.out.println("connected MQTT in Taxi Client, taxi client: " + this.taxiAlias);
+		System.out.println("connected MQTT in Taxi Client, taxi client: "
+				+ this.taxiAlias);
 	}
 
-	
 	public void printError(String error) {
 		System.out.println(error);
 	}
-	
-	public String print(String json){
-		System.out.println("JEG ER JO PÅ ANDRE SIDEN OGSÅ!");
-		return json;
-	}
-	
 
 	public String receivedOrder(Order order) {
 		activeOrder = true;
-		return "You have been assinged order #" + order.id +  ". Address: " + order.destination + ". Please confirm.";
+		return "You have been assinged order #" + order.id + ". Address: "
+				+ order.destination + ". Please confirm.";
 	}
-	
 
 	public String getOrderTopic(Order order) {
 		return order.topic;
 	}
 
 	public Order confirmMessage(Order order) {
-//		if (order.topic.equals("order")) {
+		// if (order.topic.equals("order")) {
 		System.out.println("CONFIRM MESSAGE");
-			System.out.println(order.toString());
-			order.assignedTaxi = String.format("%s", this.taxiAlias);
-			order.topic = "taxiConfirmation";
-			order.confirmed = true;
-//		}
+		System.out.println(order.toString());
+		order.assignedTaxi = String.format("%s", this.taxiAlias);
+		order.topic = "taxiConfirmation";
+		order.confirmed = true;
+		// }
 		return order;
 	}
 
-	
-	
-	
-		
-	
-	
-	
-	
 	public java.lang.String getTaxiAlias() {
 		return taxiAlias;
 	}
@@ -101,91 +90,92 @@ public class TaxiClientFix extends Block {
 		this.taxiAlias = taxiAlias;
 	}
 
-	
-	
-	//Map-operations
+	// Map-operations
 	public MapUpdate markerUpdate(String taxiAlias) {
 
-		if (!isOnDuty()) { 
+		if (!isOnDuty()) {
 			onDuty = true;
 			System.out.println("Marker generated for " + taxiAlias);
-			return(generateMarker(taxiAlias));
-		}
-		else if (isOnDuty()) {
+			return (generateMarker(taxiAlias));
+		} else if (isOnDuty()) {
 			onDuty = false;
 			System.out.println("Marker deleted for " + taxiAlias);
 			return deleteMarker(taxiAlias);
-		}
-		else
+		} else
 			System.out.println("Impossible.");
 		return null;
 	}
-	
+
 	public MapUpdate generateMarker(String markerID) {
+
+		if (mapPosCounter == mapPositions.length - 1)
+			mapPosCounter = 0;
+
+		// int random = math.
+
 		MapUpdate u = new MapUpdate();
 		Marker m;
 		MapTuple mapPosition = mapPositions[mapPosCounter];
-		Position p = new Position(mapPosition.getLat() * 1e6, mapPosition.getLong() * 1e6);
+		Position p = new Position(mapPosition.getLat() * 1e6,
+				mapPosition.getLong() * 1e6);
 		mapPosCounter++;
-		
+
 		if (taxiAlias.equals(taxi1)) {
-			taxiPos = String.format("%s,%s", mapPosition.getLat(), mapPosition.getLong());
-			System.out.println(mapPosition.getLat());
-			System.out.println("TAXIPOS " + taxiPos);
+			taxiPos = String.format("%s,%s", mapPosition.getLat(),
+					mapPosition.getLong());
+//			System.out.println("TAXIPOS " + taxiPos);
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
-			m.description(String.format("%s",this.taxiAlias));
+			m.description(String.format("%s", this.taxiAlias));
 			u.addMarker(m);
 		}
-			
+
 		else if (taxiAlias.equals(taxi2)) {
-//			p = new Position(63.4304808 * 1e6 , 10.394216 * 1e6); //middle of Trondheim
-//			taxiPos = "63.4304808,10.394216";
-			taxiPos = String.format("%s,%s", mapPosition.getLat(), mapPosition.getLong());
-			System.out.println("TAXIPOS " + taxiPos);
+			// p = new Position(63.4304808 * 1e6 , 10.394216 * 1e6); //middle of
+			// Trondheim
+			// taxiPos = "63.4304808,10.394216";
+			taxiPos = String.format("%s,%s", mapPosition.getLat(),
+					mapPosition.getLong());
+//			System.out.println("TAXIPOS " + taxiPos);
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
-			m.description(String.format("%s",this.taxiAlias));
+			m.description(String.format("%s", this.taxiAlias));
 			u.addMarker(m);
 		}
-		
+
 		else if (taxiAlias.equals(taxi3)) {
-//			p = new Position(63.42500* 1e6 , 10.36585 * 1e6);
-//			taxiPos = "63.433180,10.394216";
-			taxiPos = String.format("%s,%s", mapPosition.getLat(), mapPosition.getLong());
-			System.out.println("TAXIPOS " + taxiPos);
+			// p = new Position(63.42500* 1e6 , 10.36585 * 1e6);
+			// taxiPos = "63.433180,10.394216";
+			taxiPos = String.format("%s,%s", mapPosition.getLat(),
+					mapPosition.getLong());
+//			System.out.println("TAXIPOS " + taxiPos);
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
-			m.description(String.format("%s",this.taxiAlias));
+			m.description(String.format("%s", this.taxiAlias));
 			u.addMarker(m);
 		}
-			
-		else System.out.println("Objekt ikke opprettet ordentlig");
-		
+
+		else
+			System.out.println("Objekt ikke opprettet ordentlig");
+
 		return u;
 	}
 
-
-	
 	public MapUpdate deleteMarker(String markerID) {
 		MapUpdate u = new MapUpdate();
 		Marker m;
-		
+
 		m = Marker.createMarker(markerID);
 		m.remove();
 		u.addMarker(m);
 		return u;
 	}
-	
+
 	public boolean isOnDuty() {
 		return onDuty;
 	}
 
-	
 	public TaxiPosition getTaxiPos() {
 		return new TaxiPosition(taxiAlias, taxiPos);
 	}
-	
-	
-	
-	
+
 	public void printTaxiAlias(String taxiAlias) {
 		System.out.println(taxiAlias);
 	}
@@ -198,23 +188,22 @@ public class TaxiClientFix extends Block {
 		return order.delete;
 	}
 
-	
 	public void onDutyClicked() {
 		onDutyClicked = true;
 	}
+
 	public void offDutyClicked() {
 		offDutyClicked = true;
 	}
 
 	public boolean changeDuty(boolean duty) {
-		
+
 		if ((duty && onDutyClicked) || (!duty && offDutyClicked)) {
 			onDutyClicked = false;
 			offDutyClicked = false;
-			System.out.println("CHANGEDUTY: INVALID BUTTON ACTION!");
 			return false;
 		}
-		
+
 		else {
 			onDutyClicked = false;
 			offDutyClicked = false;
@@ -224,7 +213,6 @@ public class TaxiClientFix extends Block {
 
 	public boolean handleConfirm() {
 		if (!activeOrder || alreadyConfirmed) {
-			System.out.println("CONFIRM: INVALID BUTTON ACTION!");
 			return false;
 		}
 		alreadyConfirmed = true;
@@ -232,21 +220,31 @@ public class TaxiClientFix extends Block {
 	}
 
 	public void releaseConfirm(Order order) {
-			activeOrder = false;
-			alreadyConfirmed = false;
+		activeOrder = false;
+		alreadyConfirmed = false;
 	}
 
-	
 	public boolean isCompleted(Order order) {
 		return order.completed;
 	}
 
-	public void handleDecline() {
-		if (!activeOrder)
+	public boolean isValidClick() {
+//		if (activeOrder) 
+//			System.out.println("INVALID BUTTON ACTION: CANNOT GO OFFLINE WHILE ACTIVE ORDER");
+		return activeOrder;
+		
 	}
-	
-	
 
-	
-	
+	public String getOffError() {
+		return "INVALID BUTTON ACTION: CANNOT GO OFFLINE WHILE ACTIVE ORDER";
+	}
+
+	public String getDutyError() {
+		return "INVALID BUTTON ACTION: CHANGEDUTY";
+	}
+
+	public String getConfirmError() {
+		return "INVALID BUTTON ACTION: CONFIRM";
+	}
+
 }
