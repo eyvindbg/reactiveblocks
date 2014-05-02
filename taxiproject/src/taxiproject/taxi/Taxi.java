@@ -17,7 +17,7 @@ public class Taxi extends Block {
 
 
 	public void confirmConnection() {
-		System.out.println("connected MapMQTT in taxi");
+		System.out.println("MQTT (MAP) CONNECTED: ORIGIN");
 	}
 	
 	public String createTopic() {

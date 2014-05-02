@@ -12,7 +12,26 @@ public class Order {
 	public String userPos = "";
 	public String destination = "";
 	public boolean completed;
+	public int queue = -1;
 	
+
+
+	public int getQueue() {
+		return queue;
+	}
+
+	public void setQueue(int queue) {
+		this.queue = queue;
+	}
+
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
 	public Order (String alias) {
 		this.alias = alias;
 		this.topic = "order";

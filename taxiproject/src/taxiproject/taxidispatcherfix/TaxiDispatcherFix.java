@@ -28,6 +28,7 @@ public class TaxiDispatcherFix extends Block {
 	public TaxiPosition closestTaxi;
 	public TaxiPosition currentTaxi;
 	private int index;
+	public taxiproject.taxiclientfix.TaxiPosition taxi;
 
 	public TaxiDispatcherFix() {
 		availableTaxis = new ArrayList<TaxiPosition>();
@@ -61,15 +62,10 @@ public class TaxiDispatcherFix extends Block {
 		return order;
 	}
 
-	public void printObject(Order order) {
-		// System.out.println("Order received at dispatch: " +
-		// order.toString());
-	}
-
 	// Register taxis on start-up. All taxis are added as off-duty.
 	public void regTaxi(String taxiAlias) {
 		offDutyTaxis.add(new TaxiPosition(taxiAlias));
-		System.out.println(taxiAlias + " is registered in dispatch.");
+		System.out.println("DISPATCH REGISTERED: " + taxiAlias);
 	}
 
 	// Book taxi
@@ -80,8 +76,6 @@ public class TaxiDispatcherFix extends Block {
 				TaxiPosition taxi = pendingOrders.get(i).getTaxiPosition();
 				pendingOrders.remove(i); // Taxi has confirmed, is now busy
 				busyTaxis.add(taxi);
-				System.out.println(taxi + " is now booked for order "
-						+ order.id);
 			} else {
 				System.out.println("Taxi has not been queried for the order.");
 			}
@@ -91,7 +85,7 @@ public class TaxiDispatcherFix extends Block {
 				orderQueue.remove(i);
 				System.out.println("Taxi is now booked, orderID: "
 						+ order.getId()
-						+ " and order is removed from orderQueue");
+						+ " and order is removed from orderQueue. Length of queue: " + orderQueue.size());
 			}
 		}
 	}
@@ -105,10 +99,10 @@ public class TaxiDispatcherFix extends Block {
 			taxi = closestTaxi;
 			order.assignedTaxi = taxi.getTaxiAlias();
 			order.topic = taxi.getTaxiAlias();
-			System.out.println("Order " + order.id + " has been queried to "
-					+ order.assignedTaxi);
+			System.out.println(order.assignedTaxi + " HAS BEEN QUERIED FOR ORDER #" + order.getId());
 			TaxiOrderPair pendingOrder = new TaxiOrderPair(order.id, taxi);
 			pendingOrders.add(pendingOrder);
+			availableTaxis.remove(taxi);
 
 		} else {
 			System.out.println("\nNo available taxis.");
@@ -121,29 +115,19 @@ public class TaxiDispatcherFix extends Block {
 
 	// Allow taxi to be on duty or off duty.
 	public void dutyEdit(TaxiPosition taxi) {
-		System.out.println("Duty change for " + taxi.getTaxiAlias()
-				+ " registered in dispatch");
-		for (int i = 0; i < offDutyTaxis.size(); i++) { // Taxi is off duty,
-														// goes on duty
+		for (int i = 0; i < offDutyTaxis.size(); i++) { // Taxi is off duty, goes on duty
 			if (offDutyTaxis.get(i).getTaxiAlias().equals(taxi.getTaxiAlias())) {
-				offDutyTaxis.remove(i);
+				offDutyTaxis.remove(i);			
 				availableTaxis.add(taxi);
 				System.out.println(taxi.getTaxiAlias() + " is now AVAILABLE.");
-
-				if (!orderQueue.isEmpty()) {
-
-				}
-
 				return;
 			}
 		}
-		for (int i = 0; i < availableTaxis.size(); i++) { // Taxi is on duty,
-															// goes off duty
-			if (availableTaxis.get(i).getTaxiAlias()
-					.equals(taxi.getTaxiAlias())) {
+		for (int i = 0; i < availableTaxis.size(); i++) { // Taxi is on duty, goes off duty
+			if (availableTaxis.get(i).getTaxiAlias().equals(taxi.getTaxiAlias())) {
 				offDutyTaxis.add(availableTaxis.get(i));
 				availableTaxis.remove(i);
-				System.out.println(taxi.getTaxiAlias() + "is now OFF DUTY.");
+				System.out.println(taxi.getTaxiAlias() + " is now OFF DUTY.");
 				return;
 			}
 		}
@@ -166,7 +150,6 @@ public class TaxiDispatcherFix extends Block {
 	public Order modifyTopic(Order order) { // Modify order topic to taxiAlias
 											// and release taxi from order
 		if (!order.confirmed) {
-			System.out.println("ModifyTopic NULL");
 			System.out.println(order.toString());
 			for (int i = 0; i < pendingOrders.size(); i++) { // If the order has
 																// not yet been
@@ -186,7 +169,6 @@ public class TaxiDispatcherFix extends Block {
 				}
 			}
 		} else { // If order is confirmed by taxi
-			System.out.println("ModifyTopic = " + order.assignedTaxi);
 			order.topic = order.assignedTaxi;
 			int taxiIndex = busyTaxis.indexOf(order.assignedTaxi); // Find taxi
 			TaxiPosition taxi = busyTaxis.remove(taxiIndex); // Remove taxi from
@@ -203,41 +185,15 @@ public class TaxiDispatcherFix extends Block {
 		for (int i = 0; i < busyTaxis.size(); i++) {
 			if (busyTaxis.get(i).getTaxiAlias().equals(order.assignedTaxi)) {
 				taxiPos = busyTaxis.get(i).getTaxiPos();
-				// System.out.println(toString());
-				// System.out.println("the position of taxi is: "
-				// + busyTaxis.get(i).getTaxiPos());
 				break;
 			}
 		}
 
-		// System.out.println("CREATE PICKUP USERPOS: " + order.userPos);
-		System.out.println("\n\n\nSTARTING PICKUP");
+		System.out.println("\n\n\nSTARTING PICKUP FOR (" + order.alias + ", " + order.assignedTaxi + ")");
 		return new Journey(taxiPos, order.userPos, order.assignedTaxi); // from
 																		// taxi
 																		// to
 																		// user
-	}
-
-	public Journey createJourney(Order order) {
-		System.out.println("\n\n\nSTARTING JOURNEY");
-		System.out.println("order.alias = " + order.alias);
-		finished = true;
-
-		System.out.println("CREATE JOURNEY USERPOS: " + order.userPos);
-		return new Journey(order.userPos, order.destination, order.assignedTaxi); // from
-																					// user
-																					// to
-																					// destination
-	}
-
-	public MapUpdate deleteMarker(Order order) {
-		MapUpdate u = new MapUpdate();
-		Marker m;
-
-		m = Marker.createMarker(order.alias);
-		m.remove();
-		u.addMarker(m);
-		return u;
 	}
 
 	@Override
@@ -247,97 +203,6 @@ public class TaxiDispatcherFix extends Block {
 				+ ", pendingOrders=" + pendingOrders + "]";
 	}
 
-	public boolean isFinished() {
-		return finished;
-	}
-
-	public Order orderFinished(Order order) {
-		order.completed = true;
-		return order;
-	}
-
-	public String getAddress(Order order) {
-		String address = order.destination;
-		address = address.replace(" ", "%20");
-		return "http://maps.googleapis.com/maps/api/geocode/json?address="
-				+ address + "&sensor=true";
-	}
-
-	public void printString(String message) {
-		System.out.println("String printed is: " + message);
-		getCoordinates(message);
-	}
-
-	public MapUpdate endPos(Order order) {
-		MapUpdate mu;
-
-		Position p;
-
-		// String[] coordinates = getCoordinates(json);
-		//
-		// System.out.println("latitude: " + coordinates[0]);
-		// System.out.println("longitude: " + coordinates[1]);
-		//
-
-		String[] coordinates = order.destination.split(",");
-
-		double latitude = Double.parseDouble(coordinates[0]);
-		double longitude = Double.parseDouble(coordinates[1]);
-
-		p = new Position(latitude * 1e6, longitude * 1e6);
-
-		Marker user = Marker.createMarker(order.alias).position(p)
-				.hue(Marker.HUE_ROSE);
-		Marker taxi = Marker.createMarker(order.assignedTaxi).position(p)
-				.hue(Marker.HUE_GREEN);
-
-		mu = new MapUpdate();
-		mu.addMarker(user);
-		mu.addMarker(taxi);
-
-		return mu;
-
-	}
-
-	// Eyvind
-	public String[] getCoordinates(String json) {
-
-		int start = json.indexOf("location");
-		int stop = 0;
-		for (int i = start; i < json.length(); i++) {
-			if (json.charAt(i) == '}') {
-				stop = i - 13;
-				break;
-			}
-		}
-
-		String cut = json.substring(start, stop);
-
-		String[] cutArray = cut.split(",");
-
-		int lat = cut.indexOf("lat") + 7;
-		String latitude = cutArray[0].substring(lat);
-		System.out.println(latitude);
-		String longitude = cutArray[1].substring(24);
-
-		String[] coordinates = new String[2];
-		coordinates[0] = latitude;
-		coordinates[1] = longitude;
-
-		return coordinates;
-
-	}
-
-	public Order extractLonLat(Order order, String json) {
-		String[] coordinates = getCoordinates(json);
-
-		// System.out.println("latitude: " + coordinates[0]);
-		// System.out.println("longitude: " + coordinates[1]);
-
-		order.destination = coordinates[0] + "," + coordinates[1];
-
-		return order;
-	}
 
 	public Order releaseTaxi(Order order) {
 		int index = 0;
@@ -354,7 +219,7 @@ public class TaxiDispatcherFix extends Block {
 				+ ". NOW AVAILABLE!\n\n\n");
 		taxi.setTaxiPos(order.destination);
 		availableTaxis.add(taxi);
-		busyTaxis.remove(index);
+		busyTaxis.remove(taxi);
 
 		order.topic = taxi.getTaxiAlias();
 		return order;
@@ -371,11 +236,21 @@ public class TaxiDispatcherFix extends Block {
 	// Handling queue of orders
 
 	public Order addOrder(Order order) {
-		if (!orderQueue.contains(order)) {
+		
+		if (orderQueue.size() == 0 && !order.confirmed) {
 			orderQueue.add(order);
-			System.out
-					.println("Order added to orderQueue. Size of queue is now: "
-							+ orderQueue.size());
+			System.out.println("Order added to orderQueue. Was empty. Size of queue is now: " + orderQueue.size());
+		}
+		
+		else {
+		
+			for (int i = 0; i < orderQueue.size(); i++) {
+				if (!order.getId().equals(orderQueue.get(i).getId()) && !order.confirmed) {
+					orderQueue.add(order);
+					System.out.println("Order added to orderQueue. Size of queue is now: " + orderQueue.size());
+					break;
+				}
+			}
 		}
 		return order;
 	}
@@ -384,15 +259,6 @@ public class TaxiDispatcherFix extends Block {
 		return order.topic.equals("release");
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public int getDistance(String json) {
 		int start = json.indexOf("value");
@@ -417,15 +283,12 @@ public class TaxiDispatcherFix extends Block {
 		return Integer.parseInt(distance);
 	}
 
-	
-	
-	
+
 	public String generateRequest(Order order) {
 		String userPos = order.userPos;
 		String taxiPos = availableTaxis.get(index).getTaxiPos();
 		currentTaxi = availableTaxis.get(index);
 		
-		System.out.println("userpos: " + userPos);
 		String result = String.format("http://maps.googleapis.com/maps/api/directions/json?origin=%s&destination=%s&sensor=true",userPos, taxiPos);
 		result = result.replace(" ", "%20");
 		return result;
@@ -440,12 +303,51 @@ public class TaxiDispatcherFix extends Block {
 		index++;
 	}
 
-	public void loopTaxi(Order order) {
-
-	}
-
 	public boolean notFin() {
 		return index < availableTaxis.size();
+	}
+	
+	
+	public boolean availableTaxi(Order order) {
+		boolean passOrder = false;
+		if (order.getQueue() == -1 && !availableTaxis.isEmpty()) passOrder = true;
+		
+		return passOrder;
+	}
+
+	public Order notifyUser(Order order) {
+		order.setTopic(order.getAlias());
+		order.setQueue(orderQueue.size());;
+		return order;
+	}
+
+	public boolean pickFromQueue(TaxiPosition taxi) {
+		boolean goingOffDuty = false;
+		boolean queueEmpty = orderQueue.isEmpty();
+		
+		boolean pickFromQueue = false;
+		
+		for (int i = 0; i < availableTaxis.size(); i++) { // Taxi is on duty, goes off duty
+			if (availableTaxis.get(i).getTaxiAlias().equals(taxi.getTaxiAlias())) {
+				goingOffDuty = true;
+			}
+		}
+		
+		if (!goingOffDuty && !queueEmpty) {
+			pickFromQueue = true;
+		}
+		
+		return pickFromQueue;
+	}
+
+	public Order getQueuedOrder(TaxiPosition taxi) {
+		Order order = orderQueue.get(0);
+		pendingOrders.add(new TaxiOrderPair(order.getId(), taxi));
+		
+		order.assignedTaxi = taxi.getTaxiAlias();
+		order.topic = taxi.getTaxiAlias();
+		
+		return order;
 	}
 
 }

@@ -6,7 +6,7 @@ import taxiproject.user.Order;
 
 public class TaxiCentralFix extends Block {
 
-	public java.lang.String subscriptionTopic = "order,taxi,taxiConfirmation,taxiCreate,dutyEdit,cancel,taxiPosition,release";
+	public java.lang.String subscriptionTopic;
 	public java.lang.String publishTopic;
 	public java.lang.String messageData;
 
@@ -17,7 +17,7 @@ public class TaxiCentralFix extends Block {
 	}
 
 	public void confirmConnection() {
-		System.out.println("connected MQTT in taxi central");
+		System.out.println("MQTT CONNECTED: TAXI CENTRAL");
 	}
 
 	
@@ -34,14 +34,11 @@ public class TaxiCentralFix extends Block {
 
 	public boolean isOrder(String serialized) {
 		if (serialized.contains("topic")) return true;
-//		if (serialized.equals("TaxiMSID0") || serialized.equals("TaxiMSID1") || serialized.equals("TaxiMSID2")) return false;
 		return false;
 	}
 
 	public boolean isDutyEdit(String topic) {
-//		System.out.println("topic is : " + topic);
 		if (topic.equals("dutyEdit")) {
-//			System.out.println("TAXI CENTRAL RECEIVED Duty edit: " + messageData);
 			return true;
 		}
 		return false;

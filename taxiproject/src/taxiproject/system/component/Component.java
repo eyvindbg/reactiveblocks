@@ -14,15 +14,12 @@ public class Component extends Block {
 	I MORGEN:
 	
 -	Implementere kø
--	Ordne at taxi med kortest avstand får tilbud
+-	En taxi som går off duty, får fortsatt tilbud
 	
 	
 	
-	Bestemme hvilken taxi som skal faa ordre basert på avstand
 	
 	Hvis taxi sier nei, må dispatch finne en ny taxi
-	
-	Implementere kø hvis ingen tilgjengelige taxier
 	
 	Lage systemblokker av alt
 	

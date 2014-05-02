@@ -41,7 +41,7 @@ public class TaxiClientFix extends Block {
 	public java.lang.String messageData;
 
 	public TaxiClientFix() {
-		this.subscription = String.format("%s", taxiAlias);
+		this.subscription = taxiAlias;
 		this.topic = "registerTaxi";
 	}
 
@@ -54,8 +54,7 @@ public class TaxiClientFix extends Block {
 	}
 
 	public void confirmConnection() {
-		System.out.println("connected MQTT in Taxi Client, taxi client: "
-				+ this.taxiAlias);
+		System.out.println("MQTT CONNECTED: " + this.taxiAlias);
 	}
 
 	public void printError(String error) {
@@ -73,13 +72,9 @@ public class TaxiClientFix extends Block {
 	}
 
 	public Order confirmMessage(Order order) {
-		// if (order.topic.equals("order")) {
-		System.out.println("CONFIRM MESSAGE");
-		System.out.println(order.toString());
 		order.assignedTaxi = String.format("%s", this.taxiAlias);
 		order.topic = "taxiConfirmation";
 		order.confirmed = true;
-		// }
 		return order;
 	}
 
@@ -119,7 +114,6 @@ public class TaxiClientFix extends Block {
 		Position p = new Position(mapPosition.getLat() * 1e6,
 				mapPosition.getLong() * 1e6);
 		mapPosCounter++;
-		System.out.println("mapposcounter: " + mapPosCounter);
 
 		if (taxiAlias.equals(taxi1)) {
 			taxiPos = String.format("%s,%s", mapPosition.getLat(),

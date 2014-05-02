@@ -63,7 +63,7 @@ public class UserClient extends Block {
 
 
 	public void confirmConnection() {
-		System.out.println("connected MQTT in User Client, user client: " + this.clientAlias);
+		System.out.println("MQTT CONNECTED: " + this.clientAlias);
 	}
 
 
@@ -121,7 +121,7 @@ public class UserClient extends Block {
 		Marker m;
 		
 		if (userAlias.equals(user1)) {
-			System.out.println(userAlias + " added to map.");
+			System.out.println("Marker generated for " + userAlias);
 			p = new Position(63.42291 * 1e6, 10.39428 * 1e6);
 			userPos = "63.42291,10.39428";
 			userAddress = "Samfundet";
@@ -131,7 +131,7 @@ public class UserClient extends Block {
 		}
 			
 		else if (userAlias.equals(user2)) {
-			System.out.println(userAlias + " added to map.");
+			System.out.println("Marker generated for " + userAlias);
 			p = new Position(63.44888 * 1e6 , 10.44381 * 1e6); 
 			userPos = "63.44888,10.44381";
 			userAddress = "Lade";
@@ -184,6 +184,18 @@ public class UserClient extends Block {
 	public String getLocation() {
 		return userAddress;
 	}
+
+
+	public boolean isQueued(Order order) {
+		return order.getQueue() > -1 && !order.completed;
+	}
+
+
+	public String userIsQueued(Order order) {
+		return "No available taxis at the moment. Your place in the queue: " + order.getQueue();
+	}
+
+
 	
 	
 	

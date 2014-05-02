@@ -17,13 +17,10 @@ public class MapController extends Block {
 
 	public Journey createJourney(Order order) {
 		System.out.println("\n\n\nSTARTING JOURNEY");
-		System.out.println("order.alias = " + order.alias);
 		finished = true;
 
-		System.out.println("CREATE JOURNEY USERPOS: " + order.userPos);
 		return new Journey(order.userPos, order.destination, order.assignedTaxi); // from user to destination
 	}
-	
 	
 	
 	public boolean isFinished() {
@@ -35,7 +32,6 @@ public class MapController extends Block {
 		return order;
 	}
 	
-		
 	
 	public String getAddress(Order order) {
 		String address = order.destination;
@@ -47,10 +43,6 @@ public class MapController extends Block {
 	
 	public Order extractLonLat(Order order, String json) {
 		String[] coordinates = getCoordinates(json);
-
-//		System.out.println("latitude: " + coordinates[0]);
-//		System.out.println("longitude: " + coordinates[1]);
-
 		order.destination = coordinates[0] + "," + coordinates[1];
 
 		return order;
@@ -74,7 +66,6 @@ public class MapController extends Block {
 
 		int lat = cut.indexOf("lat") + 7;
 		String latitude = cutArray[0].substring(lat);
-		System.out.println(latitude);
 		String longitude = cutArray[1].substring(24);
 
 		String[] coordinates = new String[2];
