@@ -63,7 +63,7 @@ public class TaxiClientFix extends Block {
 
 	public String receivedOrder(Order order) {
 		activeOrder = true;
-		return "You have been assinged order #" + order.id + ". Address: "
+		return "You have been assigned order #" + order.id + ". Address: "
 				+ order.destination + ". Please confirm.";
 	}
 
@@ -244,6 +244,24 @@ public class TaxiClientFix extends Block {
 
 	public Order setTopicRelease(Order order) {
 		order.topic = "release";
+		return order;
+	}
+
+	public boolean isActiveOrder() {
+		return activeOrder;
+	}
+
+	public String getDecError() {
+		return "INVALID BUTTON ACTION: NO ACTIVE ORDERS TO DECLINE";
+	}
+
+	public void getDecOK() {
+		System.out.println("Your button action was valid");
+	}
+
+	public Order handleDecline(Order order) {
+		order.setDecline(true);
+		order.setTopic("decline");
 		return order;
 	}
 

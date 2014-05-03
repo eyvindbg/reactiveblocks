@@ -428,7 +428,7 @@
   <graphics:Shape xmi:id="_rDDaB9EjEeOB3-8Wfx9-Cw" x="-3" y="46" base_Element="_rDCy_9EjEeOB3-8Wfx9-Cw" orientation="west"/>
   <graphics:Shape xmi:id="_rDDaCNEjEeOB3-8Wfx9-Cw" x="450" y="126" width="163" height="73" base_Element="_rDCy_tEjEeOB3-8Wfx9-Cw"/>
   <graphics:Shape xmi:id="_rDDaCdEjEeOB3-8Wfx9-Cw" x="414" y="216" width="163" height="55" base_Element="_rDCzAdEjEeOB3-8Wfx9-Cw" orientation="east"/>
-  <graphics:Shape xmi:id="_rDDaEdEjEeOB3-8Wfx9-Cw" aux1="" base_Element="_rDCywdEjEeOB3-8Wfx9-Cw"/>
+  <graphics:Shape xmi:id="_rDDaEdEjEeOB3-8Wfx9-Cw" aux1="93 0 -54 -18 " base_Element="_rDCywdEjEeOB3-8Wfx9-Cw"/>
   <graphics:Shape xmi:id="_rDDaEtEjEeOB3-8Wfx9-Cw" x="1044" y="216" width="127" height="55" base_Element="_rDCzBNEjEeOB3-8Wfx9-Cw" orientation="east"/>
   <arctis:location xmi:id="_rDDaE9EjEeOB3-8Wfx9-Cw" base_Variable="_rDCy39EjEeOB3-8Wfx9-Cw" partition="_rDCyutEjEeOB3-8Wfx9-Cw"/>
   <graphics:Shape xmi:id="_rDDaFNEjEeOB3-8Wfx9-Cw" x="1080" y="18" base_Element="_rDCy39EjEeOB3-8Wfx9-Cw"/>

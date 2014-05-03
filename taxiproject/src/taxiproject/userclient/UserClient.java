@@ -187,7 +187,7 @@ public class UserClient extends Block {
 
 
 	public boolean isQueued(Order order) {
-		return order.getQueue() > -1 && !order.completed;
+		return order.getQueue() > -1 && !order.confirmed && !order.completed;
 	}
 
 

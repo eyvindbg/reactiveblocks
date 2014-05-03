@@ -13,13 +13,12 @@ public class Component extends Block {
 	
 	I MORGEN:
 	
--	Implementere kø
--	En taxi som går off duty, får fortsatt tilbud
-	
-	
-	
 	
 	Hvis taxi sier nei, må dispatch finne en ny taxi
+	
+	købehandling, si ifra til ventende brukrere dersom køen minker
+	
+	decline
 	
 	Lage systemblokker av alt
 	
@@ -31,8 +30,9 @@ public class Component extends Block {
 	
 	Feil:
 	
-	Hvis bestilling lages når ingen tilgjengelige taxier (henger sammen med kø over)
+	- hvis kun en taxi on duty, og denne decliner en ordre, må brukeren få beskjed om at han/hun er i kø
 	
+	- hvis en taxi decliner, må activeorder settes tilbake, slik at den kan gå off duty
 	
 	
 	
@@ -61,6 +61,8 @@ public class Component extends Block {
 
 	Dispatch oppdaterer posisjon til både bruker og taxi når taxien er fremme. Det er fordi det er dispatch som "vet" når taxien er fremme. 
 	(Styrer polylines)
+	
+	to taxier er on duty, en får bestilling; trykker decline - den andre får ordren; trykker decline - den første får ordren igjen.
 	
 	
 	

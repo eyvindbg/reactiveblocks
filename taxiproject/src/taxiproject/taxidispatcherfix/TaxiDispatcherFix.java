@@ -1,25 +1,21 @@
 package taxiproject.taxidispatcherfix;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import no.ntnu.item.arctis.runtime.Block;
 import no.ntnu.item.ttm4115.simulation.routeplanner.Journey;
-import taxiproject.taxi.Taxi;
 import taxiproject.taxiclientfix.TaxiPosition;
 import taxiproject.user.Order;
 
-import com.bitreactive.library.android.maps.model.MapUpdate;
-import com.bitreactive.library.android.maps.model.Marker;
-import com.bitreactive.library.android.maps.model.Position;
-
 public class TaxiDispatcherFix extends Block {
 
-	public ArrayList<TaxiPosition> availableTaxis;
-	public ArrayList<TaxiPosition> busyTaxis;
-	public ArrayList<TaxiPosition> offDutyTaxis;
-	public ArrayList<TaxiOrderPair> pendingOrders;
-
-	public ArrayList<Order> orderQueue;
+	public List<TaxiPosition> availableTaxis;
+	public List<TaxiPosition> busyTaxis;
+	public List<TaxiPosition> offDutyTaxis;
+	public List<TaxiOrderPair> pendingOrders;
+	public List<TaxiOrderPair> declinedOrders;
+	public List<Order> orderQueue;
 
 	public taxiproject.user.Order Order;
 	public boolean finished = false;
@@ -36,22 +32,26 @@ public class TaxiDispatcherFix extends Block {
 		offDutyTaxis = new ArrayList<TaxiPosition>();
 		pendingOrders = new ArrayList<TaxiOrderPair>();
 		orderQueue = new ArrayList<Order>();
+		declinedOrders = new ArrayList<TaxiOrderPair>();
 	}
 
 	// To Taxi Dispatch Console
 	public String getOrderInfo(Order order) {
 		String message;
-		if (order.topic.equals("order")) {
-			message = "Order number " + order.id + " is registered from "
+		if (order.getTopic().equals("order")) {
+			message = "Order number " + order.getId() + " is registered from "
 					+ order.alias + " to address: " + order.destination;
-		} else if (order.topic.equals("taxiConfirmation")) {
-			message = "Order number " + order.id + " is confirmed by "
+		} else if (order.getTopic().equals("taxiConfirmation")) {
+			message = "Order number " + order.getId() + " is confirmed by "
 					+ order.assignedTaxi + " to address: " + order.destination
 					+ "\n";
-		} else if (order.topic.equals("cancel")) {
-			message = "Order number " + order.id + " was cancelled by user ("
+		} else if (order.getTopic().equals("cancel")) {
+			message = "Order number " + order.getId() + " was cancelled by user ("
 					+ order.alias + ").";
-		} else {
+		} else if (order.getTopic().equals("decline")) {
+			message = "Order number " + order.getId() + " was declined by taxi (" + order.assignedTaxi + ")";
+		}
+		else {
 			message = "not any of the wanted topics";
 		}
 		return message;
@@ -80,14 +80,6 @@ public class TaxiDispatcherFix extends Block {
 				System.out.println("Taxi has not been queried for the order.");
 			}
 		}
-		for (int i = 0; i < orderQueue.size(); i++) {
-			if (order.getId().equals(orderQueue.get(i).getId())) {
-				orderQueue.remove(i);
-				System.out.println("Taxi is now booked, orderID: "
-						+ order.getId()
-						+ " and order is removed from orderQueue. Length of queue: " + orderQueue.size());
-			}
-		}
 	}
 
 	public Order queryTaxi(Order order) {
@@ -99,10 +91,19 @@ public class TaxiDispatcherFix extends Block {
 			taxi = closestTaxi;
 			order.assignedTaxi = taxi.getTaxiAlias();
 			order.topic = taxi.getTaxiAlias();
-			System.out.println(order.assignedTaxi + " HAS BEEN QUERIED FOR ORDER #" + order.getId());
+			System.out.println("\n\n\n" + order.assignedTaxi + " HAS BEEN QUERIED FOR ORDER #" + order.getId());
 			TaxiOrderPair pendingOrder = new TaxiOrderPair(order.id, taxi);
 			pendingOrders.add(pendingOrder);
 			availableTaxis.remove(taxi);
+
+			for (int i = 0; i < orderQueue.size(); i++) {
+				if (order.getId().equals(orderQueue.get(i).getId())) {
+					orderQueue.remove(i);
+					System.out.println(order.assignedTaxi + " is queried for order #"
+							+ order.getId()
+							+ ". The order is removed from queue. Length of queue: " + orderQueue.size());
+				}
+			}
 
 		} else {
 			System.out.println("\nNo available taxis.");
@@ -155,14 +156,9 @@ public class TaxiDispatcherFix extends Block {
 																// not yet been
 																// confirmed by
 																// the Taxi
-				System.out.println(pendingOrders.get(i).getTaxiPosition()
-						.getTaxiAlias());
 				if (order.id.equals(pendingOrders.get(i).getOrderId())) {
 					order.topic = pendingOrders.get(i).getTaxiPosition()
 							.getTaxiAlias();
-					System.out.println("topic: "
-							+ pendingOrders.get(i).getTaxiPosition()
-									.getTaxiAlias());
 					TaxiPosition taxi = pendingOrders.get(i).getTaxiPosition();
 					pendingOrders.remove(i); // Release taxi
 					availableTaxis.add(taxi);
@@ -231,15 +227,12 @@ public class TaxiDispatcherFix extends Block {
 	}
 
 	
-	
-	
 	// Handling queue of orders
 
 	public Order addOrder(Order order) {
 		
 		if (orderQueue.size() == 0 && !order.confirmed) {
 			orderQueue.add(order);
-			System.out.println("Order added to orderQueue. Was empty. Size of queue is now: " + orderQueue.size());
 		}
 		
 		else {
@@ -247,11 +240,11 @@ public class TaxiDispatcherFix extends Block {
 			for (int i = 0; i < orderQueue.size(); i++) {
 				if (!order.getId().equals(orderQueue.get(i).getId()) && !order.confirmed) {
 					orderQueue.add(order);
-					System.out.println("Order added to orderQueue. Size of queue is now: " + orderQueue.size());
 					break;
 				}
 			}
 		}
+		System.out.println("Order #" + order.getId() + " added to queue. Size of queue is now: " + orderQueue.size());
 		return order;
 	}
 
@@ -307,10 +300,12 @@ public class TaxiDispatcherFix extends Block {
 		return index < availableTaxis.size();
 	}
 	
-	
 	public boolean availableTaxi(Order order) {
 		boolean passOrder = false;
+		
 		if (order.getQueue() == -1 && !availableTaxis.isEmpty()) passOrder = true;
+		else if (order.getQueue() != -1) passOrder = true;
+		else if (order.confirmed) passOrder = true;
 		
 		return passOrder;
 	}
@@ -344,10 +339,51 @@ public class TaxiDispatcherFix extends Block {
 		Order order = orderQueue.get(0);
 		pendingOrders.add(new TaxiOrderPair(order.getId(), taxi));
 		
+		System.out.println("\n\n\n" + taxi.getTaxiAlias() + " HAS BEEN QUERIED FOR ORDER #" + order.getId());
+		
 		order.assignedTaxi = taxi.getTaxiAlias();
 		order.topic = taxi.getTaxiAlias();
 		
 		return order;
 	}
 
+	public boolean isDecline(Order order) {
+		boolean orderIsDeclined = order.isDecline();
+		order.setDecline(false);
+		if (orderIsDeclined) System.out.println("\n\n\n" + order.assignedTaxi + " DECLINED ORDER #" + order.getId());
+		return orderIsDeclined;
+	}
+
+
+	public boolean isAvailableTaxi() {
+		return !availableTaxis.isEmpty();
+	}
+
+	public void addDeclinedOrder(Order order) {
+		for (int i = 0; i < orderQueue.size(); i++) {
+			if (order.getId().equals(orderQueue.get(i).getId())) {
+				orderQueue.remove(i);
+				break;
+			}
+		}
+		orderQueue.add(0, order);
+	}
+
+	public void releaseDeclinedTaxi(Order order) {
+		TaxiPosition taxi;
+		
+		if (order.isDecline()) {
+			for (int i = 0; i < pendingOrders.size(); i++) {
+				if (order.getId().equals(pendingOrders.get(i).getOrderId())) {
+					taxi = pendingOrders.get(i).getTaxiPosition();
+					pendingOrders.remove(order);
+					availableTaxis.add(taxi);
+					
+				System.out.println(order.assignedTaxi + "DECLINED ORDER #" + order.getId() + ", AND IS NOW RELEASED.");
+				}
+		else System.out.println("No taxi to remove");
+			}
+		}
+	}
+	
 }

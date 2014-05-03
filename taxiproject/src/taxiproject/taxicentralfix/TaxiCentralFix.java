@@ -12,7 +12,7 @@ public class TaxiCentralFix extends Block {
 
 	
 	public TaxiCentralFix(){
-		this.subscriptionTopic = "order,taxi,taxiConfirmation,taxiCreate,dutyEdit,cancel,taxiPosition,release";
+		this.subscriptionTopic = "order,taxi,taxiConfirmation,taxiCreate,dutyEdit,cancel,taxiPosition,release,decline";
 		
 	}
 

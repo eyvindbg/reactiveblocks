@@ -9,12 +9,21 @@ public class Order {
 	public String assignedTaxi = null;
 	public boolean confirmed = false;
 	public boolean delete = false;
+	public boolean decline = false;
+
 	public String userPos = "";
 	public String destination = "";
 	public boolean completed;
 	public int queue = -1;
 	
 
+	public boolean isDecline() {
+		return decline;
+	}
+	
+	public void setDecline(boolean decline) {
+		this.decline = decline;
+	}
 
 	public int getQueue() {
 		return queue;
