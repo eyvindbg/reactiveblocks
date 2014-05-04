@@ -25,6 +25,8 @@ public class TaxiDispatcherFix extends Block {
 	public TaxiPosition currentTaxi;
 	private int index;
 	public taxiproject.taxiclientfix.TaxiPosition taxi;
+	public int queueIndex;
+	public taxiproject.user.Order update;
 
 	public TaxiDispatcherFix() {
 		availableTaxis = new ArrayList<TaxiPosition>();
@@ -202,6 +204,13 @@ public class TaxiDispatcherFix extends Block {
 
 	public Order releaseTaxi(Order order) {
 		int index = 0;
+		
+		for (int i = 0; i < offDutyTaxis.size(); i++) {
+			System.out.println("Offduty taxi: " + offDutyTaxis.get(i).getTaxiAlias());
+		}
+		for (int i = 0; i < availableTaxis.size(); i++) {
+			System.out.println("Available taxi: " + availableTaxis.get(i).getTaxiAlias());
+		}
 
 		for (int i = 0; i < busyTaxis.size(); i++) {
 			if (busyTaxis.get(i).getTaxiAlias().equals(order.assignedTaxi)) {
@@ -215,7 +224,7 @@ public class TaxiDispatcherFix extends Block {
 				+ ". NOW AVAILABLE!\n\n\n");
 		taxi.setTaxiPos(order.destination);
 		availableTaxis.add(taxi);
-		busyTaxis.remove(taxi);
+		busyTaxis.remove(index);
 
 		order.topic = taxi.getTaxiAlias();
 		return order;
@@ -233,6 +242,7 @@ public class TaxiDispatcherFix extends Block {
 		
 		if (orderQueue.size() == 0 && !order.confirmed) {
 			orderQueue.add(order);
+			System.out.println("Order #" + order.getId() + " added to queue. Size of queue is now: " + orderQueue.size());
 		}
 		
 		else {
@@ -240,11 +250,11 @@ public class TaxiDispatcherFix extends Block {
 			for (int i = 0; i < orderQueue.size(); i++) {
 				if (!order.getId().equals(orderQueue.get(i).getId()) && !order.confirmed) {
 					orderQueue.add(order);
+					System.out.println("Order #" + order.getId() + " added to queue. Size of queue is now: " + orderQueue.size());
 					break;
 				}
 			}
 		}
-		System.out.println("Order #" + order.getId() + " added to queue. Size of queue is now: " + orderQueue.size());
 		return order;
 	}
 
@@ -303,41 +313,64 @@ public class TaxiDispatcherFix extends Block {
 	public boolean availableTaxi(Order order) {
 		boolean passOrder = false;
 		
+		
 		if (order.getQueue() == -1 && !availableTaxis.isEmpty()) passOrder = true;
 		else if (order.getQueue() != -1) passOrder = true;
 		else if (order.confirmed) passOrder = true;
+		
+		System.out.println(passOrder);
 		
 		return passOrder;
 	}
 
 	public Order notifyUser(Order order) {
-		order.setTopic(order.getAlias());
-		order.setQueue(orderQueue.size());;
+		order.setTopic(order.getAlias()); //no others waiting in queue
+		order.setQueue(orderQueue.size());
 		return order;
 	}
 
-	public boolean pickFromQueue(TaxiPosition taxi) {
-		boolean goingOffDuty = false;
-		boolean queueEmpty = orderQueue.isEmpty();
-		
-		boolean pickFromQueue = false;
-		
+	public boolean goingOffDuty(TaxiPosition taxi) {
+
 		for (int i = 0; i < availableTaxis.size(); i++) { // Taxi is on duty, goes off duty
 			if (availableTaxis.get(i).getTaxiAlias().equals(taxi.getTaxiAlias())) {
-				goingOffDuty = true;
+				return true;
 			}
 		}
 		
-		if (!goingOffDuty && !queueEmpty) {
-			pickFromQueue = true;
+		for (int i = 0; i < offDutyTaxis.size(); i++) { // Taxi is off duty, goes on duty with no queue
+			if (offDutyTaxis.get(i).getTaxiAlias().equals(taxi.getTaxiAlias()) && orderQueue.isEmpty()) {
+				return true;
+			}
 		}
 		
-		return pickFromQueue;
+		for (int i = 0; i < declinedOrders.size(); i++) {	// If orders exists in declienedOrders and pendingOrders, do not pick the order from queue;
+															// just edit duty status.
+			String assignedTaxi = declinedOrders.get(i).getAssignedTaxi();
+			
+			if (taxi.getTaxiAlias().equals(assignedTaxi)) {
+				for (int j = 0; j < pendingOrders.size(); j++) {
+					if (declinedOrders.get(i).getOrderId().equals(pendingOrders.get(i).getOrderId()) 
+							&& pendingOrders.get(j).getTaxiPosition().getTaxiAlias().equals(assignedTaxi)) {
+						return true;
+					}
+				}
+				
+			}
+		}
+
+		return false;
 	}
 
 	public Order getQueuedOrder(TaxiPosition taxi) {
-		Order order = orderQueue.get(0);
+		Order order = orderQueue.remove(0);
 		pendingOrders.add(new TaxiOrderPair(order.getId(), taxi));
+		
+		
+		for (int i = 0; i < offDutyTaxis.size(); i++) {
+			if (taxi.getTaxiAlias().equals(offDutyTaxis.get(i).getTaxiAlias())) {
+				offDutyTaxis.remove(i);
+			}
+		}
 		
 		System.out.println("\n\n\n" + taxi.getTaxiAlias() + " HAS BEEN QUERIED FOR ORDER #" + order.getId());
 		
@@ -349,6 +382,9 @@ public class TaxiDispatcherFix extends Block {
 
 	public boolean isDecline(Order order) {
 		boolean orderIsDeclined = order.isDecline();
+		
+		declinedOrders.add(new TaxiOrderPair(order.getId(), order.assignedTaxi));
+		
 		order.setDecline(false);
 		if (orderIsDeclined) System.out.println("\n\n\n" + order.assignedTaxi + " DECLINED ORDER #" + order.getId());
 		return orderIsDeclined;
@@ -385,5 +421,40 @@ public class TaxiDispatcherFix extends Block {
 			}
 		}
 	}
+
+	public Order printOrder(Order order) {
+		System.out.println(order.toString());
+		return order;
+	}
+
+	public boolean isQueueEmpty() {
+		return orderQueue.size() == 0;
+	}
+
+	public boolean updateUser() {
+		return !orderQueue.isEmpty();		
+	}
+
+	public Order createQueueUpdate() {
+		
+		Order order = orderQueue.get(queueIndex);
+		order.setQueue(queueIndex + 1);
+		order.setTopic(order.getAlias());
+		
+		queueIndex ++;
+		return order;
+	}
+
+	public boolean updateFin() {
+		if (queueIndex < orderQueue.size()) {
+			return false;
+		}
+		return true;
+	}
+
+	public void resetQueue() {
+		queueIndex = 0;
+	}
+	
 	
 }

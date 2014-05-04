@@ -316,7 +316,7 @@
     </profileApplication>
   </uml:Package>
   <graphics:Shape xmi:id="_bqB3sNEXEeOB3-8Wfx9-Cw" x="18" y="36" width="1153" height="55" base_Element="_bowsYdEXEeOB3-8Wfx9-Cw"/>
-  <graphics:Shape xmi:id="_bqCewNEXEeOB3-8Wfx9-Cw" x="18" y="108" width="1153" height="613" base_Element="_boyhkNEXEeOB3-8Wfx9-Cw"/>
+  <graphics:Shape xmi:id="_bqCewNEXEeOB3-8Wfx9-Cw" x="18" y="90" width="1153" height="613" base_Element="_boyhkNEXEeOB3-8Wfx9-Cw"/>
   <arctis:esm xmi:id="_bqCewtEXEeOB3-8Wfx9-Cw" base_StateMachine="_bqCewdEXEeOB3-8Wfx9-Cw"/>
   <arctis:esm xmi:id="_gotYMNEXEeOB3-8Wfx9-Cw" base_StateMachine="_gnrdc9EXEeOB3-8Wfx9-Cw"/>
   <arctis:event xmi:id="_gowbgNEXEeOB3-8Wfx9-Cw" base_Transition="_gov0cNEXEeOB3-8Wfx9-Cw" triggers="_gnq2YtEXEeOB3-8Wfx9-Cw"/>

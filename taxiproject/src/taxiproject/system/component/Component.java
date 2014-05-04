@@ -11,14 +11,11 @@ public class Component extends Block {
 	//TODO:
 	
 	
-	I MORGEN:
+	I MORGEN, SISTE DAG:
 	
-	
-	Hvis taxi sier nei, må dispatch finne en ny taxi
 	
 	købehandling, si ifra til ventende brukrere dersom køen minker
 	
-	decline
 	
 	Lage systemblokker av alt
 	

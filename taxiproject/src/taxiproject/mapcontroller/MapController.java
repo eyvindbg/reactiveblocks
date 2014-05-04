@@ -16,7 +16,7 @@ public class MapController extends Block {
 	
 
 	public Journey createJourney(Order order) {
-		System.out.println("\n\n\nSTARTING JOURNEY");
+		System.out.println("\n\n\nSTARTING JOURNEY FOR (" + order.getAlias() + ", " + order.assignedTaxi + ")");
 		finished = true;
 
 		return new Journey(order.userPos, order.destination, order.assignedTaxi); // from user to destination
@@ -93,6 +93,9 @@ public class MapController extends Block {
 		Marker taxi = Marker.createMarker(order.assignedTaxi).position(p)
 				.hue(Marker.HUE_GREEN);
 
+		taxi.title(order.assignedTaxi);
+		taxi.showWindow(true);
+		
 		mu = new MapUpdate();
 		mu.addMarker(user);
 		mu.addMarker(taxi);

@@ -119,7 +119,8 @@ public class TaxiClientFix extends Block {
 			taxiPos = String.format("%s,%s", mapPosition.getLat(),
 					mapPosition.getLong());
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
-			m.description(String.format("%s", this.taxiAlias));
+			m.title(String.format("%s", this.taxiAlias));
+			m.showWindow(true);
 			u.addMarker(m);
 		}
 
@@ -128,7 +129,8 @@ public class TaxiClientFix extends Block {
 					mapPosition.getLong());
 //			System.out.println("TAXIPOS " + taxiPos);
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
-			m.description(String.format("%s", this.taxiAlias));
+			m.title(String.format("%s", this.taxiAlias));
+			m.showWindow(true);
 			u.addMarker(m);
 		}
 
@@ -137,7 +139,8 @@ public class TaxiClientFix extends Block {
 					mapPosition.getLong());
 //			System.out.println("TAXIPOS " + taxiPos);
 			m = Marker.createMarker(markerID).position(p).hue(Marker.HUE_GREEN);
-			m.description(String.format("%s", this.taxiAlias));
+			m.title(String.format("%s", this.taxiAlias));
+			m.showWindow(true);
 			u.addMarker(m);
 		}
 
@@ -221,7 +224,7 @@ public class TaxiClientFix extends Block {
 	public boolean isValidClick() {
 //		if (activeOrder) 
 //			System.out.println("INVALID BUTTON ACTION: CANNOT GO OFFLINE WHILE ACTIVE ORDER");
-		return activeOrder;
+		return !activeOrder;
 		
 	}
 
@@ -262,6 +265,7 @@ public class TaxiClientFix extends Block {
 	public Order handleDecline(Order order) {
 		order.setDecline(true);
 		order.setTopic("decline");
+		activeOrder = false;
 		return order;
 	}
 
